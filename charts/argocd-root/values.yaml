@@ -14,20 +14,12 @@ argocd:
   source:
     path: charts/argocd-install
     chart: ""
-  syncPolicy:
-    automated:
-      prune: true
-      selfHeal: true
 
 self:
   enabled: false
   source:
     path: charts/argocd-root
     chart: ""
-  syncPolicy:
-    automated:
-      prune: true
-      selfHeal: true
 
 secrets:
   enabled: true
@@ -37,17 +29,9 @@ secrets:
     chart: kubernetes-external-secrets
     repoURL: https://external-secrets.github.io/kubernetes-external-secrets/
     targetRevision: "8.3.2"
-  syncPolicy:
-    automated:
-      prune: true
-      selfHeal: true
 
 platform:
   enabled: true
   source:
-    path: charts/argocd-tenant
+    path: charts/argocd-platform
     chart: ""
-  syncPolicy:
-    automated:
-      prune: true
-      selfHeal: true
