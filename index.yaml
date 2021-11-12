@@ -76,4 +76,15 @@ entries:
     urls:
     - https://github.com/MavenWave-DevOps/mw-charts/releases/download/infra-tenant-0.0.1/infra-tenant-0.0.1.tgz
     version: 0.0.1
+  web-app:
+  - apiVersion: v2
+    appVersion: 0.0.1
+    created: "2021-11-12T05:35:48.988168326Z"
+    description: A Helm chart for deploying web applications to Kubernetes
+    digest: 904b37e2a8014fcc1407d43a7d4695b0f21f75d35d99d6d145784752aab82ab9
+    name: web-app
+    type: application
+    urls:
+    - https://github.com/MavenWave-DevOps/mw-charts/releases/download/web-app-0.0.2/web-app-0.0.2.tgz
+    version: 0.0.2
 generated: "2021-09-24T21:07:14.444239-05:00"
