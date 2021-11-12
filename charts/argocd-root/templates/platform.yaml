@@ -1,0 +1,34 @@
+{{ if .Values.platform.enabled }}
+
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: platform
+  namespace: {{ .Values.namespace }}
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io
+spec:
+  project: {{ .Values.root_project }}
+  destination:
+    server: {{ .Values.destination.server }}
+    namespace: {{ .Values.destination.namespace }}
+  source:
+    {{- if .Values.platform.source.chart }}
+    chart: {{ .Values.platform.source.chart }}
+    {{- else }}
+    path: {{ .Values.platform.source.path }}
+    {{- end }}
+    repoURL: {{ .Values.platform.source.repoURL }}
+    targetRevision: {{ include "platform.targetRevision" . }}
+    helm:
+      valueFiles:
+        - "values/{{- required "REQUIRED: lifecycle" .Values.lifecycle -}}.yaml"
+  syncPolicy:
+    automated:
+      prune: {{ .Values.platform.syncPolicy.automated.prune }}
+      selfHeal: {{ .Values.platform.syncPolicy.automated.selfHeal }}
+    syncOptions:
+      - CreateNamespace=true
+      - PruneLast=false
+
+{{ end }}

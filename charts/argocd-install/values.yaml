@@ -1,0 +1,29 @@
+ingress: true
+domain: walkerignite.dev
+
+argo-cd:
+  installCRDs: false
+  global:
+    image:
+      tag: v2.1.6
+  dex:
+    enabled: false
+  server:
+    service:
+      type: LoadBalancer
+    extraArgs:
+      - --insecure
+    config:
+      accounts.viewer: login
+      accounts.walker-viewer: login
+      accounts.anaira-viewer: login
+      accounts.bray-viewer: login
+      accounts.grant-viewer: login
+
+      repositories: |
+        - type: helm
+          name: stable
+          url: https://charts.helm.sh/stable
+        - type: helm
+          name: argo-cd
+          url: https://argoproj.github.io/argo-helm

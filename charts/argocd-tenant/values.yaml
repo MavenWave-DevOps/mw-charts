@@ -1,0 +1,18 @@
+project: default
+namespace: argocd-system
+
+destination:
+  server: https://kubernetes.default.svc
+
+source:
+  path: charts/web-app
+  chart: ""
+
+syncPolicy:
+  automated:
+    prune: true
+    selfHeal: true
+
+syncOptions:
+  CreateNamespace: true
+  PruneLast: false
