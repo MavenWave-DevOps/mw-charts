@@ -1,5 +1,4 @@
-ingress: true
-domain: walkerignite.dev
+ingress: false
 
 argo-cd:
   installCRDs: false
@@ -10,15 +9,12 @@ argo-cd:
     enabled: false
   server:
     service:
-      type: LoadBalancer
+      type: ClusterIP
     extraArgs:
       - --insecure
     config:
       accounts.viewer: login
-      accounts.walker-viewer: login
-      accounts.anaira-viewer: login
-      accounts.bray-viewer: login
-      accounts.grant-viewer: login
+      accounts.app-viewer: login
 
       repositories: |
         - type: helm
