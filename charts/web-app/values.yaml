@@ -1,0 +1,59 @@
+
+enabled: true
+
+test: false
+
+config_connector:
+  enabled: true
+  create_disk: false
+
+ingress:
+  http: false
+  https: false
+
+
+google:
+  artifact_repo: container-images
+  region: us-central1
+  zone: us-central1-a
+  ip_address: "0.0.0.0"
+
+api:
+  enabled: true
+  replicas: 1
+  use_pd: true
+  image:
+    tag: latest
+
+nginx:
+  enabled: true
+  image:
+    tag: latest
+
+cilium:
+  enabled: false
+
+autoscaler:
+  enabled: false
+
+secrets:
+  enabled: true
+
+django:
+  enabled: true
+
+db:
+  proxy: false
+  local: false
+  proxy_version: gcr.io/cloudsql-docker/gce-proxy:1.21.0
+
+twilio:
+  enabled: false
+
+firebase:
+  enabled: false
+
+sendgrid:
+  enabled: false
+  
+

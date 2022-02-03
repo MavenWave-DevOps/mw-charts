@@ -1,0 +1,100 @@
+{{- if .Values.enabled }}
+
+{{- $root := . }}
+
+{{ range until (int .Values.num) }}
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: api-dep-{{- . }}
+  labels:
+    namespace: {{ $root.Values.namespace }}
+    app: api-dep-{{- . }}
+    tier: backend
+spec:
+  replicas: {{ required "REQUIRED: api.replicas" $root.Values.api.replicas }}
+  strategy:
+    type: RollingUpdate
+  selector:
+    matchLabels:
+      app: api-dep-{{- . }}
+  template:
+    metadata:
+      labels:
+        app: api-dep-{{- . }}
+    spec:
+      {{- if $root.Values.api.use_pd }}
+      volumes:
+        - name: gce-volume
+          persistentVolumeClaim:
+            claimName: gce-pvc
+      {{- end }}
+
+      serviceAccountName: {{ include "ksa_name" $root }}
+      restartPolicy: Always
+      containers:
+      - name: api
+        image: {{ include "api_image" $root }}
+        imagePullPolicy: Always
+
+        {{- if and (not $root.Values.db.proxy) ($root.Values.db.local) }}
+        # command: ["/bin/sh"]
+        # args: ["-c", "./init_db.sh && gunicorn -b 0.0.0.0:8000 api.wsgi"]
+        {{- end }}
+
+        {{- if $root.Values.api.use_pd }}
+        volumeMounts:
+          - mountPath: "/mnt"
+            name: gce-volume
+        {{- end }}
+
+        livenessProbe:
+          httpGet:
+            path: /
+            port: 8000
+          initialDelaySeconds: 30
+          periodSeconds: 10
+
+        readinessProbe:
+          httpGet:
+            path: /
+            port: 8000
+          initialDelaySeconds: 30
+          periodSeconds: 10
+
+        env:
+        - name: LIFECYCLE
+          value: {{ $root.Values.lifecycle }}
+        - name: USE_GCS
+          value: "false"
+        - name: DOMAIN
+          value: {{ include "domain" $root }}
+        - name: GCP_PROJECT_ID
+          value: {{ include "app_project" $root }}
+        - name: STATIC_BUCKET
+          value: {{ include "bucket" $root }}
+        - name: SQL_DIR
+          value: /mnt
+
+        - name: DJANGO_KEY
+        {{- if $root.Values.secrets.enabled }}
+          valueFrom:
+            secretKeyRef:
+              name: secrets-manager
+              key: fake-key
+        {{- else }}
+          value: fake-key-manual
+        {{- end }}
+
+        ports:
+        - containerPort: 8000
+          name: api-port
+
+
+---
+
+{{- end }}
+{{- end }}
+
+

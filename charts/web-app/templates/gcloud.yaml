@@ -1,0 +1,16 @@
+{{- if .Values.test }}
+
+apiVersion: v1
+kind: Pod
+metadata:
+  name: gcloud
+spec:
+  containers:
+  - image: google/cloud-sdk
+    name: gcloud
+    command: ["gcloud"]
+    args: ["auth", "list"]
+  serviceAccount: {{ include "ksa_name" . }}
+  serviceAccountName: {{ include "ksa_name" . }}
+
+{{- end }}
