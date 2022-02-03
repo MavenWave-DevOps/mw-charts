@@ -1,16 +1,12 @@
 {{- if .Values.enabled }}
 {{- if .Values.nginx.enabled }}
 
-{{- $root := . }}
-
-{{ range until (int .Values.num) }}
-
 apiVersion: v1
 kind: Service
 metadata:
-  name: nginx-svc-{{- . }}
+  name: nginx-svc
   labels:
-    app: nginx-svc-{{- . }}
+    app: nginx-svc
     tier: frontend
   annotations:
     cloud.google.com/neg: '{"ingress": true}'
@@ -18,17 +14,13 @@ metadata:
 spec:
   type: ClusterIP
   selector:
-    app: nginx-dep-{{- . }}
+    app: nginx-dep
     
   ports:
   - name: http
     port: 443
     protocol: TCP
     targetPort: 80
-
----
-
-{{- end }}
 
 {{- end }}
 {{- end }}

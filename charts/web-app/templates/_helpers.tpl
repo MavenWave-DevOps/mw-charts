@@ -39,23 +39,22 @@
 
 
 {{- define "gke_project" -}}
-  {{- include "lifecycle_letter" . -}}-anthos-gke-project-{{- .Values.gke_project_suffix }}
+  {{- include "lifecycle_letter" . -}}-{{- required "REQUIRED" platform_label" .Values.platform_label -}}-gke-project-{{- .Values.gke_project_suffix }}
 {{- end -}}
 
 
 {{- define "sa_project" -}}
-  {{- "anthos-svc-acct-project-xwc" }}
+  {{- required "REQUIRED" platform_label" .Values.platform_label -}}-sa-project-{{- .Values.sa_project_suffix }}
 {{- end -}}
 
 
 {{- define "dns_project" -}}
-  {{- "anthos-dns-project-tby" }}
+  {{- required "REQUIRED" platform_label" .Values.platform_label -}}-dns-project-{{- .Values.dns_project_suffix }}
 {{- end -}}
 
 
-
 {{- define "app_project" -}}
-  anthos-{{- required "REQUIRED tenant_code" .Values.tenant_code -}}-project-{{- required "REQUIRED app_project_suffix" .Values.app_project_suffix }}
+  {{- required "REQUIRED" platform_label" .Values.platform_label -}}-{{- required "REQUIRED tenant_code" .Values.tenant_code -}}-project-{{- required "REQUIRED app_project_suffix" .Values.app_project_suffix }}
 {{- end -}}
 
 

@@ -22,7 +22,7 @@ metadata:
 spec:
   defaultBackend:
     service:
-      name: nginx-svc-0
+      name: nginx-svc
       port:
         number: 443
 
@@ -40,7 +40,7 @@ metadata:
 spec:
   defaultBackend:
     service:
-      name: nginx-svc-0
+      name: nginx-svc
       port:
         number: 443
 

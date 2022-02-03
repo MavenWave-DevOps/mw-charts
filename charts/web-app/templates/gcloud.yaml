@@ -1,4 +1,4 @@
-{{- if .Values.test }}
+{{- if .Values.workload_identity_test }}
 
 apiVersion: v1
 kind: Pod

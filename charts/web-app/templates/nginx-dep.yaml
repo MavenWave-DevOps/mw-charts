@@ -1,34 +1,30 @@
 {{- if .Values.enabled }}
 {{- if .Values.nginx.enabled }}
 
-{{- $root := . }}
-
-{{ range until (int .Values.num) }}
-
 apiVersion: apps/v1
 kind: Deployment
 metadata:
   labels:
-    namespace: {{ $root.Values.namespace }}
-    app: nginx-dep-{{- . }}
+    namespace: {{ .Values.namespace }}
+    app: nginx-dep
     tier: frontend
-  name: nginx-dep-{{- . }}
+  name: nginx-dep
 spec:
   replicas: 1
   strategy:
     type: RollingUpdate
   selector:
     matchLabels:
-      app: nginx-dep-{{- . }}
+      app: nginx-dep
   template:
     metadata:
       labels:
-        app: nginx-dep-{{- . }}
+        app: nginx-dep
     spec:
-      serviceAccountName: {{ include "ksa_name" $root }}
+      serviceAccountName: {{ include "ksa_name" . }}
       containers:
       - name: nginx
-        image: {{ include "nginx_image" $root }}
+        image: {{ include "nginx_image" . }}
         imagePullPolicy: Always
 
         startupProbe:
@@ -54,20 +50,18 @@ spec:
 
         env:
         - name: API_NAMESPACE
-          value: {{ $root.Values.namespace }}
+          value: {{ .Values.namespace }}
         - name: LIFECYCLE
-          value: {{ required "REQUIRED: lifecycle" $root.Values.lifecycle }}
+          value: {{ required "REQUIRED: lifecycle" .Values.lifecycle }}
         - name: DOMAIN
-          value: {{ include "domain" $root }}
+          value: {{ include "domain" . }}
 
         ports:
         - containerPort: 80
           name: https
           protocol: TCP
 
----
 
-{{- end }}
 {{- end }}
 {{- end }}
 

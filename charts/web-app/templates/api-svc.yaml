@@ -1,22 +1,18 @@
 {{- if .Values.enabled }}
 
-{{- $root := . }}
-
-{{ range until (int .Values.num) }}
-
 apiVersion: v1
 kind: Service
 metadata:
-  name: api-svc-{{- . }}
+  name: api-svc
   labels:
-    app: api-svc-{{- . }}
+    app: api-svc
     tier: backend
   annotations:
     cloud.google.com/backend-config: '{"default": "gke-backendconfig"}'
 spec:
   type: ClusterIP
   selector:
-    app: api-dep-{{- . }}
+    app: api-dep
     
   ports:
   - name: http
@@ -24,9 +20,6 @@ spec:
     protocol: TCP
     targetPort: 8000
 
----
-
-{{- end }}
 {{- end }}
 
 

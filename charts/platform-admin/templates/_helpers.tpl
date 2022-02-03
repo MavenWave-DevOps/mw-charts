@@ -6,7 +6,7 @@
 
 
 {{- define "gke_project_id" -}}
-  {{ include "lifecycle_letter" . }}-anthos-gke-project-{{ required "REQUIRED: gke_project_suffix" .Values.gke_project_suffix }}
+  {{ include "lifecycle_letter" . }}-{{ required "REQURIED: platform_label" .Values.platform_label }}-gke-project-{{ required "REQUIRED: gke_project_suffix" .Values.gke_project_suffix }}
 {{- end }}
 
 
