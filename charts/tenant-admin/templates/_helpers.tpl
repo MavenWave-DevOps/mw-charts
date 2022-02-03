@@ -55,7 +55,11 @@
 
 
 {{- define "app_project" -}}
-  {{- required "REQUIRED" platform_label" .Values.platform_label -}}-{{- required "REQUIRED tenant_code" .Values.tenant_code -}}-project-{{- required "REQUIRED app_project_suffix" .Values.app_project_suffix }}
+  {{- if .Values.tenant_project_id }}
+    {{- .Values.tenant_project_id }}
+  {{- else }}
+    {{- required "REQUIRED" platform_label" .Values.platform_label -}}-{{- required "REQUIRED tenant_code" .Values.tenant_code -}}-project-{{- required "REQUIRED app_project_suffix" .Values.app_project_suffix }}
+  {{- end }}
 {{- end -}}
 
 
