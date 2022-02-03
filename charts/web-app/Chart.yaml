@@ -1,6 +1,0 @@
-apiVersion: v2
-name: web-app
-description: A Helm chart for deploying web applications to Kubernetes
-type: application
-appVersion: 0.0.1
-version: 0.0.2

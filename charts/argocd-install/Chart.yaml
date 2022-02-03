@@ -1,6 +1,0 @@
-apiVersion: v2
-name: argocd-install
-description: A Helm chart for installing Argo CD
-type: application
-appVersion: 0.0.1
-version: 0.0.1
