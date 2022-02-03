@@ -76,7 +76,39 @@ entries:
     urls:
     - https://github.com/MavenWave-DevOps/mw-charts/releases/download/infra-tenant-0.0.1/infra-tenant-0.0.1.tgz
     version: 0.0.1
+  platform-admin:
+  - apiVersion: v2
+    appVersion: 1.0.0
+    created: "2022-02-03T07:01:35.171303466Z"
+    description: Platform Infra Admin Helm chart
+    digest: dc6ac9b9a82fb6185e74816436b4a8c75b734ab1ee74928751e52e038d97a405
+    name: platform-admin
+    type: application
+    urls:
+    - https://github.com/MavenWave-DevOps/mw-charts/releases/download/platform-admin-0.0.1/platform-admin-0.0.1.tgz
+    version: 0.0.1
+  tenant-admin:
+  - apiVersion: v2
+    appVersion: 0.0.1
+    created: "2022-02-03T07:01:35.371100801Z"
+    description: A Helm chart for deploying a tenants GCP resources
+    digest: b5e2d600490bc21e0d56bce79d139337ecf41f52fd59e125cc099ff318ac71b2
+    name: tenant-admin
+    type: application
+    urls:
+    - https://github.com/MavenWave-DevOps/mw-charts/releases/download/tenant-admin-0.0.1/tenant-admin-0.0.1.tgz
+    version: 0.0.1
   web-app:
+  - apiVersion: v2
+    appVersion: 0.0.1
+    created: "2022-02-03T07:01:35.55692975Z"
+    description: A Helm chart for deploying a web application to GKE
+    digest: 58d93c42e7937fefcbfa344a75e60b7562fde988587bd4933424620687e47811
+    name: web-app
+    type: application
+    urls:
+    - https://github.com/MavenWave-DevOps/mw-charts/releases/download/web-app-0.0.3/web-app-0.0.3.tgz
+    version: 0.0.3
   - apiVersion: v2
     appVersion: 0.0.1
     created: "2021-11-12T05:35:48.988168326Z"
