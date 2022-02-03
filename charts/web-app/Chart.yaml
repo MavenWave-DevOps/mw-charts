@@ -1,5 +1,5 @@
 apiVersion: v2
-name: web-app-chart
+name: web-app
 description: A Helm chart for deploying a web application to GKE
 type: application
 appVersion: 0.0.1
