@@ -1,0 +1,75 @@
+{{- $root := . -}}
+
+{{- range .Values.tenants }}
+
+
+apiVersion: iam.cnrm.cloud.google.com/v1beta1
+kind: IAMServiceAccount
+metadata:
+  name: {{ $root.Values.lifecycle -}}-{{- . -}}-tenant-admin
+  annotations:
+    cnrm.cloud.google.com/project-id: {{ $root.Values.sa_project }}
+spec:
+  displayName: "{{ . }} infra admin service account"
+
+---
+
+apiVersion: iam.cnrm.cloud.google.com/v1beta1
+kind: IAMPolicy
+metadata:
+  name: {{ . -}}-tenant-admin-wi
+  annotations:
+    cnrm.cloud.google.com/project-id: {{ include "gke_project_id" $root }}
+spec:
+  resourceRef:
+    apiVersion: iam.cnrm.cloud.google.com/v1beta1
+    kind: IAMServiceAccount
+    name: {{ $root.Values.lifecycle -}}-{{- . -}}-tenant-admin
+  bindings:
+    - role: roles/iam.workloadIdentityUser
+      members:
+        - serviceAccount:{{- include "gke_project_id" $root -}}.svc.id.goog[cnrm-system/cnrm-controller-manager-{{- . -}}-infra-admin]
+        - serviceAccount:{{- include "gke_project_id" $root -}}.svc.id.goog[external-secrets-{{- . -}}/external-secrets-{{- . -}}]
+
+---
+{{- end }}
+
+{{- if .Values.tenants }}
+
+apiVersion: iam.cnrm.cloud.google.com/v1beta1
+kind: IAMPartialPolicy
+metadata:
+  name: {{ $root.Values.lifecycle -}}-gke-partial-policy
+spec:
+  resourceRef:
+    apiVersion: resourcemanager.cnrm.cloud.google.com/v1beta1
+    kind: Project
+    external: {{ include "gke_project_id" $root }}
+  bindings:
+    - role: roles/compute.admin
+      members:
+        {{- range .Values.tenants }}
+        - member: serviceAccount:{{- $root.Values.lifecycle -}}-{{- . -}}-tenant-admin@{{- $root.Values.sa_project -}}.iam.gserviceaccount.com
+        {{- end }}
+
+---
+
+
+apiVersion: iam.cnrm.cloud.google.com/v1beta1
+kind: IAMPartialPolicy
+metadata:
+  name: {{ $root.Values.lifecycle -}}-dns-partial-policy
+spec:
+  resourceRef:
+    apiVersion: resourcemanager.cnrm.cloud.google.com/v1beta1
+    kind: Project
+    external: {{ required "REQUIRED: dns_project" $root.Values.dns_project }}
+  bindings:
+    - role: roles/dns.admin
+      members:
+        {{- range .Values.tenants }}
+        - member: serviceAccount:{{- $root.Values.lifecycle -}}-{{- . -}}-tenant-admin@{{- $root.Values.sa_project -}}.iam.gserviceaccount.com
+        {{- end }}
+
+{{- end }}
+
