@@ -3,14 +3,9 @@ enabled: true
 
 test: false
 
-config_connector:
-  enabled: true
-  create_disk: false
-
 ingress:
   http: false
   https: false
-
 
 google:
   artifact_repo: container-images

@@ -1,4 +1,4 @@
-{{ if .Values.config_connector.create_disk }}
+{{ if .Values.create_disk }}
 
 apiVersion: compute.cnrm.cloud.google.com/v1beta1
 kind: ComputeDisk
