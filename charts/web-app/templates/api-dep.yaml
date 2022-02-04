@@ -5,7 +5,7 @@ kind: Deployment
 metadata:
   name: api-dep
   labels:
-    namespace: {{ .Values.namespace }}
+    namespace: {{ .Release.namespace }}
     app: api-dep
     tier: backend
 spec:
