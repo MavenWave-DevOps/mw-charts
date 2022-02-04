@@ -8,7 +8,7 @@ spec:
   disabled: false
   github:
     owner: {{ required "REQUIRED: github_org" .Values.github_org }}
-    name: anthos-{{ required "REQUIRED: tenant_code" .Values.tenant_code }} 
+    name: {{ required "REQUIRED: platform_label" .Values.platform_label }}-{{ required "REQUIRED: tenant_code" .Values.tenant_code }} 
     push:
       branch: {{ include "branch" . }}
   includedFiles:
