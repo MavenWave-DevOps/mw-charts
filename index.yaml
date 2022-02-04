@@ -251,6 +251,16 @@ entries:
   web-app:
   - apiVersion: v2
     appVersion: 0.0.1
+    created: "2022-02-04T07:14:06.893311919Z"
+    description: A Helm chart for deploying a web application to GKE
+    digest: 747ecfcb2ae9013ea34bd56ded9569274d645d4cc57900ea841dc292a389430e
+    name: web-app
+    type: application
+    urls:
+    - https://github.com/MavenWave-DevOps/mw-charts/releases/download/web-app-0.0.9/web-app-0.0.9.tgz
+    version: 0.0.9
+  - apiVersion: v2
+    appVersion: 0.0.1
     created: "2022-02-04T07:07:57.553276104Z"
     description: A Helm chart for deploying a web application to GKE
     digest: 00037a6cb2a4eec96a1abf60e886651e8c8823614a479953adc3d419e711c6f7
