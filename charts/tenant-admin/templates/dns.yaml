@@ -1,5 +1,5 @@
 {{- if .Values.enabled }}
-{{- if .Values.dns.enabled }}
+{{- if .Values.dns }}
 
 apiVersion: compute.cnrm.cloud.google.com/v1beta1
 kind: ComputeAddress
