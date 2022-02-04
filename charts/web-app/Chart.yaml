@@ -3,4 +3,4 @@ name: web-app
 description: A Helm chart for deploying a web application to GKE
 type: application
 appVersion: 0.0.1
-version: 0.0.7
+version: 0.0.8

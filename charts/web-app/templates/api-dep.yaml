@@ -87,10 +87,6 @@ spec:
         - containerPort: 8000
           name: api-port
 
-
----
-
-{{- end }}
 {{- end }}
 
 
