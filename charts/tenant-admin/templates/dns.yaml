@@ -6,7 +6,7 @@ kind: ComputeAddress
 metadata:
   name: {{ include "ip_name" . }}
   annotations:
-    cnrm.cloud.google.com/project-id: {{ include "gke_project" . }}
+    cnrm.cloud.google.com/project-id: {{ include "gke_project_id" . }}
 spec:
   location: global
   ipVersion: IPV4
@@ -18,7 +18,7 @@ kind: DNSRecordSet
 metadata:
   name: {{ .Values.lifecycle -}}-dns-record
   annotations:
-    cnrm.cloud.google.com/project-id: {{ include "dns_project" . }}
+    cnrm.cloud.google.com/project-id: {{ include "dns_project_id" . }}
 spec:
   name: "{{- include "domain" . -}}."
   type: "A"
