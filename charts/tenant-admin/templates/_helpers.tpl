@@ -89,7 +89,7 @@
 
 
 {{- define "tenant_admin_sa" -}}
-  {{- .Values.lifecycle -}}-{{- required "REQUIRED: tenant_code" .Values.tenant_code -}}-tenant-admin@{{- include "sa_project" . -}}.iam
+  {{- .Values.lifecycle -}}-{{- required "REQUIRED: tenant_code" .Values.tenant_code -}}-tenant-admin@{{- include "sa_project_id" . -}}.iam
 {{- end -}}
 
 
