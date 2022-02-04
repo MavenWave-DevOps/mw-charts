@@ -5,7 +5,7 @@ kind: IAMServiceAccount
 metadata:
   name: {{ .Values.lifecycle -}}-secreter-kms
   annotations:
-    cnrm.cloud.google.com/project-id: {{ .Values.sa_project }}
+    cnrm.cloud.google.com/project-id: {{ include "sa_project_id" . }}
 spec:
   displayName: "Secreter KMS service account"
 
@@ -28,6 +28,6 @@ spec:
         - serviceAccount:{{- include "gke_project_id" . -}}.svc.id.goog[secreter/secreter]
     - role: roles/cloudkms.admin
       members:
-        - serviceAccount:{{- .Values.lifecycle -}}-secreter-kms@{{ .Values.sa_project -}}.iam.gserviceaccount.com
+        - serviceAccount:{{- .Values.lifecycle -}}-secreter-kms@{{ include "sa_project_id" . -}}.iam.gserviceaccount.com
 
 {{- end }}

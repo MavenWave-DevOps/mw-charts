@@ -8,7 +8,7 @@ kind: IAMServiceAccount
 metadata:
   name: {{ $root.Values.lifecycle -}}-{{- . -}}-tenant-admin
   annotations:
-    cnrm.cloud.google.com/project-id: {{ $root.Values.sa_project }}
+    cnrm.cloud.google.com/project-id: {{ include "sa_project_id" $root }}
 spec:
   displayName: "{{ . }} infra admin service account"
 
@@ -39,36 +39,17 @@ spec:
 apiVersion: iam.cnrm.cloud.google.com/v1beta1
 kind: IAMPartialPolicy
 metadata:
-  name: {{ $root.Values.lifecycle -}}-gke-partial-policy
-spec:
-  resourceRef:
-    apiVersion: resourcemanager.cnrm.cloud.google.com/v1beta1
-    kind: Project
-    external: {{ include "gke_project_id" $root }}
-  bindings:
-    - role: roles/compute.admin
-      members:
-        {{- range .Values.tenants }}
-        - member: serviceAccount:{{- $root.Values.lifecycle -}}-{{- . -}}-tenant-admin@{{- $root.Values.sa_project -}}.iam.gserviceaccount.com
-        {{- end }}
-
----
-
-
-apiVersion: iam.cnrm.cloud.google.com/v1beta1
-kind: IAMPartialPolicy
-metadata:
   name: {{ $root.Values.lifecycle -}}-dns-partial-policy
 spec:
   resourceRef:
     apiVersion: resourcemanager.cnrm.cloud.google.com/v1beta1
     kind: Project
-    external: {{ required "REQUIRED: dns_project" $root.Values.dns_project }}
+    external: {{ include "dns_project_id" $root }}
   bindings:
     - role: roles/dns.admin
       members:
         {{- range .Values.tenants }}
-        - member: serviceAccount:{{- $root.Values.lifecycle -}}-{{- . -}}-tenant-admin@{{- $root.Values.sa_project -}}.iam.gserviceaccount.com
+        - member: serviceAccount:{{- $root.Values.lifecycle -}}-{{- . -}}-tenant-admin@{{- include "sa_project_id" $root -}}.iam.gserviceaccount.com
         {{- end }}
 
 {{- end }}
