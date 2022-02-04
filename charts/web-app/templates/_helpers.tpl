@@ -28,10 +28,10 @@
 {{- define "domain" -}}
 
   {{- if eq .Values.lifecycle "prod" }}
-    {{- .Values.tenant_code -}}.{{- required "REQUIRED: domain" .Values.domain }}
+    {{- required "REQUIRED: domain" .Values.domain }}
 
   {{- else }}
-    {{- .Values.lifecycle -}}.{{- .Values.tenant_code -}}.{{- required "REQUIRED: domain" .Values.domain }}
+    {{- .Values.lifecycle -}}.{{- required "REQUIRED: domain" .Values.domain }}
 
   {{- end }}
 
