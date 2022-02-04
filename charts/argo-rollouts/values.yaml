@@ -1,0 +1,6 @@
+ingress: false
+domain: rollouts.argowalker.us
+
+argo-rollouts:
+  dashboard:
+    enabled: true

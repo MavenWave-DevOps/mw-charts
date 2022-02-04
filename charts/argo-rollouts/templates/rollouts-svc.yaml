@@ -1,0 +1,32 @@
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: argo-rollouts-svc
+
+{{- if .Values.ingress }}
+
+  annotations:
+    cloud.google.com/neg: '{"ingress": true}'
+    cloud.google.com/backend-config: '{"ports": {"http":"argo-rollouts-backendconfig"}}'
+spec:
+  type: ClusterIP
+
+{{- else }}
+
+spec:
+  type: LoadBalancer
+
+{{- end }}
+
+  ports:
+  - name: https
+    port: 443
+    protocol: TCP
+    targetPort: 3100
+  selector:
+    app.kubernetes.io/name: argo-rollouts-dashboard
+
+
+
+
