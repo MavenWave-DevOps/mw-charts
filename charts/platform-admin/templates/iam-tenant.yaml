@@ -6,30 +6,30 @@
 apiVersion: iam.cnrm.cloud.google.com/v1beta1
 kind: IAMServiceAccount
 metadata:
-  name: {{ $root.Values.lifecycle -}}-{{- . -}}-tenant-admin
+  name: {{ $root.Values.lifecycle -}}-{{- .name -}}-tenant-admin
   annotations:
     cnrm.cloud.google.com/project-id: {{ include "sa_project_id" $root }}
 spec:
-  displayName: "{{ . }} infra admin service account"
+  displayName: "{{ .name }} infra admin service account"
 
 ---
 
 apiVersion: iam.cnrm.cloud.google.com/v1beta1
 kind: IAMPolicy
 metadata:
-  name: {{ . -}}-tenant-admin-wi
+  name: {{ .name -}}-tenant-admin-wi
   annotations:
     cnrm.cloud.google.com/project-id: {{ include "gke_project_id" $root }}
 spec:
   resourceRef:
     apiVersion: iam.cnrm.cloud.google.com/v1beta1
     kind: IAMServiceAccount
-    name: {{ $root.Values.lifecycle -}}-{{- . -}}-tenant-admin
+    name: {{ $root.Values.lifecycle -}}-{{- .name -}}-tenant-admin
   bindings:
     - role: roles/iam.workloadIdentityUser
       members:
-        - serviceAccount:{{- include "gke_project_id" $root -}}.svc.id.goog[cnrm-system/cnrm-controller-manager-{{- . -}}-infra-admin]
-        - serviceAccount:{{- include "gke_project_id" $root -}}.svc.id.goog[external-secrets-{{- . -}}/external-secrets-{{- . -}}]
+        - serviceAccount:{{- include "gke_project_id" $root -}}.svc.id.goog[cnrm-system/cnrm-controller-manager-{{- .name -}}-infra-admin]
+        - serviceAccount:{{- include "gke_project_id" $root -}}.svc.id.goog[external-secrets-{{- .name -}}/external-secrets-{{- .name -}}]
 
 ---
 {{- end }}
@@ -49,7 +49,7 @@ spec:
     - role: roles/dns.admin
       members:
         {{- range .Values.tenants }}
-        - member: serviceAccount:{{- $root.Values.lifecycle -}}-{{- . -}}-tenant-admin@{{- include "sa_project_id" $root -}}.iam.gserviceaccount.com
+        - member: serviceAccount:{{- $root.Values.lifecycle -}}-{{- .name -}}-tenant-admin@{{- include "sa_project_id" $root -}}.iam.gserviceaccount.com
         {{- end }}
 
 {{- end }}
