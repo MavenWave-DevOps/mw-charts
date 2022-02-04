@@ -3,4 +3,4 @@ name: platform-admin
 description: Platform Infra Admin Helm chart
 type: application
 appVersion: 1.0.0
-version: 0.0.4
+version: 0.0.5

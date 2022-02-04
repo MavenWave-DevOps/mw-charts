@@ -29,7 +29,7 @@ spec:
     - role: roles/iam.workloadIdentityUser
       members:
         - serviceAccount:{{- include "gke_project_id" $root -}}.svc.id.goog[cnrm-system/cnrm-controller-manager-{{- .name -}}-infra-admin]
-        - serviceAccount:{{- include "gke_project_id" $root -}}.svc.id.goog[external-secrets-{{- .name -}}/external-secrets-{{- .name -}}]
+        - serviceAccount:{{- include "gke_project_id" $root -}}.svc.id.goog[{{- .name -}}-external-secrets/external-secrets-kubernetes-external-secrets]
 
 ---
 {{- end }}
