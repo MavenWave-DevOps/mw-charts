@@ -5,7 +5,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   labels:
-    namespace: {{ .Release.namespace }}
+    namespace: {{ .Release.Namespace }}
     app: nginx-dep
     tier: frontend
   name: nginx-dep
@@ -50,7 +50,7 @@ spec:
 
         env:
         - name: API_NAMESPACE
-          value: {{ .Release.namespace }}
+          value: {{ .Release.Namespace }}
         - name: LIFECYCLE
           value: {{ required "REQUIRED: lifecycle" .Values.lifecycle }}
         - name: DOMAIN
