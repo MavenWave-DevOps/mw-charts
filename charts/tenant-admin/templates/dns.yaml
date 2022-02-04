@@ -24,7 +24,7 @@ spec:
   type: "A"
   ttl: 8600
   managedZoneRef:
-    external: anthos-dns-zone
+    external: {{ required "REQUIRED: platform_label" .Values.platform_label -}}-dns-zone
   rrdatas:
   - {{ required "REQUIRED: google.ip_address" .Values.google.ip_address }}
 
