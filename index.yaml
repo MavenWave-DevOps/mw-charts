@@ -130,6 +130,16 @@ entries:
   tenant-admin:
   - apiVersion: v2
     appVersion: 0.0.1
+    created: "2022-02-04T06:41:44.161357581Z"
+    description: A Helm chart for deploying a tenants GCP resources
+    digest: eec38839615807afa0ab0f9783b34ca4916b11c4a0c0fdf6cd901f903e677700
+    name: tenant-admin
+    type: application
+    urls:
+    - https://github.com/MavenWave-DevOps/mw-charts/releases/download/tenant-admin-0.0.6/tenant-admin-0.0.6.tgz
+    version: 0.0.6
+  - apiVersion: v2
+    appVersion: 0.0.1
     created: "2022-02-04T06:28:39.728274518Z"
     description: A Helm chart for deploying a tenants GCP resources
     digest: 709de1fee6e26d276d4ef87ec343437952d2a95ec1a4df55fdd59ecf12942eb3
