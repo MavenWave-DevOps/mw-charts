@@ -3,7 +3,7 @@ kind: CloudBuildTrigger
 metadata:
   name: {{ .Values.lifecycle -}}-ci
   annotations:
-    cnrm.cloud.google.com/project-id: {{ include "app_project" . }}
+    cnrm.cloud.google.com/project-id: {{ include "tenant_project_id" . }}
 spec:
   disabled: false
   github:

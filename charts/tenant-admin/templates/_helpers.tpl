@@ -28,33 +28,43 @@
 {{- define "domain" -}}
 
   {{- if eq .Values.lifecycle "prod" }}
-    {{- .Values.tenant_code -}}.{{- required "REQUIRED: google.domain" .Values.google.domain }}
-
+    {{- required "REQUIRED: google.domain" .Values.google.domain }}
   {{- else }}
-    {{- .Values.lifecycle -}}.{{- .Values.tenant_code -}}.{{- required "REQUIRED: google.domain" .Values.google.domain }}
-
+    {{- .Values.lifecycle -}}.{{- required "REQUIRED: google.domain" .Values.google.domain }}
   {{- end }}
 
 {{- end }}
 
 
-{{- define "gke_project" -}}
-  {{- include "lifecycle_letter" . -}}-{{- required "REQUIRED" platform_label" .Values.platform_label -}}-gke-project-{{- .Values.gke_project_suffix }}
-{{- end -}}
+{{- define "sa_project_id" -}}
+  {{- if .Values.sa_project_id }}
+    {{- .Values.sa_project_id }}
+  {{- else }}
+    {{- include "lifecycle_letter" . }}-{{ required "REQURIED: platform_label" .Values.platform_label }}-sa-project-{{ required "REQUIRED: sa_project_suffix" .Values.sa_project_suffix }}
+  {{- end }}
+{{- end }}
 
 
-{{- define "sa_project" -}}
-  {{- required "REQUIRED" platform_label" .Values.platform_label -}}-sa-project-{{- .Values.sa_project_suffix }}
-{{- end -}}
+{{- define "dns_project_id" -}}
+  {{- if .Values.dns_project_id }}
+    {{- .Values.dns_project_id }}
+  {{- else }}
+    {{- include "lifecycle_letter" . }}-{{ required "REQURIED: platform_label" .Values.platform_label }}-dns-project-{{ required "REQUIRED: dns_project_suffix" .Values.dns_project_suffix }}
+  {{- end }}
+{{- end }}
 
 
-{{- define "dns_project" -}}
-  {{- required "REQUIRED" platform_label" .Values.platform_label -}}-dns-project-{{- .Values.dns_project_suffix }}
-{{- end -}}
+{{- define "gke_project_id" -}}
+  {{- if .Values.gke_project_id }}
+    {{- .Values.gke_project_id }}
+  {{- else }}
+    {{- include "lifecycle_letter" . }}-{{ required "REQURIED: platform_label" .Values.platform_label }}-gke-project-{{ required "REQUIRED: gke_project_suffix" .Values.gke_project_suffix }}
+  {{- end }}
+{{- end }}
 
 
 
-{{- define "app_project" -}}
+{{- define "tenant_project_id" -}}
   {{- if .Values.tenant_project_id }}
     {{- .Values.tenant_project_id }}
   {{- else }}

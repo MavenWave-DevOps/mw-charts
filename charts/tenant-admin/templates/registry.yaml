@@ -3,7 +3,7 @@ kind: ArtifactRegistryRepository
 metadata:
   name: {{ include "artifact_repo" . }}
   annotations:
-    cnrm.cloud.google.com/project-id: {{ include "app_project" . }}
+    cnrm.cloud.google.com/project-id: {{ include "tenant_project_id" . }}
 spec:
   format: DOCKER
   location: {{ .Values.google.region }}
