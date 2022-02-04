@@ -1,5 +1,41 @@
 apiVersion: v1
 entries:
+  argo-cd:
+  - apiVersion: v2
+    created: "2022-02-04T17:12:52.941786226Z"
+    dependencies:
+    - name: argo-cd
+      repository: https://argoproj.github.io/argo-helm
+      version: 2.11.0
+    digest: 151da0f541a8311e97cfc49964f57b89a5c92e92e0fc9d9aa30639d74864666a
+    name: argo-cd
+    urls:
+    - https://github.com/MavenWave-DevOps/mw-charts/releases/download/argo-cd-0.0.1/argo-cd-0.0.1.tgz
+    version: 0.0.1
+  argo-rollouts:
+  - apiVersion: v2
+    created: "2022-02-04T17:12:53.071837274Z"
+    dependencies:
+    - name: argo-rollouts
+      repository: https://argoproj.github.io/argo-helm
+      version: 2.0.0
+    digest: 89632f61a14742ad9c222fb020392a2460024998c54053fab1ffbe7460919126
+    name: argo-rollouts
+    urls:
+    - https://github.com/MavenWave-DevOps/mw-charts/releases/download/argo-rollouts-0.0.1/argo-rollouts-0.0.1.tgz
+    version: 0.0.1
+  argo-workflows:
+  - apiVersion: v2
+    created: "2022-02-04T17:12:53.193088003Z"
+    dependencies:
+    - name: argo-workflows
+      repository: https://argoproj.github.io/argo-helm
+      version: 0.8.3
+    digest: f8b0cad923b87c6ca819c80e9835f0c27079068c4d9b08dd3f6f8751c2ce8ea0
+    name: argo-workflows
+    urls:
+    - https://github.com/MavenWave-DevOps/mw-charts/releases/download/argo-workflows-0.0.1/argo-workflows-0.0.1.tgz
+    version: 0.0.1
   argocd-install:
   - apiVersion: v2
     appVersion: 0.0.1
@@ -54,6 +90,29 @@ entries:
     urls:
     - https://github.com/MavenWave-DevOps/mw-charts/releases/download/argocd-tenant-0.0.62/argocd-tenant-0.0.62.tgz
     version: 0.0.62
+  gatekeeper:
+  - apiVersion: v2
+    created: "2022-02-04T17:12:53.461522485Z"
+    dependencies:
+    - name: gatekeeper
+      repository: https://open-policy-agent.github.io/gatekeeper/charts
+      version: 3.3.0
+    digest: e511c76298e6cb478847b3fa69812632620fac65653eb55bc25565385afba6da
+    name: gatekeeper
+    urls:
+    - https://github.com/MavenWave-DevOps/mw-charts/releases/download/gatekeeper-0.0.1/gatekeeper-0.0.1.tgz
+    version: 0.0.1
+  gatekeeper-policies:
+  - apiVersion: v2
+    appVersion: 1.0.0
+    created: "2022-02-04T17:12:53.60661109Z"
+    description: Gatekeeper policies
+    digest: 418a2aadf74e17588f29165e2b611a70b6b757fd36eee9014554fcb3272065be
+    name: gatekeeper-policies
+    type: application
+    urls:
+    - https://github.com/MavenWave-DevOps/mw-charts/releases/download/gatekeeper-policies-0.0.1/gatekeeper-policies-0.0.1.tgz
+    version: 0.0.1
   infra-admin:
   - apiVersion: v2
     appVersion: 0.0.1
