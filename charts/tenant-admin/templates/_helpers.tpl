@@ -1,6 +1,6 @@
 
 {{- define "infra_admin_sa" -}}
-  {{- required "REQUIRED: lifecycle" .Values.lifecycle }}-{{- required "REQUIRED: tenant_code" .Values.tenant_code -}}-tenant-admin@{{- include "sa_project" . -}}.iam.gserviceaccount.com
+  {{- required "REQUIRED: lifecycle" .Values.lifecycle }}-{{- required "REQUIRED: tenant_code" .Values.tenant_code -}}-tenant-admin@{{- include "sa_project_id" . -}}.iam.gserviceaccount.com
 {{- end }}
 
 
