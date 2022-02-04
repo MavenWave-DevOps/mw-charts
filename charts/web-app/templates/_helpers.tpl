@@ -28,10 +28,10 @@
 {{- define "domain" -}}
 
   {{- if eq .Values.lifecycle "prod" }}
-    {{- .Values.tenant_code -}}.{{- required "REQUIRED: google.domain" .Values.google.domain }}
+    {{- .Values.tenant_code -}}.{{- required "REQUIRED: domain" .Values.domain }}
 
   {{- else }}
-    {{- .Values.lifecycle -}}.{{- .Values.tenant_code -}}.{{- required "REQUIRED: google.domain" .Values.google.domain }}
+    {{- .Values.lifecycle -}}.{{- .Values.tenant_code -}}.{{- required "REQUIRED: domain" .Values.domain }}
 
   {{- end }}
 
