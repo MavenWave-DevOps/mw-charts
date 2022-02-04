@@ -38,26 +38,38 @@
 {{- end }}
 
 
-{{- define "gke_project" -}}
-  {{- include "lifecycle_letter" . -}}-{{- required "REQUIRED" platform_label" .Values.platform_label -}}-gke-project-{{- .Values.gke_project_suffix }}
-{{- end -}}
+{{- define "sa_project_id" -}}
+  {{- if .Values.sa_project_id }}
+    {{- .Values.sa_project_id }}
+  {{- else }}
+    {{- include "lifecycle_letter" . }}-{{ required "REQURIED: platform_label" .Values.platform_label }}-sa-project-{{ required "REQUIRED: sa_project_suffix" .Values.sa_project_suffix }}
+  {{- end }}
+{{- end }}
 
 
-{{- define "sa_project" -}}
-  {{- required "REQUIRED" platform_label" .Values.platform_label -}}-sa-project-{{- .Values.sa_project_suffix }}
-{{- end -}}
+{{- define "dns_project_id" -}}
+  {{- if .Values.dns_project_id }}
+    {{- .Values.dns_project_id }}
+  {{- else }}
+    {{- include "lifecycle_letter" . }}-{{ required "REQURIED: platform_label" .Values.platform_label }}-dns-project-{{ required "REQUIRED: dns_project_suffix" .Values.dns_project_suffix }}
+  {{- end }}
+{{- end }}
 
 
-{{- define "dns_project" -}}
-  {{- required "REQUIRED" platform_label" .Values.platform_label -}}-dns-project-{{- .Values.dns_project_suffix }}
-{{- end -}}
+{{- define "gke_project_id" -}}
+  {{- if .Values.gke_project_id }}
+    {{- .Values.gke_project_id }}
+  {{- else }}
+    {{- include "lifecycle_letter" . }}-{{ required "REQURIED: platform_label" .Values.platform_label }}-gke-project-{{ required "REQUIRED: gke_project_suffix" .Values.gke_project_suffix }}
+  {{- end }}
+{{- end }}
 
 
-{{- define "app_project" -}}
+{{- define "tenant_project_id" -}}
   {{- if .Values.tenant_project_id }}
     {{- .Values.tenant_project_id }}
   {{- else }}
-    {{- required "REQUIRED" platform_label" .Values.platform_label -}}-{{- required "REQUIRED tenant_code" .Values.tenant_code -}}-project-{{- required "REQUIRED app_project_suffix" .Values.app_project_suffix }}
+    {{- required "REQUIRED" platform_label" .Values.platform_label -}}-{{- required "REQUIRED tenant_code" .Values.tenant_code -}}-project-{{- required "REQUIRED tenant_project_suffix" .Values.tenant_project_suffix }}
   {{- end }}
 {{- end -}}
 
@@ -70,16 +82,16 @@
 
 
 {{- define "api_image" -}}
-  {{- .Values.google.region -}}-docker.pkg.dev/{{- include "app_project" . -}}/{{- include "artifact_repo" . }}/api:{{- .Values.api.image.tag }}
+  {{- .Values.google.region -}}-docker.pkg.dev/{{- include "tenant_project_id" . -}}/{{- include "artifact_repo" . }}/api:{{- .Values.api.image.tag }}
 {{- end -}}
 
 
 {{- define "nginx_image" -}}
-  {{- .Values.google.region -}}-docker.pkg.dev/{{- include "app_project" . -}}/{{- include "artifact_repo" . }}/nginx:{{- .Values.nginx.image.tag }}
+  {{- .Values.google.region -}}-docker.pkg.dev/{{- include "tenant_project_id" . -}}/{{- include "artifact_repo" . }}/nginx:{{- .Values.nginx.image.tag }}
 {{- end -}}
 
 
-{{- define "app_sa" -}}
+{{- define "tenant_admin_sa" -}}
   {{- .Values.lifecycle -}}-{{- required "REQUIRED: tenant_code" .Values.tenant_code -}}-tenant-admin@{{- include "sa_project" . -}}.iam
 {{- end -}}
 

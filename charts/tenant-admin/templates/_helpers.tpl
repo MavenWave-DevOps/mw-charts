@@ -68,7 +68,7 @@
   {{- if .Values.tenant_project_id }}
     {{- .Values.tenant_project_id }}
   {{- else }}
-    {{- required "REQUIRED" platform_label" .Values.platform_label -}}-{{- required "REQUIRED tenant_code" .Values.tenant_code -}}-project-{{- required "REQUIRED app_project_suffix" .Values.app_project_suffix }}
+    {{- required "REQUIRED" platform_label" .Values.platform_label -}}-{{- required "REQUIRED tenant_code" .Values.tenant_code -}}-project-{{- required "REQUIRED tenant_project_suffix" .Values.tenant_project_suffix }}
   {{- end }}
 {{- end -}}
 
@@ -79,16 +79,16 @@
 
 
 {{- define "api_image" -}}
-  {{- .Values.google.region -}}-docker.pkg.dev/{{- include "app_project" . -}}/{{- include "artifact_repo" . }}/api:{{- .Values.api.image.tag }}
+  {{- .Values.google.region -}}-docker.pkg.dev/{{- include "tenant_project_id" . -}}/{{- include "artifact_repo" . }}/api:{{- .Values.api.image.tag }}
 {{- end -}}
 
 
 {{- define "nginx_image" -}}
-  {{- .Values.google.region -}}-docker.pkg.dev/{{- include "app_project" . -}}/{{- include "artifact_repo" . }}/nginx:{{- .Values.nginx.image.tag }}
+  {{- .Values.google.region -}}-docker.pkg.dev/{{- include "tenant_project_id" . -}}/{{- include "artifact_repo" . }}/nginx:{{- .Values.nginx.image.tag }}
 {{- end -}}
 
 
-{{- define "app_sa" -}}
+{{- define "tenant_admin_sa" -}}
   {{- .Values.lifecycle -}}-{{- required "REQUIRED: tenant_code" .Values.tenant_code -}}-tenant-admin@{{- include "sa_project" . -}}.iam
 {{- end -}}
 
