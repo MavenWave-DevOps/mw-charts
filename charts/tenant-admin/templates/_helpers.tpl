@@ -28,9 +28,9 @@
 {{- define "domain" -}}
 
   {{- if eq .Values.lifecycle "prod" }}
-    {{- required "REQUIRED: google.domain" .Values.google.domain }}
+    {{- required "REQUIRED: domain" .Values.domain }}
   {{- else }}
-    {{- .Values.lifecycle -}}.{{- required "REQUIRED: google.domain" .Values.google.domain }}
+    {{- .Values.lifecycle -}}.{{- required "REQUIRED: domain" .Values.domain }}
   {{- end }}
 
 {{- end }}
