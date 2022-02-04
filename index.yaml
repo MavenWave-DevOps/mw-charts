@@ -79,6 +79,16 @@ entries:
   platform-admin:
   - apiVersion: v2
     appVersion: 1.0.0
+    created: "2022-02-04T06:07:30.405587501Z"
+    description: Platform Infra Admin Helm chart
+    digest: 747082a2cbba9659e6a52d6cb87637872fd06d6ecd69b3cb7d23dfa204f0e2ac
+    name: platform-admin
+    type: application
+    urls:
+    - https://github.com/MavenWave-DevOps/mw-charts/releases/download/platform-admin-0.0.5/platform-admin-0.0.5.tgz
+    version: 0.0.5
+  - apiVersion: v2
+    appVersion: 1.0.0
     created: "2022-02-04T05:54:02.858941924Z"
     description: Platform Infra Admin Helm chart
     digest: 2132d7a1877524f1b321bd7a2503728e09ea5915c06bf43f98be80f058c07fe6
