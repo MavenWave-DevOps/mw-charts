@@ -68,7 +68,7 @@
   {{- if .Values.tenant_project_id }}
     {{- .Values.tenant_project_id }}
   {{- else }}
-    {{- required "REQUIRED" platform_label" .Values.platform_label -}}-{{- required "REQUIRED tenant_code" .Values.tenant_code -}}-project-{{- required "REQUIRED tenant_project_suffix" .Values.tenant_project_suffix }}
+    {{- required "REQUIRED: platform_label" .Values.platform_label -}}-{{- required "REQUIRED tenant_code" .Values.tenant_code -}}-project-{{- required "REQUIRED tenant_project_suffix" .Values.tenant_project_suffix }}
   {{- end }}
 {{- end -}}
 
