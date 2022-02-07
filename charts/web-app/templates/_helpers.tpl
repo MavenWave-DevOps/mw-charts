@@ -19,7 +19,7 @@
   {{- if eq .Values.lifecycle "prod" }}
     {{- "main" }}
   {{- else }}
-    {{- .Values.lifecycle }}
+    {{- required "REQUIRED: lifecycle" .Values.lifecycle }}
   {{- end }}
 
 {{- end }}
