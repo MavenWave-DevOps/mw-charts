@@ -1,0 +1,43 @@
+---
+# Source: constraints-chart/templates/repo-constraint.yaml
+apiVersion: constraints.gatekeeper.sh/v1beta1
+kind: K8sAllowedRepos
+metadata:
+  name: mps-apl-gkemid-demo-allowed-image-repos
+spec:
+  match:
+    kinds:
+      - apiGroups: [""]
+        kinds: ["Pod"]
+    namespaces:
+      - "mps-apl-gkemid-demo"
+  parameters:
+    repos:
+      - us-central1-docker.pkg.dev/ml-fpt-gke-artifact-d-f150/gkegcr/
+---
+# Source: constraints-chart/templates/external-ip.yaml
+apiVersion: constraints.gatekeeper.sh/v1beta1
+kind: K8sExternalIPs
+metadata:
+  name: mps-apl-gkemid-external-ip-whitelist
+  namespace: 
+spec:
+  match:
+    kinds:
+      - apiGroups: [""]
+        kinds: ["Service"]
+---
+# Source: constraints-chart/templates/image-digest.yaml
+apiVersion: constraints.gatekeeper.sh/v1beta1
+kind: K8sImageDigests
+metadata:
+  name: mps-apl-gkemid-image-digest
+spec:
+  match:
+    kinds:
+      - apiGroups: [""]
+        kinds: ["Pod"]
+    namespaces: []
+    #
+    #   - "mps-apl-gkemid-demo"
+    #

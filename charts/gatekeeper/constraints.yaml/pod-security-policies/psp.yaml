@@ -1,0 +1,230 @@
+---
+# Source: psp-constraints-chart/templates/pods-allowed-user-ranges.yaml
+apiVersion: constraints.gatekeeper.sh/v1beta1
+kind: K8sPSPAllowedUsers
+metadata:
+  name: psp-pods-allowed-user-ranges
+spec:
+  match:
+    kinds:
+      - apiGroups: [""]
+        kinds: ["Pod"]
+  parameters:
+    runAsUser:
+      rule: MustRunAs # MustRunAsNonRoot # RunAsAny 
+      ranges:
+        - min: 100
+          max: 200
+    runAsGroup:
+      rule: MustRunAs # MayRunAs # RunAsAny 
+      ranges:
+        - min: 100
+          max: 200
+    supplementalGroups:
+      rule: MustRunAs # MayRunAs # RunAsAny 
+      ranges:
+        - min: 100
+          max: 200
+    fsGroup:
+      rule: MustRunAs # MayRunAs # RunAsAny 
+      ranges:
+        - min: 100
+          max: 200
+---
+# Source: psp-constraints-chart/templates/apparmor.yaml
+apiVersion: constraints.gatekeeper.sh/v1beta1
+kind: K8sPSPAppArmor
+metadata:
+  name: psp-apparmor
+spec:
+  match:
+    kinds:
+      - apiGroups: [""]
+        kinds: ["Pod"]
+  parameters:
+    allowedProfiles:
+    - runtime/default
+---
+# Source: psp-constraints-chart/templates/capabilities.yaml
+apiVersion: constraints.gatekeeper.sh/v1beta1
+kind: K8sPSPCapabilities
+metadata:
+  name: psp-capabilities
+spec:
+  match:
+    kinds:
+      - apiGroups: [""]
+        kinds: ["Pod"]
+---
+# Source: psp-constraints-chart/templates/fsgroup.yaml
+apiVersion: constraints.gatekeeper.sh/v1beta1
+kind: K8sPSPFSGroup
+metadata:
+  name: psp-fsgroup
+spec:
+  match:
+    kinds:
+      - apiGroups: [""]
+        kinds: ["Pod"]
+  parameters:
+    rule: "MayRunAs" #"MustRunAs" #"MayRunAs", "RunAsAny"
+    ranges:
+    - min: 1
+      max: 1000
+---
+# Source: psp-constraints-chart/templates/flexvolume.yaml
+apiVersion: constraints.gatekeeper.sh/v1beta1
+kind: K8sPSPFlexVolumes
+metadata:
+  name: psp-flexvolume-drivers
+spec:
+  match:
+    kinds:
+      - apiGroups: [""]
+        kinds: ["Pod"]
+---
+# Source: psp-constraints-chart/templates/forbidden-sysctls.yaml
+apiVersion: constraints.gatekeeper.sh/v1beta1
+kind: K8sPSPForbiddenSysctls
+metadata:
+  name: psp-forbidden-sysctls
+spec:
+  match:
+    kinds:
+      - apiGroups: [""]
+        kinds: ["Pod"]
+  parameters:
+    forbiddenSysctls:
+    # - "*" # * may be used to forbid all sysctls
+    - kernel.shm_rmid_forced
+    - net.ipv4.ip_local_port_range
+    - net.ipv4.tcp_syncookies
+    - net.ipv4.ping_group_range
+---
+# Source: psp-constraints-chart/templates/host-filesystem.yaml
+apiVersion: constraints.gatekeeper.sh/v1beta1
+kind: K8sPSPHostFilesystem
+metadata:
+  name: psp-host-filesystem
+spec:
+  match:
+    kinds:
+      - apiGroups: [""]
+        kinds: ["Pod"]
+  parameters:
+    allowedHostPaths:
+    - readOnly: true
+      pathPrefix: "/tmp"
+---
+# Source: psp-constraints-chart/templates/host-namespace.yaml
+apiVersion: constraints.gatekeeper.sh/v1beta1
+kind: K8sPSPHostNamespace
+metadata:
+  name: psp-host-namespace
+spec:
+  match:
+    kinds:
+      - apiGroups: [""]
+        kinds: ["Pod"]
+---
+# Source: psp-constraints-chart/templates/host-network-ports.yaml
+apiVersion: constraints.gatekeeper.sh/v1beta1
+kind: K8sPSPHostNetworkingPorts
+metadata:
+  name: psp-host-network-ports
+spec:
+  match:
+    kinds:
+      - apiGroups: [""]
+        kinds: ["Pod"]
+  parameters:
+    hostNetwork: true
+    min: 80
+    max: 9000
+---
+# Source: psp-constraints-chart/templates/privileged-container.yaml
+apiVersion: constraints.gatekeeper.sh/v1beta1
+kind: K8sPSPPrivilegedContainer
+metadata:
+  name: psp-privileged-container
+spec:
+  match:
+    kinds:
+      - apiGroups: [""]
+        kinds: ["Pod"]
+    excludedNamespaces: ["kube-system"]
+---
+# Source: psp-constraints-chart/templates/proc-mount.yaml
+apiVersion: constraints.gatekeeper.sh/v1beta1
+kind: K8sPSPProcMount
+metadata:
+  name: psp-proc-mount
+spec:
+  match:
+    kinds:
+      - apiGroups: [""]
+        kinds: ["Pod"]
+  parameters:
+    procMount: Default
+---
+# Source: psp-constraints-chart/templates/read-only-root-filesystem.yaml
+apiVersion: constraints.gatekeeper.sh/v1beta1
+kind: K8sPSPReadOnlyRootFilesystem
+metadata:
+  name: psp-readonlyrootfilesystem
+spec:
+  match:
+    kinds:
+      - apiGroups: [""]
+        kinds: ["Pod"]
+---
+# Source: psp-constraints-chart/templates/selinux-v2.yaml
+apiVersion: constraints.gatekeeper.sh/v1beta1
+kind: K8sPSPSELinuxV2
+metadata:
+  name: psp-selinux-v2
+spec:
+  match:
+    kinds:
+      - apiGroups: [""]
+        kinds: ["Pod"]
+  parameters:
+    allowedSELinuxOptions:
+      - type: container_t
+      - type: container_init_t
+      - type: container_kvm_t
+---
+# Source: psp-constraints-chart/templates/seccomp.yaml
+apiVersion: constraints.gatekeeper.sh/v1beta1
+kind: K8sPSPSeccomp
+metadata:
+  name: psp-seccomp
+spec:
+  match:
+    kinds:
+      - apiGroups: [""]
+        kinds: ["Pod"]
+  parameters:
+    allowedProfiles:
+    - runtime/default
+---
+# Source: psp-constraints-chart/templates/volume-types.yaml
+apiVersion: constraints.gatekeeper.sh/v1beta1
+kind: K8sPSPVolumeTypes
+metadata:
+  name: psp-volume-types
+spec:
+  match:
+    kinds:
+      - apiGroups: [""]
+        kinds: ["Pod"]
+  parameters:
+    volumes:
+    - hostPath #required for allowedHostPaths
+    - flexVolume #required for allowedFlexVolumes
+    - emptyDir 
+    - configMap
+    - secret
+    - downwardAPI
+    - projected 
+    - persistentVolumeClaim

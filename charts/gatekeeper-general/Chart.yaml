@@ -1,0 +1,6 @@
+apiVersion: v2
+name: general-gatekeeper-chart
+description: General Gatekeeper constraints
+type: application
+appVersion: 1.0.0
+version: 0.0.2

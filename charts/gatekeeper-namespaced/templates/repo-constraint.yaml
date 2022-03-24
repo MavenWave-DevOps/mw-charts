@@ -1,0 +1,52 @@
+{{- $root := . -}}
+
+{{- range .Values.namespaces }}
+
+{{- $first := . -}}
+
+apiVersion: constraints.gatekeeper.sh/v1beta1
+kind: K8sAllowedRepos
+metadata:
+  name: {{ $root.Values.tenant -}}-{{- $root.Values.initiative -}}-{{- .name -}}-allowed-image-repos
+spec:
+  match:
+    kinds:
+      - apiGroups: [""]
+        kinds: ["Pod"]
+    namespaces:
+      - "{{ $root.Values.tenant -}}-{{- $root.Values.initiative -}}-{{- .name -}}"
+  parameters:
+    repos:
+    {{- if .registry_project }}
+
+    {{- if .registry_repos }}
+      {{- range .registry_repos }}
+      - us-central1-docker.pkg.dev/{{- $first.registry_project -}}/{{- . -}}/
+      {{- end }}
+
+    {{- else }}
+      {{- range $root.Values.registry_repos }}
+      - us-central1-docker.pkg.dev/{{- $first.registry_project -}}/{{- . -}}/
+      {{- end }}
+
+    {{- end }}
+
+    {{- else }}
+
+      {{- if .registry_repos }}
+        {{- range .registry_repos }}
+        - us-central1-docker.pkg.dev/{{- $root.Values.registry_project -}}/{{- . -}}/
+        {{- end }}
+
+      {{- else }}
+        {{- range $root.Values.registry_repos }}
+        - us-central1-docker.pkg.dev/{{- $root.Values.registry_project -}}/{{- . -}}/
+        {{- end }}
+
+      {{- end }}
+
+    {{- end }}
+
+---
+
+{{- end }}

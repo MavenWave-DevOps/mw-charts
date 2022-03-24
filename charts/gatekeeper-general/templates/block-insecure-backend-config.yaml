@@ -1,0 +1,9 @@
+apiVersion: constraints.gatekeeper.sh/v1beta1
+kind: K8sSecureBackend
+metadata:
+  name: block-insecure-backend-config
+spec:
+  match:
+    kinds:
+      - apiGroups: ["cloud.google.com"]
+        kinds: ["BackendConfig"]

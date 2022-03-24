@@ -1,0 +1,14 @@
+apiVersion: constraints.gatekeeper.sh/v1beta1
+kind: K8sRequiredAnnotations
+metadata:
+  name: block-k8s-external-lbs
+spec:
+  match:
+    kinds:
+      - apiGroups: ["extensions", "networking.k8s.io"]
+        kinds: ["Service"]
+  parameters:
+    message: "All services must have a GKE internal load balancer class annotation." 
+    annotations:
+      - key: networking.gke.io/load-balancer-type
+        allowedRegex: Internal

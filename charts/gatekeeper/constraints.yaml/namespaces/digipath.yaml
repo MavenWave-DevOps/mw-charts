@@ -1,0 +1,82 @@
+---
+# Source: constraints-chart/templates/repo-constraint.yaml
+apiVersion: constraints.gatekeeper.sh/v1beta1
+kind: K8sAllowedRepos
+metadata:
+  name: mps-adl-digipath-frontend-allowed-image-repos
+spec:
+  match:
+    kinds:
+      - apiGroups: [""]
+        kinds: ["Pod"]
+    namespaces:
+      - "mps-adl-digipath-frontend"
+  parameters:
+    repos:
+        - us-central1-docker.pkg.dev/ml-mps-apl-artreg-p-4118/digital-pathology/
+---
+# Source: constraints-chart/templates/repo-constraint.yaml
+apiVersion: constraints.gatekeeper.sh/v1beta1
+kind: K8sAllowedRepos
+metadata:
+  name: mps-adl-digipath-ndsa-ingest-allowed-image-repos
+spec:
+  match:
+    kinds:
+      - apiGroups: [""]
+        kinds: ["Pod"]
+    namespaces:
+      - "mps-adl-digipath-ndsa-ingest"
+  parameters:
+    repos:
+        - us-central1-docker.pkg.dev/ml-mps-apl-artreg-p-4118/digital-pathology/
+---
+# Source: constraints-chart/templates/repo-constraint.yaml
+apiVersion: constraints.gatekeeper.sh/v1beta1
+kind: K8sAllowedRepos
+metadata:
+  name: mps-adl-digipath-oof-ingest-allowed-image-repos
+spec:
+  match:
+    kinds:
+      - apiGroups: [""]
+        kinds: ["Pod"]
+    namespaces:
+      - "mps-adl-digipath-oof-ingest"
+  parameters:
+    repos:
+        - us-central1-docker.pkg.dev/ml-mps-apl-artreg-p-4118/digital-pathology/
+---
+# Source: constraints-chart/templates/external-ip.yaml
+apiVersion: constraints.gatekeeper.sh/v1beta1
+kind: K8sExternalIPs
+metadata:
+  name: mps-adl-digipath-external-ip-whitelist
+  namespace: 
+spec:
+  match:
+    kinds:
+      - apiGroups: [""]
+        kinds: ["Service"]
+  parameters:
+    allowedIps:
+    - 34.117.100.219
+---
+# Source: constraints-chart/templates/image-digest.yaml
+apiVersion: constraints.gatekeeper.sh/v1beta1
+kind: K8sImageDigests
+metadata:
+  name: mps-adl-digipath-image-digest
+spec:
+  match:
+    kinds:
+      - apiGroups: [""]
+        kinds: ["Pod"]
+    namespaces: []
+    #
+    #   - "mps-adl-digipath-frontend"
+    #
+    #   - "mps-adl-digipath-ndsa-ingest"
+    #
+    #   - "mps-adl-digipath-oof-ingest"
+    #

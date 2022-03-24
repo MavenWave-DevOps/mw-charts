@@ -1,0 +1,64 @@
+---
+# Source: constraints-chart/templates/repo-constraint.yaml
+apiVersion: constraints.gatekeeper.sh/v1beta1
+kind: K8sAllowedRepos
+metadata:
+  name: mps-walk-walk-frontend-walk-allowed-image-repos
+spec:
+  match:
+    kinds:
+      - apiGroups: [""]
+        kinds: ["Pod"]
+    namespaces:
+      - "mps-walk-walk-frontend-walk"
+  parameters:
+    repos:
+        - us-central1-docker.pkg.dev/ml-fpt-gke-artifact-d-f150/gkegcr/
+---
+# Source: constraints-chart/templates/repo-constraint.yaml
+apiVersion: constraints.gatekeeper.sh/v1beta1
+kind: K8sAllowedRepos
+metadata:
+  name: mps-walk-walk-backend-walk-allowed-image-repos
+spec:
+  match:
+    kinds:
+      - apiGroups: [""]
+        kinds: ["Pod"]
+    namespaces:
+      - "mps-walk-walk-backend-walk"
+  parameters:
+    repos:
+        - us-central1-docker.pkg.dev/ml-fpt-gke-artifact-d-f150/gkegcr/
+---
+# Source: constraints-chart/templates/external-ip.yaml
+apiVersion: constraints.gatekeeper.sh/v1beta1
+kind: K8sExternalIPs
+metadata:
+  name: mps-walk-walk-external-ip-whitelist
+  namespace: 
+spec:
+  match:
+    kinds:
+      - apiGroups: [""]
+        kinds: ["Service"]
+  parameters:
+    allowedIps:
+    - 34.117.182.43
+---
+# Source: constraints-chart/templates/image-digest.yaml
+apiVersion: constraints.gatekeeper.sh/v1beta1
+kind: K8sImageDigests
+metadata:
+  name: mps-walk-walk-image-digest
+spec:
+  match:
+    kinds:
+      - apiGroups: [""]
+        kinds: ["Pod"]
+    namespaces: []
+    #
+    #   - "mps-walk-walk-frontend-walk"
+    #
+    #   - "mps-walk-walk-backend-walk"
+    #

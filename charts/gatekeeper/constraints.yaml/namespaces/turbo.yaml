@@ -1,0 +1,97 @@
+---
+# Source: constraints-chart/templates/repo-constraint.yaml
+apiVersion: constraints.gatekeeper.sh/v1beta1
+kind: K8sAllowedRepos
+metadata:
+  name: mps-apl-turbo-demo-allowed-image-repos
+spec:
+  match:
+    kinds:
+      - apiGroups: [""]
+        kinds: ["Pod"]
+    namespaces:
+      - "mps-apl-turbo-demo"
+  parameters:
+    repos:
+        - us-central1-docker.pkg.dev/ml-mps-apl-artreg-p-4118/gkegcr/
+---
+# Source: constraints-chart/templates/repo-constraint.yaml
+apiVersion: constraints.gatekeeper.sh/v1beta1
+kind: K8sAllowedRepos
+metadata:
+  name: mps-apl-turbo-pytest-allowed-image-repos
+spec:
+  match:
+    kinds:
+      - apiGroups: [""]
+        kinds: ["Pod"]
+    namespaces:
+      - "mps-apl-turbo-pytest"
+  parameters:
+    repos:
+      - us-central1-docker.pkg.dev/ml-mps-apl-artreg-p-4118/turbo/
+---
+# Source: constraints-chart/templates/repo-constraint.yaml
+apiVersion: constraints.gatekeeper.sh/v1beta1
+kind: K8sAllowedRepos
+metadata:
+  name: mps-apl-turbo-backend-allowed-image-repos
+spec:
+  match:
+    kinds:
+      - apiGroups: [""]
+        kinds: ["Pod"]
+    namespaces:
+      - "mps-apl-turbo-backend"
+  parameters:
+    repos:
+      - us-central1-docker.pkg.dev/ml-mps-apl-artreg-p-4118/turbo/
+---
+# Source: constraints-chart/templates/repo-constraint.yaml
+apiVersion: constraints.gatekeeper.sh/v1beta1
+kind: K8sAllowedRepos
+metadata:
+  name: mps-apl-turbo-frontend-allowed-image-repos
+spec:
+  match:
+    kinds:
+      - apiGroups: [""]
+        kinds: ["Pod"]
+    namespaces:
+      - "mps-apl-turbo-frontend"
+  parameters:
+    repos:
+      - us-central1-docker.pkg.dev/ml-mps-apl-artreg-p-4118/turbo/
+---
+# Source: constraints-chart/templates/external-ip.yaml
+apiVersion: constraints.gatekeeper.sh/v1beta1
+kind: K8sExternalIPs
+metadata:
+  name: mps-apl-turbo-external-ip-whitelist
+  namespace: 
+spec:
+  match:
+    kinds:
+      - apiGroups: [""]
+        kinds: ["Service"]
+---
+# Source: constraints-chart/templates/image-digest.yaml
+apiVersion: constraints.gatekeeper.sh/v1beta1
+kind: K8sImageDigests
+metadata:
+  name: mps-apl-turbo-image-digest
+spec:
+  match:
+    kinds:
+      - apiGroups: [""]
+        kinds: ["Pod"]
+    namespaces: []
+    #
+    #   - "mps-apl-turbo-demo"
+    #
+    #   - "mps-apl-turbo-pytest"
+    #
+    #   - "mps-apl-turbo-backend"
+    #
+    #   - "mps-apl-turbo-frontend"
+    #

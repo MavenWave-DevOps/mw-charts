@@ -1,0 +1,14 @@
+apiVersion: constraints.gatekeeper.sh/v1beta1
+kind: K8sRequiredAnnotations
+metadata:
+  name: block-dynamic-ip
+spec:
+  match:
+    kinds:
+      - apiGroups: ["extensions", "networking.k8s.io"]
+        kinds: ["Ingress"]
+  parameters:
+    message: "All Ingress must have static IP annotation" 
+    annotations:
+      - key: kubernetes.io/ingress.global-static-ip-name
+        allowedRegex: .*

@@ -1,0 +1,20 @@
+{{ if true}}
+apiVersion: constraints.gatekeeper.sh/v1beta1
+kind: K8sExternalIPs
+metadata:
+  name: {{ .Values.tenant -}}-{{- .Values.initiative -}}-external-ip-whitelist
+  namespace: {{ .Values.namespace }}
+spec:
+  match:
+    kinds:
+      - apiGroups: [""]
+        kinds: ["Service"]
+  {{- if include "external_ip" . }}
+  parameters:
+    allowedIps:
+    - {{ include "external_ip" . }}
+  {{ end }}
+{{ end }}
+
+
+

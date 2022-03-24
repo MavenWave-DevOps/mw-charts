@@ -1,0 +1,11 @@
+
+apiVersion: constraints.gatekeeper.sh/v1beta1
+kind: K8sImageDigests
+metadata:
+  name: {{ .Values.tenant -}}-{{- .Values.initiative -}}-image-digest
+spec:
+  match:
+    kinds:
+      - apiGroups: [""]
+        kinds: ["Pod"]
+    namespaces: []
