@@ -1,7 +1,6 @@
 apiVersion: v2
-name: constraints-chart
-description: Allowed gatekeeper constraints per initiative
+name: gatekeeper-namespaced
+description: Namespace specific gatekeeper constraints
 type: application
 appVersion: 1.0.0
 version: 0.0.1
-lifecycle: 0.0.1
