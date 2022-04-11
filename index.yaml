@@ -1,5 +1,27 @@
 apiVersion: v1
 entries:
+  app-iam:
+  - apiVersion: v2
+    appVersion: 1.0.0
+    created: "2022-04-11T18:25:52.396299403Z"
+    description: Deploys app level service accounts and workload identity bindings
+    digest: 276c8eddb2de9413880ff7e75f7dc3677d426c36a60ed76897629193a038c16d
+    name: app-iam
+    type: application
+    urls:
+    - https://github.com/MavenWave-DevOps/mw-charts/releases/download/app-iam-0.0.1/app-iam-0.0.1.tgz
+    version: 0.0.1
+  app-infra:
+  - apiVersion: v2
+    appVersion: 0.0.1
+    created: "2022-04-11T18:25:52.59839815Z"
+    description: A Helm chart for deploying an applications level GCP resources
+    digest: a044bfc9adc19b5bc536ff3b4708772d6a654e235c37577423fff8377e797100
+    name: app-infra
+    type: application
+    urls:
+    - https://github.com/MavenWave-DevOps/mw-charts/releases/download/app-infra-0.0.1/app-infra-0.0.1.tgz
+    version: 0.0.1
   argo-cd:
   - apiVersion: v2
     created: "2022-02-04T17:12:52.941786226Z"
