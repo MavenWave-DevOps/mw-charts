@@ -1,6 +1,0 @@
-apiVersion: v2
-name: platform-admin
-description: Platform Infra Admin Helm chart
-type: application
-appVersion: 1.0.0
-version: 0.0.6
