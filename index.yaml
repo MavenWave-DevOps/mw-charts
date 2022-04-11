@@ -124,6 +124,17 @@ entries:
     urls:
     - https://github.com/MavenWave-DevOps/mw-charts/releases/download/gatekeeper-0.0.1/gatekeeper-0.0.1.tgz
     version: 0.0.1
+  gatekeeper-namespaced:
+  - apiVersion: v2
+    appVersion: 1.0.0
+    created: "2022-04-11T18:26:48.234184339Z"
+    description: Namespace specific gatekeeper constraints
+    digest: 0d1fd7864ba9c7f3a5b1a4ab92ae3b07114ab0433e5bcd0ddc07f67ff712eb0e
+    name: gatekeeper-namespaced
+    type: application
+    urls:
+    - https://github.com/MavenWave-DevOps/mw-charts/releases/download/gatekeeper-namespaced-0.0.1/gatekeeper-namespaced-0.0.1.tgz
+    version: 0.0.1
   gatekeeper-policies:
   - apiVersion: v2
     appVersion: 1.0.0
