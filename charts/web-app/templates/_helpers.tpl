@@ -1,11 +1,6 @@
 
-{{- define "infra_admin_sa" -}}
-  {{- required "REQUIRED: lifecycle" .Values.lifecycle }}-{{- .Values.tenant_code -}}-tenant-admin@{{- include "sa_project_id" . -}}.iam.gserviceaccount.com
-{{- end }}
-
-
 {{- define "ip_name" }}
-  {{- .Values.tenant_code }}-global-ip
+  {{- .Values.lifecycle -}}-{{- .Values.tenant_code }}-ip-cc
 {{- end }}
 
 
@@ -35,6 +30,11 @@
 
 {{- define "sa_project_id" -}}
   {{- required "REQUIRED: sa_project_id" .Values.sa_project_id }}
+{{- end }}
+
+
+{{- define "tenant_project_id" -}}
+  {{- required "REQUIRED: platform_label" .Values.platform_label -}}-{{- required "REQUIRED: tenant_code" .Values.tenant_code -}}-project
 {{- end }}
 
 
