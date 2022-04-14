@@ -1,0 +1,36 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: react-config
+  namespace: {{ .Release.Namespace }}
+data:
+  env.js: |
+    window.LIFECYCLE = '{{- .Values.lifecycle -}}';
+    window.API_URL = 'https://{{- include "domain" . -}}/';
+    window.STATIC_BUCKET = '{{- include "bucket" . -}}';
+
+---
+
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: api-config
+  namespace: {{ .Release.Namespace }}
+data:
+  api.conf: |
+    location /api/ {
+        proxy_set_header Host {{ include "domain" . -}};
+        proxy_pass http://api-svc.{{- .Release.Namespace -}}.svc;
+    }
+    location /admin/ {
+        proxy_set_header Host {{ include "domain" . -}};
+        proxy_pass http://api-svc.{{- .Release.Namespace -}}.svc;
+    }
+    location /redirect/ {
+        proxy_set_header Host {{ include "domain" . -}};
+        proxy_pass http://api-svc.{{- .Release.Namespace -}}.svc;
+    }
+    location /accounts/ {
+        proxy_set_header Host {{ include "domain" . -}};
+        proxy_pass http://api-svc.{{- .Release.Namespace -}}.svc;
+    }

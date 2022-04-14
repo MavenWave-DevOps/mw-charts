@@ -22,6 +22,20 @@ spec:
         app: nginx-dep
     spec:
       serviceAccountName: {{ include "ksa_name" . }}
+      volumes:
+        - name: react-env
+          configMap:
+            name: react-config
+            items:
+            - key: env.js
+              path: env.js
+        - name: api-redirects
+          configMap:
+            name: api-config
+            items:
+            - key: api.conf
+              path: api.conf
+
       containers:
       - name: nginx
         image: {{ include "nginx_image" . }}
@@ -47,6 +61,14 @@ spec:
             port: 80
           initialDelaySeconds: 5
           periodSeconds: 5
+
+        volumeMounts:
+        - name: react-env
+          mountPath: /var/www/env
+          readOnly: true
+        - name: api-redirects
+          mountPath: /etc/nginx/conf.d
+          readOnly: true
 
         env:
         - name: API_NAMESPACE
