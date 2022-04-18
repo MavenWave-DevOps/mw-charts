@@ -1,6 +1,6 @@
 
 {{- define "ip_name" }}
-  {{- .Values.lifecycle -}}-{{- .Values.tenant_code }}-ip-cc
+  {{- .Values.lifecycle -}}-{{- .Values.app_code }}-ip
 {{- end }}
 
 
@@ -34,7 +34,7 @@
 
 
 {{- define "tenant_project_id" -}}
-  {{- required "REQUIRED: platform_label" .Values.platform_label -}}-{{- required "REQUIRED: tenant_code" .Values.tenant_code -}}-project
+  {{- required "REQUIRED: tenant_project_id" .Values.tenant_project_id }}
 {{- end }}
 
 
@@ -54,17 +54,17 @@
 
 
 {{- define "workload_sa" -}}
-  {{- .Values.lifecycle -}}-{{- required "REQUIRED: tenant_code" .Values.tenant_code -}}-app-workload@{{- include "sa_project_id" . -}}.iam
+  {{- required "REQUIRED: tenant_code" .Values.tenant_code -}}-{{- required "REQUIRED: app_code" .Values.app_code -}}-{{- required "REQUIRED: lifecycle" .Values.lifecycle -}}-workload@{{- include "sa_project_id" $ -}}.iam
 {{- end -}}
 
 
 {{- define "ksa_name" -}}
-  {{- .Values.tenant_code -}}-web-app-sa
+  {{- .Values.app_code -}}-web-app-sa
 {{- end }}
 
 
 {{- define "bucket" -}}
-  {{- .Values.lifecycle -}}-{{- .Values.tenant_code -}}-private-bucket
+  {{- .Values.lifecycle -}}-{{- .Values.app_code -}}-private-bucket
 {{- end -}}
 
 
