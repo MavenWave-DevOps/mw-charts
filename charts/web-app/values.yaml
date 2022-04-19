@@ -74,6 +74,9 @@ external_secrets:
 nginx_ingress:
   enabled: false
 
+cert_manager:
+  enabled: false
+
 ingress:
   mci: false
   primary: false
