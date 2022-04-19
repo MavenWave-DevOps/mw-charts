@@ -168,6 +168,17 @@ entries:
     urls:
     - https://github.com/MavenWave-DevOps/mw-charts/releases/download/infra-tenant-0.0.1/infra-tenant-0.0.1.tgz
     version: 0.0.1
+  mw-web-app:
+  - apiVersion: v2
+    appVersion: 0.0.1
+    created: "2022-04-19T04:33:18.529683046Z"
+    description: A Helm chart for deploying Walker's web applications to GKE
+    digest: 64c540453d0eb09b5825d2e588676967d052f23164d148b45bd0c3513e3f713b
+    name: mw-web-app
+    type: application
+    urls:
+    - https://github.com/MavenWave-DevOps/mw-charts/releases/download/mw-web-app-0.0.1/mw-web-app-0.0.1.tgz
+    version: 0.0.1
   platform-admin:
   - apiVersion: v2
     appVersion: 1.0.0
@@ -399,6 +410,17 @@ entries:
     type: application
     urls:
     - https://github.com/MavenWave-DevOps/mw-charts/releases/download/tenant-admin-0.0.1/tenant-admin-0.0.1.tgz
+    version: 0.0.1
+  walker-web-app:
+  - apiVersion: v2
+    appVersion: 1.0.0
+    created: "2022-04-19T04:33:18.655329332Z"
+    description: A Helm chart for deploying web applications
+    digest: bd85f1ea020a96ef1a01bf7b9bc169f0f3a2926eabe5f1ff2169507d9ba8d585
+    name: walker-web-app
+    type: application
+    urls:
+    - https://github.com/MavenWave-DevOps/mw-charts/releases/download/walker-web-app-0.0.1/walker-web-app-0.0.1.tgz
     version: 0.0.1
   web-app:
   - apiVersion: v2
