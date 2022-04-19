@@ -29,7 +29,7 @@ spec:
   {{- if .Values.cert_manager.enabled }}
   tls:
   - hosts:
-    - ''
+    - {{ include "domain" $ }}
     secretName: ingress-certs
   {{- end }}
   defaultBackend:
