@@ -1,31 +1,89 @@
-
 enabled: true
-
-test: false
-
-ingress:
-  http: false
-  https: true
-
-google:
-  artifact_repo: app-images
-  region: us-central1
-  zone: us-central1-a
-  ip_address: "0.0.0.0"
+local: false
 
 api:
   enabled: true
+  tag: latest
+  label: server
+  use_pd: false
+  mount_pd: false
+  disk_size: 5Gi
+
+  memory:
+    request: 64Mi
+    limit: 256Mi
+  cpu:
+    request: .1
+    limit: 1
+
   replicas: 1
-  use_pd: true
-  image:
-    tag: latest
+  max_replicas: 5
+  target_cpu: 80
+  target_mem: 128Mi
 
 nginx:
   enabled: true
-  image:
-    tag: latest
+  tag: latest
+  memory:
+    request: 5Mi
+    limit: 50Mi
+  cpu:
+    request: .05
+    limit: .5
+  replicas: 1
+  max_replicas: 3
+  target_cpu: 80
+  target_mem: 50Mi
 
-cilium:
+google:
+  region: us-central1
+  zone: us-central1-a
+  registry: ""
+  # registry: app-images
+  iap:
+    enabled: false
+    test:
+      enabled: false
+  analytics:
+    enabled: false
+
+security_policy: us-only
+ssl_policy: tls-12
+
+oauth:
+  google:
+    enabled: false
+    sheets:
+      enabled: false
+      path: /backend/secrets
+
+  github:
+    enabled: false
+
+  facebook:
+    enabled: false
+
+  twitter:
+    enabled: false
+
+external_dns:
+  enabled: false
+
+external_secrets:
+  enabled: false
+
+nginx_ingress:
+  enabled: false
+
+ingress:
+  mci: false
+  primary: false
+  use_failover: false
+  http: false
+  https: true
+  cert: true
+
+network_policy:
   enabled: false
 
 autoscaler:
@@ -34,21 +92,34 @@ autoscaler:
 secrets:
   enabled: false
 
+cilium:
+  enabled: false
+
 django:
-  enabled: true
+  enabled: false
+  use_email: false
+
+gin:
+  input_path: /tmp/input
+  enabled: false
 
 db:
   proxy: false
-  local: false
   proxy_version: gcr.io/cloudsql-docker/gce-proxy:1.21.0
 
 twilio:
   enabled: false
+  flex:
+    enabled: false
 
 firebase:
   enabled: false
 
 sendgrid:
   enabled: false
-  
+
+agile:
+  enabled: false
+  replicas: 1
+
 

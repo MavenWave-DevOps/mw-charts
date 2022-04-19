@@ -1,0 +1,90 @@
+{{- if .Values.enabled }}
+{{- if .Values.nginx.enabled }}
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    namespace: {{ .Release.Namespace }}
+    app: nginx-dep
+    tier: frontend
+  name: nginx-dep
+spec:
+  replicas: 1
+  strategy:
+    type: RollingUpdate
+  selector:
+    matchLabels:
+      app: nginx-dep
+  template:
+    metadata:
+      labels:
+        app: nginx-dep
+    spec:
+      serviceAccountName: {{ include "ksa_name" . }}
+      volumes:
+        - name: react-env
+          configMap:
+            name: react-config
+            items:
+            - key: env.js
+              path: env.js
+        - name: api-redirects
+          configMap:
+            name: api-config
+            items:
+            - key: api.conf
+              path: api.conf
+
+      containers:
+      - name: nginx
+        image: {{ include "nginx_image" . }}
+        imagePullPolicy: Always
+
+        startupProbe:
+          httpGet:
+            path: /health/
+            port: 80
+          failureThreshold: 5
+          periodSeconds: 5
+
+        livenessProbe:
+          httpGet:
+            path: /health/
+            port: 80
+          initialDelaySeconds: 5
+          periodSeconds: 5
+
+        readinessProbe:
+          httpGet:
+            path: /health/
+            port: 80
+          initialDelaySeconds: 5
+          periodSeconds: 5
+
+        volumeMounts:
+        - name: react-env
+          mountPath: /var/www/env
+          readOnly: true
+        - name: api-redirects
+          mountPath: /etc/nginx/conf.d
+          readOnly: true
+
+        env:
+        - name: API_NAMESPACE
+          value: {{ .Release.Namespace }}
+        - name: LIFECYCLE
+          value: {{ required "REQUIRED: lifecycle" .Values.lifecycle }}
+        - name: DOMAIN
+          value: {{ include "domain" . }}
+
+        ports:
+        - containerPort: 80
+          name: https
+          protocol: TCP
+
+
+{{- end }}
+{{- end }}
+
+

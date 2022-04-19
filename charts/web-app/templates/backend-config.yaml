@@ -1,14 +1,22 @@
-{{- if .Values.enabled }}
+{{- if and (.Values.enabled) (not .Values.local) }}
 
 apiVersion: cloud.google.com/v1
 kind: BackendConfig
 metadata:
   name: gke-backendconfig
+  namespace: {{ .Release.Namespace }}
 spec:
   securityPolicy:
-    name: us-only
+    name: {{ .Values.security_policy }}
 
-  {{- if and (ne .Values.lifecycle "ops") (ne .Values.lifecycle "dev") }}
+  {{- if or (.Values.google.iap.enabled) (.Values.google.iap.test.enabled) }}
+  iap:
+    enabled: {{ .Values.google.iap.enabled }}
+    oauthClientCredentials:
+      secretName: oauth-credentials
+  {{- end }}
+
+  {{- if or (eq .Values.lifecycle "stage") (eq .Values.lifecycle "prod") }}
   cdn:
     enabled: true
     cachePolicy:

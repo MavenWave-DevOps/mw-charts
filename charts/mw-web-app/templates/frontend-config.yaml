@@ -1,12 +1,11 @@
-{{- if and (.Values.enabled) (not .Values.local) }}
+{{- if and (.Values.enabled) (.Values.nginx.enabled) }}
 
 apiVersion: networking.gke.io/v1beta1
 kind: FrontendConfig
 metadata:
   name: gke-frontendconfig
-  namespace: {{ .Release.Namespace }}
 spec:
-  sslPolicy: {{ .Values.ssl_policy }}
+  sslPolicy: tls-12
   redirectToHttps:
     enabled: true
     responseCodeName: MOVED_PERMANENTLY_DEFAULT
