@@ -5,7 +5,7 @@ test: false
 
 ingress:
   http: false
-  https: false
+  https: true
 
 google:
   artifact_repo: app-images
@@ -32,7 +32,7 @@ autoscaler:
   enabled: false
 
 secrets:
-  enabled: true
+  enabled: false
 
 django:
   enabled: true
