@@ -59,7 +59,7 @@
 
 
 {{- define "ksa_name" -}}
-  {{- .Values.app_code -}}-web-app-sa
+  {{- "workload" -}}
 {{- end }}
 
 
