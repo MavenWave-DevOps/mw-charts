@@ -34,9 +34,9 @@ spec:
         image: {{ include "api_image" . }}
         imagePullPolicy: Always
 
-        {{- if and (not .Values.db.proxy) (.Values.db.local) }}
-        # command: ["/bin/sh"]
-        # args: ["-c", "./init_db.sh && gunicorn -b 0.0.0.0:8000 api.wsgi"]
+        {{- if and (.Values.django.enabled) (not .Values.db.proxy) (not .Values.api.use_pd) }}
+        command: ["/bin/sh"]
+        args: ["-c", "./init_db.sh && gunicorn -b 0.0.0.0:8000 api.wsgi"]
         {{- end }}
 
         {{- if .Values.api.use_pd }}
