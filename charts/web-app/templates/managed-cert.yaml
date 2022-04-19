@@ -1,6 +1,7 @@
 {{- if and (.Values.enabled) (not .Values.local) }}
 
 {{- if .Values.ingress.cert }}
+{{- if not .Values.cert_manager.enabled }}
 
 apiVersion: networking.gke.io/v1beta2
 kind: ManagedCertificate
