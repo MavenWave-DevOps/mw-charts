@@ -32,9 +32,25 @@ spec:
     - {{ include "domain" $ }}
     secretName: ingress-certs
   {{- end }}
+
+  {{- if $.Values.nginx_ingress.enabled }}
+  rules:
+  - host: {{ include "domain" $ }}
+    http:
+      paths:
+      - backend:
+          service:
+            name: nginx-svc
+            port:
+              name: http
+        path: /
+        pathType: Prefix
+
+  {{- else }}
+
   defaultBackend:
     service:
-      {{- if .Values.nginx.enabled }}
+      {{- if $.Values.nginx.enabled }}
       name: nginx-svc
       port:
         number: 443
