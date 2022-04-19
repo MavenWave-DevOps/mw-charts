@@ -27,7 +27,7 @@
 
 
 {{- define "app_project" -}}
-  {{- required "REQUIRED: app_code" .Values.app_code -}}-app-project
+  {{- required "REQUIRED: app_project_id" .Values.app_project_id -}}
 {{- end -}}
 
 

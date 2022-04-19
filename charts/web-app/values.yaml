@@ -89,9 +89,6 @@ network_policy:
 autoscaler:
   enabled: false
 
-secrets:
-  enabled: false
-
 cilium:
   enabled: false
 
