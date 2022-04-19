@@ -13,5 +13,6 @@ spec:
     - {{ include "domain" . }}
 
 {{- end }}
+{{- end }}
 
 {{- end }}
