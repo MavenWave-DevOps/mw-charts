@@ -15,7 +15,7 @@ metadata:
     external-dns.alpha.kubernetes.io/hostname: {{ include "domain" . -}}.
     {{- end }}
     {{- if .Values.cert_manager.enabled }}
-    cert-manager.io/cluster-issuer: "cert-manager"
+    cert-manager.io/cluster-issuer: "letsencrypt-nginx"
     {{- end }}
 spec:
   defaultBackend:
