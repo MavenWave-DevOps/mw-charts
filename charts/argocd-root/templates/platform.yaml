@@ -52,7 +52,7 @@ spec:
   source:
     chart: platform
     repoURL: {{ $.Values.charts_url }}
-    targetRevision: 0.0.3
+    targetRevision: 0.0.4
     helm:
       values: |
         sa_project_id: {{ include "sa_project_id" $ }}
