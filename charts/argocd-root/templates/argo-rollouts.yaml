@@ -13,7 +13,7 @@ spec:
   project: {{ .Values.root_project }}
   destination:
     server: {{ .Values.destination.server }}
-    namespace: {{ .Values.namespace }}
+    namespace: argo-rollouts
   source:
     chart: argo-rollouts
     repoURL: {{ $.Values.charts_url }}
