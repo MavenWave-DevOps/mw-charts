@@ -1,7 +1,8 @@
 ingress: true
-use_cc: true
-external_dns: true
 domain: vault.igniteme.dev
+config_connector: true
+external_dns: true
+use_iap: false
 
 vault:
 

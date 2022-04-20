@@ -26,4 +26,11 @@ spec:
     requestPath: /healthz
     port: 8080
 
+  {{- if .Values.use_iap }}
+  iap:
+    enabled: true
+    oauthclientCredentials:
+      secretName: oauth-credentials
+  {{- end }}
+
 {{- end -}}

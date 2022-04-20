@@ -1,5 +1,5 @@
 {{- if .Values.ingress }}
-{{- if .Values.use_cc }}
+{{- if .Values.config_connector }}
 
 apiVersion: compute.cnrm.cloud.google.com/v1beta1
 kind: ComputeAddress

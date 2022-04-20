@@ -2,6 +2,7 @@ ingress: true
 domain: workflows.igniteme.dev
 config_connector: true
 external_dns: true
+use_iap: false
 
 argo-workflows:
   singleNamespace: true
