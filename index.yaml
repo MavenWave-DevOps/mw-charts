@@ -142,6 +142,17 @@ entries:
     urls:
     - https://github.com/MavenWave-DevOps/mw-charts/releases/download/argocd-tenant-0.0.62/argocd-tenant-0.0.62.tgz
     version: 0.0.62
+  cluster-config:
+  - apiVersion: v2
+    appVersion: 1.0.0
+    created: "2022-04-20T01:41:26.191518312Z"
+    description: Cluster scoped resources controlled by platform admin
+    digest: 2616a5229631a212f91e525b437587715a967d7816e485d9b74362b75e6518aa
+    name: cluster-config
+    type: application
+    urls:
+    - https://github.com/MavenWave-DevOps/mw-charts/releases/download/cluster-config-0.0.3/cluster-config-0.0.3.tgz
+    version: 0.0.3
   gatekeeper:
   - apiVersion: v2
     created: "2022-02-04T17:12:53.461522485Z"
