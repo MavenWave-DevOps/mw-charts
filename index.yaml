@@ -114,6 +114,17 @@ entries:
     version: 0.0.1
   argo-workflows:
   - apiVersion: v2
+    created: "2022-04-20T02:54:17.174311541Z"
+    dependencies:
+    - name: argo-workflows
+      repository: https://argoproj.github.io/argo-helm
+      version: 0.8.3
+    digest: 70fb852fe176acd99cce9ac3264fa1e1c609a38a1eae81dc13c73178701561cb
+    name: argo-workflows
+    urls:
+    - https://github.com/MavenWave-DevOps/mw-charts/releases/download/argo-workflows-0.0.6/argo-workflows-0.0.6.tgz
+    version: 0.0.6
+  - apiVersion: v2
     created: "2022-04-20T02:41:15.434747588Z"
     dependencies:
     - name: argo-workflows
@@ -191,6 +202,14 @@ entries:
     - https://github.com/MavenWave-DevOps/mw-charts/releases/download/argocd-platform-0.0.1/argocd-platform-0.0.1.tgz
     version: 0.0.1
   argocd-root:
+  - apiVersion: v2
+    appVersion: 1.0.0
+    created: "2022-04-20T02:54:17.374955981Z"
+    digest: 2dcd8ef421af664106e459f6135da769a93160d5d454b1976a480011407db375
+    name: argocd-root
+    urls:
+    - https://github.com/MavenWave-DevOps/mw-charts/releases/download/argocd-root-0.0.13/argocd-root-0.0.13.tgz
+    version: 0.0.13
   - apiVersion: v2
     appVersion: 1.0.0
     created: "2022-04-20T02:50:55.096320809Z"
