@@ -1,5 +1,16 @@
 apiVersion: v1
 entries:
+  admin-iam:
+  - apiVersion: v2
+    appVersion: 1.0.0
+    created: "2022-04-20T01:36:58.713989377Z"
+    description: Deploys IAM admin service accounts and workload identity
+    digest: 379e58175b31713cd26ded395ff4dff6efbb573aca8f67ffc07b8ecc5e77d1b7
+    name: admin-iam
+    type: application
+    urls:
+    - https://github.com/MavenWave-DevOps/mw-charts/releases/download/admin-iam-0.0.2/admin-iam-0.0.2.tgz
+    version: 0.0.2
   app-iam:
   - apiVersion: v2
     appVersion: 1.0.0
