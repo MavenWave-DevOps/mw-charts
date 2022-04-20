@@ -18,6 +18,9 @@ metadata:
     kubernetes.io/ingress.global-static-ip-name: prometheus-ip
     networking.gke.io/managed-certificates: prometheus-cert
     networking.gke.io/v1beta1.FrontendConfig: frontendconfig
+    {{- if .Values.external_dns }}
+    external-dns.alpha.kubernetes.io/hostname: {{ include "domain" . -}}.
+    {{- end }}
 spec:
   defaultBackend:
     service:
