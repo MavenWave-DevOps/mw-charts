@@ -31,6 +31,7 @@ config: true
 
 argocd: false
 events: false
+rollouts: false
 workflows: false
 
 nginx: false
