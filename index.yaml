@@ -99,6 +99,17 @@ entries:
     version: 0.0.1
   argo-rollouts:
   - apiVersion: v2
+    created: "2022-04-20T04:05:53.13904774Z"
+    dependencies:
+    - name: argo-rollouts
+      repository: https://argoproj.github.io/argo-helm
+      version: 2.0.0
+    digest: 7f7ea4be39a6311b1c4acc4eb69434e609f8d7b35a22a3d465f2d9c4acf95257
+    name: argo-rollouts
+    urls:
+    - https://github.com/MavenWave-DevOps/mw-charts/releases/download/argo-rollouts-0.0.7/argo-rollouts-0.0.7.tgz
+    version: 0.0.7
+  - apiVersion: v2
     created: "2022-04-20T03:58:18.908395711Z"
     dependencies:
     - name: argo-rollouts
@@ -154,6 +165,17 @@ entries:
     - https://github.com/MavenWave-DevOps/mw-charts/releases/download/argo-rollouts-0.0.1/argo-rollouts-0.0.1.tgz
     version: 0.0.1
   argo-workflows:
+  - apiVersion: v2
+    created: "2022-04-20T04:05:53.252139691Z"
+    dependencies:
+    - name: argo-workflows
+      repository: https://argoproj.github.io/argo-helm
+      version: 0.8.3
+    digest: a8e7d8daad406599ddf9a1dc49fc674f9106a9e18849bdb5ced827bfba8af7ba
+    name: argo-workflows
+    urls:
+    - https://github.com/MavenWave-DevOps/mw-charts/releases/download/argo-workflows-0.0.7/argo-workflows-0.0.7.tgz
+    version: 0.0.7
   - apiVersion: v2
     created: "2022-04-20T02:54:17.174311541Z"
     dependencies:
@@ -243,6 +265,14 @@ entries:
     - https://github.com/MavenWave-DevOps/mw-charts/releases/download/argocd-platform-0.0.1/argocd-platform-0.0.1.tgz
     version: 0.0.1
   argocd-root:
+  - apiVersion: v2
+    appVersion: 1.0.0
+    created: "2022-04-20T04:05:53.386941323Z"
+    digest: 17ea970b3799545eb956fd34a19c62d701ebdea88a9f5bdf620f2b2ad9701661
+    name: argocd-root
+    urls:
+    - https://github.com/MavenWave-DevOps/mw-charts/releases/download/argocd-root-0.0.22/argocd-root-0.0.22.tgz
+    version: 0.0.22
   - apiVersion: v2
     appVersion: 1.0.0
     created: "2022-04-20T03:58:19.025298678Z"
@@ -570,6 +600,17 @@ entries:
     version: 0.0.1
   prometheus:
   - apiVersion: v2
+    created: "2022-04-20T04:05:53.565031157Z"
+    dependencies:
+    - name: kube-prometheus-stack
+      repository: https://prometheus-community.github.io/helm-charts
+      version: 33.2.0
+    digest: 7f7c3b724143de606ac0092bb34d4884c42ab6dcfb4feb54910c732039291119
+    name: prometheus
+    urls:
+    - https://github.com/MavenWave-DevOps/mw-charts/releases/download/prometheus-0.0.6/prometheus-0.0.6.tgz
+    version: 0.0.6
+  - apiVersion: v2
     created: "2022-04-20T03:06:14.749709373Z"
     dependencies:
     - name: kube-prometheus-stack
@@ -785,6 +826,17 @@ entries:
     - https://github.com/MavenWave-DevOps/mw-charts/releases/download/tenant-rbac-0.0.3/tenant-rbac-0.0.3.tgz
     version: 0.0.3
   vault:
+  - apiVersion: v2
+    created: "2022-04-20T04:05:53.697106345Z"
+    dependencies:
+    - name: vault
+      repository: https://helm.releases.hashicorp.com
+      version: 0.19.0
+    digest: bf18602ff516efc677f073b8e0548ad1c70f80a1579d6cefe949a97f1058f1df
+    name: vault
+    urls:
+    - https://github.com/MavenWave-DevOps/mw-charts/releases/download/vault-0.0.6/vault-0.0.6.tgz
+    version: 0.0.6
   - apiVersion: v2
     created: "2022-04-20T02:34:33.728209566Z"
     dependencies:
