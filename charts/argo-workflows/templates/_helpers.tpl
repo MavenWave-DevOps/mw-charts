@@ -4,8 +4,8 @@
 {{- end }}
 
 
-{{- define "workflows_sa" -}}
-  {{- required "REQUIRED: workflows_sa" $.Values.workflows_sa -}}
+{{- define "ip_admin_sa" -}}
+  {{- required "REQUIRED: ip_admin_sa" $.Values.ip_admin_sa -}}
 {{- end }}
 
 

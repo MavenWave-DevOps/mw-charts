@@ -4,8 +4,8 @@
 {{- end }}
 
 
-{{- define "vault_sa" -}}
-  {{- required "REQUIRED: vault_sa" $.Values.vault_sa -}}
+{{- define "ip_admin_sa" -}}
+  {{- required "REQUIRED: ip_admin_sa" $.Values.ip_admin_sa -}}
 {{- end }}
 
 

@@ -4,8 +4,8 @@
 {{- end }}
 
 
-{{- define "rollouts_sa" -}}
-  {{- required "REQUIRED: rollouts_sa" $.Values.rollouts_sa -}}
+{{- define "ip_admin_sa" -}}
+  {{- required "REQUIRED: ip_admin_sa" $.Values.ip_admin_sa -}}
 {{- end }}
 
 

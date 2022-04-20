@@ -17,7 +17,11 @@ spec:
   source:
     chart: argo-workflows
     repoURL: {{ $.Values.charts_url }}
-    targetRevision: 0.0.3
+    targetRevision: 0.0.4
+    helm:
+      values: |
+        gke_project_id: {{ include "gke_project_id" $ }}
+        ip_admin_sa: {{ include "dns_admin_sa" $ }}
   syncPolicy:
     automated:
       prune: true

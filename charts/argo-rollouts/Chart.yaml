@@ -1,6 +1,6 @@
 apiVersion: v2
 name: argo-rollouts
-version: 0.0.3
+version: 0.0.4
 dependencies:
   - name: argo-rollouts
     version: 2.0.0
