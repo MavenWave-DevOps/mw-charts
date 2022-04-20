@@ -21,8 +21,8 @@ metadata:
     {{- end -}}
 
     {{- if .Values.cert_manager.enabled }}
-    cert-manager.io/cluster-issuer: "letsencrypt-nginx"
-    kubernetes.io/tls-acme: "true"
+    # cert-manager.io/cluster-issuer: "letsencrypt-nginx"
+    # kubernetes.io/tls-acme: "true"
     {{- else if .Values.ingress.cert }}
     networking.gke.io/managed-certificates: google-cert
     {{- end }}
