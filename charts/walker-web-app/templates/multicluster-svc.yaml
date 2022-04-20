@@ -1,5 +1,5 @@
 {{- if and (.Values.enabled) (not .Values.local) }}
-{{- if and (.Values.googe.ingress.mci) (.Values.ingress.google.primary) }}
+{{- if and (.Values.google.ingress.mci) (.Values.ingress.google.primary) }}
 
 apiVersion: networking.gke.io/v1
 kind: MultiClusterService
