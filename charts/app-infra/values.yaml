@@ -7,7 +7,7 @@ google:
 
 artifact_registry: true
 cloudbuild: true
-create_ip: true
+create_ip: false
 create_dns: false
 storage: true
   
