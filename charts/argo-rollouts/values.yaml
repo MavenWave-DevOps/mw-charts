@@ -1,5 +1,7 @@
 ingress: true
-domain: rollouts.walker.igniteme.dev
+domain: rollouts.igniteme.dev
+external_dns: true
+config_connector: true
 
 argo-rollouts:
   dashboard:

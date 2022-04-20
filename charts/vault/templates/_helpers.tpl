@@ -1,5 +1,4 @@
 
-
 {{- define "domain" -}}
   {{- required "REQUIRED: domain" $.Values.domain -}}
 {{- end }}
