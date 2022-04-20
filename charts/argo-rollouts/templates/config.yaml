@@ -23,8 +23,8 @@ spec:
     healthyThreshold: 1
     unhealthyThreshold: 2
     type: HTTP
-    requestPath: /healthz
-    port: 8080
+    requestPath: /
+    port: 3100
 
   {{- if .Values.use_iap }}
   iap:
