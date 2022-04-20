@@ -214,6 +214,14 @@ entries:
   argocd-root:
   - apiVersion: v2
     appVersion: 1.0.0
+    created: "2022-04-20T03:00:37.846416548Z"
+    digest: ee752eb30a058bfc2ddc9ce081bc537af9a27e52cf6c56affa7f4f5fc4802593
+    name: argocd-root
+    urls:
+    - https://github.com/MavenWave-DevOps/mw-charts/releases/download/argocd-root-0.0.14/argocd-root-0.0.14.tgz
+    version: 0.0.14
+  - apiVersion: v2
+    appVersion: 1.0.0
     created: "2022-04-20T02:54:17.374955981Z"
     digest: 2dcd8ef421af664106e459f6135da769a93160d5d454b1976a480011407db375
     name: argocd-root
