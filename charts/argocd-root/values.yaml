@@ -57,5 +57,5 @@ apps_iam: false
 app_infra: false
 platform: false
 
-app_version: 0.0.19
+app_version: 0.0.20
 
