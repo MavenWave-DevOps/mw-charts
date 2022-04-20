@@ -460,6 +460,17 @@ entries:
     urls:
     - https://github.com/MavenWave-DevOps/mw-charts/releases/download/tenant-admin-0.0.1/tenant-admin-0.0.1.tgz
     version: 0.0.1
+  tenant-rbac:
+  - apiVersion: v2
+    appVersion: 1.0.0
+    created: "2022-04-20T02:05:13.099976831Z"
+    description: Used to managed rbac for tenants in shared GKE cluster
+    digest: f103df94d417f5cae8a66687f2800aff38c251ed6e3e73d10d7ec5ddc3115b29
+    name: tenant-rbac
+    type: application
+    urls:
+    - https://github.com/MavenWave-DevOps/mw-charts/releases/download/tenant-rbac-0.0.3/tenant-rbac-0.0.3.tgz
+    version: 0.0.3
   vault:
   - apiVersion: v2
     created: "2022-04-20T01:43:25.93183834Z"
