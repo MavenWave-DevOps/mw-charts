@@ -50,9 +50,9 @@ spec:
     server: {{ $.Values.destination.server }}
     namespace: {{ .name -}}-platform
   source:
-    path: charts/platform
-    repoURL: {{ include "repo_url" $ }}
-    targetRevision: {{ include "targetRevision" $ }}
+    chart: platform
+    repoURL: {{ $.Values.charts_url }}
+    targetRevision: 0.0.1
     helm:
       values: |
         sa_project_id: {{ include "sa_project_id" $ }}

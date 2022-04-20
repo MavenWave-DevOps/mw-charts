@@ -1,23 +1,24 @@
-{{- if .Values.workflows }}
+{{- if .Values.gatekeeper }}
 
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: argo-workflows
+  name: gatekeeper
   namespace: {{ .Values.namespace }}
   labels:
     tier: service
+    tier: security
   finalizers:
     - resources-finalizer.argocd.argoproj.io
 spec:
   project: {{ .Values.root_project }}
   destination:
     server: {{ .Values.destination.server }}
-    namespace: argo-workflows
+    namespace: gatekeeper-system
   source:
-    path: charts/argo-workflows
-    repoURL: {{ include "repo_url" . }}
-    targetRevision: {{ include "targetRevision" . }}
+    chart: gatekeeper
+    repoURL: {{ $.Values.charts_url }}
+    targetRevision: 0.0.1
   syncPolicy:
     automated:
       prune: true

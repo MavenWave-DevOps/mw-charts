@@ -15,9 +15,9 @@ spec:
     server: {{ required "REQUIRED: destination.server" $.Values.destination.server }}
     namespace: {{ required "REQUIRED: namespace" $.Values.namespace }}
   source:
-    path: charts/argo-cd
-    repoURL: {{ include "repo_url" $ }}
-    targetRevision: {{ include "targetRevision" $ }}
+    chart: argo-cd
+    repoURL: {{ $.Values.charts_url }}
+    targetRevision: 0.0.1
     helm:
       values: |
         install_crds: false

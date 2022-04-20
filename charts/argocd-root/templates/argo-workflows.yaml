@@ -1,9 +1,9 @@
-{{- if .Values.rollouts }}
+{{- if .Values.workflows }}
 
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: argo-rollouts
+  name: argo-workflows
   namespace: {{ .Values.namespace }}
   labels:
     tier: service
@@ -13,10 +13,10 @@ spec:
   project: {{ .Values.root_project }}
   destination:
     server: {{ .Values.destination.server }}
-    namespace: {{ .Values.namespace }}
+    namespace: argo-workflows
   source:
-    path: charts/argo-rollouts
-    repoURL: {{ include "repo_url" . }}
+    chart: argo-workflows
+    repoURL: {{ $.Values.charts_url }}
     targetRevision: {{ include "targetRevision" . }}
   syncPolicy:
     automated:

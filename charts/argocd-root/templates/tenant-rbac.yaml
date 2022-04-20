@@ -1,10 +1,9 @@
-
-{{- if .Values.vault }}
+{{- if .Values.tenant_rbac }}
 
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: vault
+  name: tenant-rbac
   namespace: {{ .Values.namespace }}
   labels:
     tier: service
@@ -14,15 +13,15 @@ spec:
   project: {{ .Values.root_project }}
   destination:
     server: {{ .Values.destination.server }}
-    namespace: vault
+    namespace: tenant-rbac
   source:
-    path: charts/vault
-    repoURL: {{ include "repo_url" . }}
-    targetRevision: {{ include "targetRevision" . }}
+    chart: tenant-rbac
+    repoURL: {{ $.Values.charts_url }}
+    targetRevision: 0.0.1
     helm:
       values: |
-        vault_sa: {{ include "dns_admin_sa" $ }}
-        gke_project_id: {{ include "gke_project_id" $ }}
+        app_lifecycles: {{ print "\n" }}{{ $.Values.app_lifecycles | toYaml | indent 10 }}
+        tenants: {{ print "\n" }}{{ required "REQUIRED: tenants" .Values.tenants | toYaml | indent 8 }}
   syncPolicy:
     automated:
       prune: true

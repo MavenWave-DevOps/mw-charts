@@ -1,23 +1,24 @@
-{{- if .Values.tenant_rbac }}
+{{- if .Values.gatekeeper_policies }}
 
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: tenant-rbac
+  name: gatekeeper-policies
   namespace: {{ .Values.namespace }}
   labels:
     tier: service
+    tier: security
   finalizers:
     - resources-finalizer.argocd.argoproj.io
 spec:
   project: {{ .Values.root_project }}
   destination:
     server: {{ .Values.destination.server }}
-    namespace: tenant-rbac
+    namespace: gatekeeper-system
   source:
-    path: charts/tenant-rbac
-    repoURL: {{ include "repo_url" . }}
-    targetRevision: {{ include "targetRevision" . }}
+    chart: gatekeeper-policies
+    repoURL: {{ $.Values.charts_url }}
+    targetRevision: 0.0.1
     helm:
       values: |
         app_lifecycles: {{ print "\n" }}{{ $.Values.app_lifecycles | toYaml | indent 10 }}

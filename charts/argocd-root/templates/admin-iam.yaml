@@ -16,9 +16,9 @@ spec:
     server: {{ $.Values.destination.server }}
     namespace: admin-iam
   source:
-    path: charts/admin-iam
-    repoURL: {{ include "repo_url" $ }}
-    targetRevision: {{ include "targetRevision" $ }}
+    chart: admin-iam
+    repoURL: {{ $.Values.charts_url }}
+    targetRevision: 0.0.1
     helm:
       values: |
         admin_sa: {{ include "admin_sa" $ }}

@@ -16,9 +16,9 @@ spec:
     server: {{ .Values.destination.server }}
     namespace: prometheus
   source:
-    path: charts/prometheus
-    repoURL: {{ include "repo_url" . }}
-    targetRevision: {{ include "targetRevision" . }}
+    chart: prometheus
+    repoURL: {{ $.Values.charts_url }}
+    targetRevision: 0.0.1
   syncPolicy:
     automated:
       prune: true
