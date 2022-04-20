@@ -99,6 +99,17 @@ entries:
     version: 0.0.1
   argo-rollouts:
   - apiVersion: v2
+    created: "2022-04-20T03:58:18.908395711Z"
+    dependencies:
+    - name: argo-rollouts
+      repository: https://argoproj.github.io/argo-helm
+      version: 2.0.0
+    digest: cebd6321175b3e46fa5a0123f62f3fa9d9e52ca14f035959ba2655014fba0694
+    name: argo-rollouts
+    urls:
+    - https://github.com/MavenWave-DevOps/mw-charts/releases/download/argo-rollouts-0.0.6/argo-rollouts-0.0.6.tgz
+    version: 0.0.6
+  - apiVersion: v2
     created: "2022-04-20T02:41:15.303647529Z"
     dependencies:
     - name: argo-rollouts
@@ -232,6 +243,14 @@ entries:
     - https://github.com/MavenWave-DevOps/mw-charts/releases/download/argocd-platform-0.0.1/argocd-platform-0.0.1.tgz
     version: 0.0.1
   argocd-root:
+  - apiVersion: v2
+    appVersion: 1.0.0
+    created: "2022-04-20T03:58:19.025298678Z"
+    digest: 03157667af1a23a9e0ac1467bd3e4f5779bc1ad80bd2d5dea48cc52e41a56c1f
+    name: argocd-root
+    urls:
+    - https://github.com/MavenWave-DevOps/mw-charts/releases/download/argocd-root-0.0.21/argocd-root-0.0.21.tgz
+    version: 0.0.21
   - apiVersion: v2
     appVersion: 1.0.0
     created: "2022-04-20T03:34:44.608428751Z"
