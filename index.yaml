@@ -310,6 +310,14 @@ entries:
   argocd-root:
   - apiVersion: v2
     appVersion: 1.0.0
+    created: "2022-04-20T18:25:58.678147022Z"
+    digest: 27981f56cc4fbaa3c7ecfe78a4c980c8e84a6e4e2e93c344254866f429b12b6d
+    name: argocd-root
+    urls:
+    - https://github.com/MavenWave-DevOps/mw-charts/releases/download/argocd-root-0.0.35/argocd-root-0.0.35.tgz
+    version: 0.0.35
+  - apiVersion: v2
+    appVersion: 1.0.0
     created: "2022-04-20T18:20:59.01829163Z"
     digest: fd3abf0166615a3c964eb9675442710110438bbe32b5150c28b5f85c0aecb295
     name: argocd-root
@@ -1024,6 +1032,16 @@ entries:
     - https://github.com/MavenWave-DevOps/mw-charts/releases/download/vault-0.0.3/vault-0.0.3.tgz
     version: 0.0.3
   walker-web-app:
+  - apiVersion: v2
+    appVersion: 1.0.0
+    created: "2022-04-20T18:25:58.798390487Z"
+    description: A Helm chart for deploying web applications
+    digest: 7c106c65b3a284a2b87af7e88e76860490f7effe924319c851a4dd629d6a81e6
+    name: walker-web-app
+    type: application
+    urls:
+    - https://github.com/MavenWave-DevOps/mw-charts/releases/download/walker-web-app-0.0.20/walker-web-app-0.0.20.tgz
+    version: 0.0.20
   - apiVersion: v2
     appVersion: 1.0.0
     created: "2022-04-20T16:41:50.660874994Z"
