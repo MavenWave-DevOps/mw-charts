@@ -297,6 +297,18 @@ entries:
     urls:
     - https://github.com/MavenWave-DevOps/mw-charts/releases/download/platform-admin-0.0.1/platform-admin-0.0.1.tgz
     version: 0.0.1
+  prometheus:
+  - apiVersion: v2
+    created: "2022-04-20T02:13:19.076621024Z"
+    dependencies:
+    - name: kube-prometheus-stack
+      repository: https://prometheus-community.github.io/helm-charts
+      version: 33.2.0
+    digest: 9fa38b875e9f5c4d5f6e8bbdaa0f98f457f2cf7b3f78491e6ba05a6e80d77514
+    name: prometheus
+    urls:
+    - https://github.com/MavenWave-DevOps/mw-charts/releases/download/prometheus-0.0.3/prometheus-0.0.3.tgz
+    version: 0.0.3
   tenant-admin:
   - apiVersion: v2
     appVersion: 0.0.1
