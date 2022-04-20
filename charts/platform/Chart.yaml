@@ -3,4 +3,4 @@ name: platform
 description: A Helm chart for deploying Argo CD web applications
 type: application
 appVersion: 0.0.1
-version: 0.0.4
+version: 0.0.5

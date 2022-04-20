@@ -38,7 +38,10 @@ spec:
           enabled: false
         nginx_ingress:
           enabled: true
-          use_tls: false
+          https: false
+        google:
+          ingress:
+            enabled: false
       # valueFiles:
       #   - values/{{- .name -}}.yaml
   syncPolicy:
