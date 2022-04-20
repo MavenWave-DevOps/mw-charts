@@ -35,6 +35,17 @@ entries:
     version: 0.0.1
   argo-cd:
   - apiVersion: v2
+    created: "2022-04-20T02:41:15.1581528Z"
+    dependencies:
+    - name: argo-cd
+      repository: https://argoproj.github.io/argo-helm
+      version: 4.2.1
+    digest: cffe913deffba3d6457d0a67656960ca7721db7a1b87db69a9d6af8640acf8b4
+    name: argo-cd
+    urls:
+    - https://github.com/MavenWave-DevOps/mw-charts/releases/download/argo-cd-0.0.4/argo-cd-0.0.4.tgz
+    version: 0.0.4
+  - apiVersion: v2
     created: "2022-02-04T17:12:52.941786226Z"
     dependencies:
     - name: argo-cd
@@ -46,6 +57,17 @@ entries:
     - https://github.com/MavenWave-DevOps/mw-charts/releases/download/argo-cd-0.0.1/argo-cd-0.0.1.tgz
     version: 0.0.1
   argo-rollouts:
+  - apiVersion: v2
+    created: "2022-04-20T02:41:15.303647529Z"
+    dependencies:
+    - name: argo-rollouts
+      repository: https://argoproj.github.io/argo-helm
+      version: 2.0.0
+    digest: b140dcd7aea77e64a3e31f7b95a5be1866e15bc4414be9307f06d792115683b6
+    name: argo-rollouts
+    urls:
+    - https://github.com/MavenWave-DevOps/mw-charts/releases/download/argo-rollouts-0.0.5/argo-rollouts-0.0.5.tgz
+    version: 0.0.5
   - apiVersion: v2
     created: "2022-04-20T02:34:33.354402824Z"
     dependencies:
@@ -80,6 +102,17 @@ entries:
     - https://github.com/MavenWave-DevOps/mw-charts/releases/download/argo-rollouts-0.0.1/argo-rollouts-0.0.1.tgz
     version: 0.0.1
   argo-workflows:
+  - apiVersion: v2
+    created: "2022-04-20T02:41:15.434747588Z"
+    dependencies:
+    - name: argo-workflows
+      repository: https://argoproj.github.io/argo-helm
+      version: 0.8.3
+    digest: 9766a4783d453803a4d89b8bca00287a7a7cfaab6dcd56f28a832cefe2fa2e33
+    name: argo-workflows
+    urls:
+    - https://github.com/MavenWave-DevOps/mw-charts/releases/download/argo-workflows-0.0.5/argo-workflows-0.0.5.tgz
+    version: 0.0.5
   - apiVersion: v2
     created: "2022-04-20T02:34:33.476702751Z"
     dependencies:
@@ -147,6 +180,14 @@ entries:
     - https://github.com/MavenWave-DevOps/mw-charts/releases/download/argocd-platform-0.0.1/argocd-platform-0.0.1.tgz
     version: 0.0.1
   argocd-root:
+  - apiVersion: v2
+    appVersion: 1.0.0
+    created: "2022-04-20T02:41:15.554637212Z"
+    digest: db0f0eee78c4c9a1e51460cbca6519c60f0ef9be01894d009034d9ba94692b3f
+    name: argocd-root
+    urls:
+    - https://github.com/MavenWave-DevOps/mw-charts/releases/download/argocd-root-0.0.10/argocd-root-0.0.10.tgz
+    version: 0.0.10
   - apiVersion: v2
     appVersion: 1.0.0
     created: "2022-04-20T02:34:33.597644785Z"
@@ -366,6 +407,17 @@ entries:
     - https://github.com/MavenWave-DevOps/mw-charts/releases/download/platform-admin-0.0.1/platform-admin-0.0.1.tgz
     version: 0.0.1
   prometheus:
+  - apiVersion: v2
+    created: "2022-04-20T02:41:15.719583973Z"
+    dependencies:
+    - name: kube-prometheus-stack
+      repository: https://prometheus-community.github.io/helm-charts
+      version: 33.2.0
+    digest: 679da5ceff5c702fb7f10fd8507579eac6b83479f8fea2dccc09c106ea243127
+    name: prometheus
+    urls:
+    - https://github.com/MavenWave-DevOps/mw-charts/releases/download/prometheus-0.0.4/prometheus-0.0.4.tgz
+    version: 0.0.4
   - apiVersion: v2
     created: "2022-04-20T02:13:19.076621024Z"
     dependencies:
