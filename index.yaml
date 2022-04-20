@@ -47,6 +47,17 @@ entries:
     version: 0.0.1
   argo-rollouts:
   - apiVersion: v2
+    created: "2022-04-20T02:34:33.354402824Z"
+    dependencies:
+    - name: argo-rollouts
+      repository: https://argoproj.github.io/argo-helm
+      version: 2.0.0
+    digest: 29e031fdff3bce90d646aeab3edd8b535511d609c2df6e1450dfde49c93e89d7
+    name: argo-rollouts
+    urls:
+    - https://github.com/MavenWave-DevOps/mw-charts/releases/download/argo-rollouts-0.0.4/argo-rollouts-0.0.4.tgz
+    version: 0.0.4
+  - apiVersion: v2
     created: "2022-04-20T02:27:28.855407818Z"
     dependencies:
     - name: argo-rollouts
@@ -69,6 +80,17 @@ entries:
     - https://github.com/MavenWave-DevOps/mw-charts/releases/download/argo-rollouts-0.0.1/argo-rollouts-0.0.1.tgz
     version: 0.0.1
   argo-workflows:
+  - apiVersion: v2
+    created: "2022-04-20T02:34:33.476702751Z"
+    dependencies:
+    - name: argo-workflows
+      repository: https://argoproj.github.io/argo-helm
+      version: 0.8.3
+    digest: 0b8778f2d87cc89d5d9acb73f27e67dbf5b12ebbbce73261cca7ad6d90c90d41
+    name: argo-workflows
+    urls:
+    - https://github.com/MavenWave-DevOps/mw-charts/releases/download/argo-workflows-0.0.4/argo-workflows-0.0.4.tgz
+    version: 0.0.4
   - apiVersion: v2
     created: "2022-04-20T02:27:29.060896724Z"
     dependencies:
@@ -125,6 +147,14 @@ entries:
     - https://github.com/MavenWave-DevOps/mw-charts/releases/download/argocd-platform-0.0.1/argocd-platform-0.0.1.tgz
     version: 0.0.1
   argocd-root:
+  - apiVersion: v2
+    appVersion: 1.0.0
+    created: "2022-04-20T02:34:33.597644785Z"
+    digest: b1bdedfc4bdac728abcbb8a3cb88ebf44f164fc443c4d24b8f27195628527019
+    name: argocd-root
+    urls:
+    - https://github.com/MavenWave-DevOps/mw-charts/releases/download/argocd-root-0.0.9/argocd-root-0.0.9.tgz
+    version: 0.0.9
   - apiVersion: v2
     appVersion: 1.0.0
     created: "2022-04-20T02:27:29.24640047Z"
@@ -530,6 +560,17 @@ entries:
     - https://github.com/MavenWave-DevOps/mw-charts/releases/download/tenant-rbac-0.0.3/tenant-rbac-0.0.3.tgz
     version: 0.0.3
   vault:
+  - apiVersion: v2
+    created: "2022-04-20T02:34:33.728209566Z"
+    dependencies:
+    - name: vault
+      repository: https://helm.releases.hashicorp.com
+      version: 0.19.0
+    digest: db32b66833ed6b45527407e43c41cc191e2fe6245ccf8671b1e4495c0b74a2e5
+    name: vault
+    urls:
+    - https://github.com/MavenWave-DevOps/mw-charts/releases/download/vault-0.0.5/vault-0.0.5.tgz
+    version: 0.0.5
   - apiVersion: v2
     created: "2022-04-20T02:27:29.474254441Z"
     dependencies:
