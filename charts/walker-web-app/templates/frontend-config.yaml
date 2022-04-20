@@ -1,4 +1,5 @@
 {{- if and (.Values.enabled) (not .Values.local) }}
+{{- if .Values.google.ingress.https  }}
 
 apiVersion: networking.gke.io/v1beta1
 kind: FrontendConfig
@@ -11,4 +12,5 @@ spec:
     enabled: true
     responseCodeName: MOVED_PERMANENTLY_DEFAULT
 
+{{- end }}
 {{- end }}

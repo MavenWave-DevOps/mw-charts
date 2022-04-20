@@ -1,5 +1,5 @@
 {{- if and (.Values.enabled) (not .Values.local) }}
-{{- if and (.Values.ingress.mci) (.Values.ingress.primary) }}
+{{- if and (.Values.googe.ingress.mci) (.Values.ingress.google.primary) }}
 
 apiVersion: networking.gke.io/v1
 kind: MultiClusterService
@@ -23,7 +23,7 @@ spec:
         targetPort: 80
   clusters:
   - link: us-central1/central-cluster
-  {{- if .Values.ingress.use_failover }}
+  {{- if .Values.google.ingress.use_failover }}
   - link: us-east4/east-cluster
   {{- end }}
 

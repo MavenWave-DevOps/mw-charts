@@ -39,6 +39,12 @@ google:
   region: us-central1
   zone: us-central1-a
   registry: app-images
+  ingress:
+    enabled: true
+    https: true
+    mci: false
+    primary: false
+    use_failover: false
   iap:
     enabled: false
     test:
@@ -73,6 +79,7 @@ external_secrets:
 
 nginx_ingress:
   enabled: false
+  https: false
 
 cert_manager:
   enabled: false

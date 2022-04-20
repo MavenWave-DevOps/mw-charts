@@ -35,9 +35,10 @@ spec:
         external_dns:
           enabled: true
         cert_manager:
-          enabled: true
+          enabled: false
         nginx_ingress:
           enabled: true
+          use_tls: false
       # valueFiles:
       #   - values/{{- .name -}}.yaml
   syncPolicy:

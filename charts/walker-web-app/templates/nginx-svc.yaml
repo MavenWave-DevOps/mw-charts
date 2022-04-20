@@ -1,5 +1,5 @@
 {{- if and (.Values.enabled) (.Values.nginx.enabled) }}
-{{- if not .Values.ingress.mci }}
+{{- if not .Values.google.ingress.mci }}
 
 apiVersion: v1
 kind: Service
