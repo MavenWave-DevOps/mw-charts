@@ -452,6 +452,18 @@ entries:
     urls:
     - https://github.com/MavenWave-DevOps/mw-charts/releases/download/tenant-admin-0.0.1/tenant-admin-0.0.1.tgz
     version: 0.0.1
+  vault:
+  - apiVersion: v2
+    created: "2022-04-20T01:43:25.93183834Z"
+    dependencies:
+    - name: vault
+      repository: https://helm.releases.hashicorp.com
+      version: 0.19.0
+    digest: 2f1b0c83a31ebcee52cab292cf6c78edc6a430cd106a811485d5d3139b9a52b8
+    name: vault
+    urls:
+    - https://github.com/MavenWave-DevOps/mw-charts/releases/download/vault-0.0.3/vault-0.0.3.tgz
+    version: 0.0.3
   walker-web-app:
   - apiVersion: v2
     appVersion: 1.0.0
