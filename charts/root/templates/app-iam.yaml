@@ -1,0 +1,54 @@
+{{- if .Values.apps_iam }}
+{{- range .Values.tenants }}
+{{- $tenant := . }}
+{{- range .apps }}
+{{- $app := . }}
+
+{{- range .lifecycles }}
+
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: {{ $tenant.name -}}-{{- $app.name -}}-{{- .name -}}-iam
+  namespace: {{ $.Values.namespace }}
+  labels:
+    tier: iam
+    tenant_code: {{ $tenant.name }}
+    app_code: {{ $app.name }}
+    lifecycle: {{ .name }}
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io
+spec:
+  project: {{ $.Values.root_project }}
+  destination:
+    server: {{ $.Values.destination.server }}
+    namespace: {{ $tenant.name -}}-{{- $app.name -}}-{{- .name -}}-iam
+  source:
+    path: charts/app-iam
+    repoURL: {{ include "repo_url" $ }}
+    targetRevision: {{ include "targetRevision" $ }}
+    helm:
+      values: |
+        sa_project_id: {{ include "sa_project_id" $ }}
+        dns_project_id: {{ include "dns_project_id" $ }}
+        gke_project_id: {{ include "gke_project_id" $ }}
+        db_project_id: {{ include "db_project_id" $ }}
+        app_project_id: {{ include "app_project_id" $ }}
+        tenant_code: {{ $tenant.name }}
+        app_code: {{ $app.name }}
+        lifecycle: {{ .name }}
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=true
+      - PruneLast=false
+
+---
+
+{{- end }}
+{{- end }}
+
+{{- end }}
+{{- end }}

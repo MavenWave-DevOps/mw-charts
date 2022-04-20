@@ -1,0 +1,30 @@
+{{- if .Values.loki }}
+
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: loki
+  namespace: {{ .Values.namespace }}
+  labels:
+    tier: service
+    tier: telemetry
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io
+spec:
+  project: {{ .Values.root_project }}
+  destination:
+    server: {{ .Values.destination.server }}
+    namespace: loki
+  source:
+    repoURL: https://grafana.github.io/helm-charts 
+    chart: loki
+    targetRevision: 2.4.2
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=true
+      - PruneLast=false
+
+{{- end }}

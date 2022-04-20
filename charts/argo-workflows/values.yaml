@@ -1,5 +1,5 @@
 ingress: true
-domain: workflows.argowalker.us
+domain: workflows.walker.igniteme.dev
 
 argo-workflows:
   singleNamespace: true

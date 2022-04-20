@@ -1,0 +1,34 @@
+
+{{- if .Values.vault }}
+
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: vault
+  namespace: {{ .Values.namespace }}
+  labels:
+    tier: service
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io
+spec:
+  project: {{ .Values.root_project }}
+  destination:
+    server: {{ .Values.destination.server }}
+    namespace: vault
+  source:
+    path: charts/vault
+    repoURL: {{ include "repo_url" . }}
+    targetRevision: {{ include "targetRevision" . }}
+    helm:
+      values: |
+        vault_sa: {{ include "dns_admin_sa" $ }}
+        gke_project_id: {{ include "gke_project_id" $ }}
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=true
+      - PruneLast=false
+
+{{- end }}

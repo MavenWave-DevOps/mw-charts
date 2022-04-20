@@ -1,0 +1,28 @@
+{{- if .Values.ingress -}}
+
+apiVersion: networking.gke.io/v1
+kind: ManagedCertificate
+metadata:
+  name: prometheus-cert
+spec:
+  domains:
+    - {{ include "domain" . }}
+
+---
+
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: prometheus-ingress
+  annotations:
+    kubernetes.io/ingress.global-static-ip-name: prometheus-ip
+    networking.gke.io/managed-certificates: prometheus-cert
+    networking.gke.io/v1beta1.FrontendConfig: frontendconfig
+spec:
+  defaultBackend:
+    service:
+      name: prometheus-svc
+      port:
+        number: 443
+
+{{- end -}}

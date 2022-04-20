@@ -5,15 +5,15 @@
   {{- if .Values.lifecycle }}
 
     {{- if eq .Values.lifecycle "prod" }}
-      {{- required "ArgoCD Domain Required" .Values.domain }}
+      {{- required "REQUIRED: domain" .Values.domain }}
 
     {{- else }}
-      {{- .Values.lifecycle -}}.{{- required "ArgoCD Domain Required" .Values.domain }}
+      {{- .Values.lifecycle -}}.{{- required "REQUIRED: domain" .Values.domain }}
 
     {{- end -}}
 
   {{- else }}
-    {{- required "ArgoCD Domain Required" .Values.domain }}
+    {{- required "REQUIRED: domain" .Values.domain }}
   {{- end -}}
 
 {{- end }}

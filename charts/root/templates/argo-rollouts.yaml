@@ -1,0 +1,29 @@
+{{- if .Values.rollouts }}
+
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: argo-rollouts
+  namespace: {{ .Values.namespace }}
+  labels:
+    tier: service
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io
+spec:
+  project: {{ .Values.root_project }}
+  destination:
+    server: {{ .Values.destination.server }}
+    namespace: {{ .Values.namespace }}
+  source:
+    path: charts/argo-rollouts
+    repoURL: {{ include "repo_url" . }}
+    targetRevision: {{ include "targetRevision" . }}
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=true
+      - PruneLast=false
+
+{{- end }}

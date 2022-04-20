@@ -9,6 +9,11 @@
 {{- end -}}
 
 
+{{- define "dns_project_id" -}}
+  {{- required "REQUIRED: dns_project_id " $.Values.dns_project_id -}}
+{{- end -}}
+
+
 {{- define "gke_project_id" -}}
   {{- required "REQUIRED: gke_project_id" $.Values.gke_project_id -}}
 {{- end -}}
@@ -20,13 +25,8 @@
 
 
 {{- define "app_project_id" -}}
-  {{- required "REQUIRED app_code" .Values.app_code -}}-app-project
+  {{- required "REQUIRED: app_project_id " $.Values.app_project_id -}}
 {{- end -}}
-
-
-{{- define "app_admin_sa" -}}
-  {{- include "app_namespace" $ }}-infra-admin@{{- include "sa_project_id" . -}}.iam.gserviceaccount.com
-{{- end }}
 
 
 {{- define "app_namespace" }}
@@ -39,13 +39,8 @@
 {{- end }}
 
 
-
 {{- define "branch" -}}
-  {{- if eq .Values.lifecycle "prod" }}
-    {{- "main" }}
-  {{- else }}
-    {{- include "lifecycle" $ }}
-  {{- end }}
+  {{- "main" }}
 {{- end }}
 
 
@@ -58,13 +53,18 @@
 {{- end }}
 
 
+{{- define "app_admin_sa" -}}
+  {{- .Values.tenant_code -}}-{{ .Values.app_code -}}-{{ include "lifecycle" $ -}}-infra@{{- include "sa_project_id" . -}}.iam.gserviceaccount.com
+{{- end }}
+
+
 {{- define "app_sa" -}}
-  {{- include "app_namespace" $ }}-app-workload@{{- include "sa_project_id" . -}}.iam
+  {{- .Values.tenant_code -}}-{{ .Values.app_code -}}-{{ include "lifecycle" $ -}}-workload@{{- include "sa_project_id" . -}}.iam.gserviceaccount.com
 {{- end -}}
 
 
 {{- define "cicd_sa" -}}
-  {{- "projects/" -}}{{- include "app_project_id" $ }}/serviceAccounts/{{ include "lifecycle" $ }}-{{- required "REQUIRED app_code" .Values.app_code -}}-cicd@{{- include "app_project_id" . }}.iam.gserviceaccount.com
+  {{- "projects/" -}}{{- include "app_project_id" $ }}/serviceAccounts/cicd@{{- include "app_project_id" . }}.iam.gserviceaccount.com
 {{- end -}}
 
 

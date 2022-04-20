@@ -1,0 +1,32 @@
+{{- if .Values.argocd }}
+
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: argo-cd
+  namespace: {{ $.Values.namespace }}
+  labels:
+    tier: service
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io
+spec:
+  project: {{ required "REQUIRED: root_project" $.Values.root_project }}
+  destination:
+    server: {{ required "REQUIRED: destination.server" $.Values.destination.server }}
+    namespace: {{ required "REQUIRED: namespace" $.Values.namespace }}
+  source:
+    path: charts/argo-cd
+    repoURL: {{ include "repo_url" $ }}
+    targetRevision: {{ include "targetRevision" $ }}
+    helm:
+      values: |
+        install_crds: false
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=false
+      - PruneLast=false
+
+{{- end }}

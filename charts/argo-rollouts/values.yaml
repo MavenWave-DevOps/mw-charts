@@ -1,5 +1,5 @@
-ingress: false
-domain: rollouts.argowalker.us
+ingress: true
+domain: rollouts.walker.igniteme.dev
 
 argo-rollouts:
   dashboard:

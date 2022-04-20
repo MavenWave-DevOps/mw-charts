@@ -1,0 +1,44 @@
+
+apiVersion: iam.cnrm.cloud.google.com/v1beta1
+kind: IAMPartialPolicy
+metadata:
+  name: iam-admin-partial-policy
+spec:
+  resourceRef:
+    apiVersion: resourcemanager.cnrm.cloud.google.com/v1beta1
+    kind: Folder
+    external: {{ include "admin_folder_id" $ }}
+    # kind: Project
+    # external: {{ include "app_project_id" $ }}
+  bindings:
+    - role: roles/dns.admin
+      members:
+        - member: serviceAccount:dns-admin@{{- include "sa_project_id" $ -}}.iam.gserviceaccount.com
+    - role: roles/compute.publicIpAdmin
+      members:
+        - member: serviceAccount:dns-admin@{{- include "sa_project_id" $ -}}.iam.gserviceaccount.com
+
+    - role: roles/resourcemanager.folderIamAdmin
+      members:
+      {{- range .Values.tenants }}
+      {{- $tenant := . }}
+      {{- range .apps }}
+      {{- $app := . }}
+      {{- range .lifecycles }}
+        - member: serviceAccount:{{- $tenant.name -}}-{{- $app.name -}}-{{- .name -}}-admin@{{- include "sa_project_id" $ -}}.iam.gserviceaccount.com
+      {{- end }}
+      {{- end }}
+      {{- end }}
+
+    - role: roles/iam.serviceAccountAdmin
+      members:
+      {{- range .Values.tenants }}
+      {{- $tenant := . }}
+      {{- range .apps }}
+      {{- $app := . }}
+      {{- range .lifecycles }}
+        - member: serviceAccount:{{- $tenant.name -}}-{{- $app.name -}}-{{- .name -}}-admin@{{- include "sa_project_id" $ -}}.iam.gserviceaccount.com
+      {{- end }}
+      {{- end }}
+      {{- end }}
+

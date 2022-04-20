@@ -1,0 +1,60 @@
+
+namespace: argo-cd
+root_project: root-project
+
+github_org: MavenWave-DevOps
+charts_url: https://mavenwave-devops.github.io/mw-charts 
+
+repo_name: ignite-walker
+app_repo_name: ignite-walker
+
+admin_folder_id: "folders/201212723533"
+dns_project_id: ignite-dns-project-vpy
+sa_project_id: ignite-walker-project-gbt
+
+gke_project_id: ignite-walker-project-gbt
+db_project_id: ignite-walker-project-gbt
+
+app_project_id: ignite-walker-project-gbt
+
+destination:
+  server: https://kubernetes.default.svc
+  # prod_server: https://35.222.144.6 
+
+google:
+  region: us-central1
+  zone: us-central1-a
+
+root: true
+
+config: true
+
+argocd: false
+events: false
+workflows: false
+
+nginx: false
+cert_manager: false
+external_dns: false
+
+rbac_manager: false
+tenant_rbac: false
+
+external_secrets: false
+vault: false
+
+gatekeeper: false
+gatekeeper_policies: false
+
+prometheus: false
+loki: false
+
+linkerd: false
+
+admin_iam: false
+apps_iam: false
+app_infra: false
+platform: false
+
+app_version: 0.0.13
+

@@ -17,6 +17,18 @@ kind: BackendConfig
 metadata:
   name: argocd-backendconfig
 spec:
+  {{- if .Values.google.cloud_armor_policy }}
+  securityPolicy:
+    name: {{ .Values.google.cloud_armor_policy }}
+  {{- end }}
+
+  {{- if .Values.google.use_iap }}
+  iap:
+    enabled: {{ .Values.google.use_iap }}
+    oauthclientCredentials:
+      secretName: oauth-credentials
+  {{- end }}
+
   healthCheck:
     checkIntervalSec: 30
     timeoutSec: 5

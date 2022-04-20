@@ -2,10 +2,12 @@
 apiVersion: iam.cnrm.cloud.google.com/v1beta1
 kind: IAMServiceAccount
 metadata:
-  name: {{ include "lifecycle" $ -}}-{{- .Values.app_code -}}-app-cicd
+  name: {{ include "tenant_code" $ -}}-{{- include "app_code" $ -}}-{{- include "lifecycle" $ -}}-cicd
   annotations:
     cnrm.cloud.google.com/force-destroy: "true"
-    cnrm.cloud.google.com/project-id: {{ .Values.app_code -}}-app-project
+    cnrm.cloud.google.com/project-id: {{ include "app_project_id" . }}
 spec:
-  displayName: "{{ include "lifecycle" $ }} {{ .Values.app_code }} cicd service account"
+  displayName: "{{ include "lifecycle" $ }} {{ include "tenant_code" $ }} {{ include "app_code" $ }} cicd service account"
+
+
 

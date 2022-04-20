@@ -1,0 +1,33 @@
+{{- if .Values.tenant_rbac }}
+
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: tenant-rbac
+  namespace: {{ .Values.namespace }}
+  labels:
+    tier: service
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io
+spec:
+  project: {{ .Values.root_project }}
+  destination:
+    server: {{ .Values.destination.server }}
+    namespace: tenant-rbac
+  source:
+    path: charts/tenant-rbac
+    repoURL: {{ include "repo_url" . }}
+    targetRevision: {{ include "targetRevision" . }}
+    helm:
+      values: |
+        app_lifecycles: {{ print "\n" }}{{ $.Values.app_lifecycles | toYaml | indent 10 }}
+        tenants: {{ print "\n" }}{{ required "REQUIRED: tenants" .Values.tenants | toYaml | indent 8 }}
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=true
+      - PruneLast=false
+
+{{- end }}

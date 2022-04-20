@@ -1,0 +1,4 @@
+
+use_config_connector: true
+use_pd: true
+use_cert_manager: true

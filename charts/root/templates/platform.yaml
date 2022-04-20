@@ -1,0 +1,77 @@
+{{- range .Values.tenants }}
+{{- $tenant := . }}
+
+apiVersion: argoproj.io/v1alpha1
+kind: AppProject
+metadata:
+  name: {{ .name }}-project
+  namespace: argo-cd
+spec:
+  clusterResourceWhitelist:
+  - group: '*'
+    kind: '*'
+  destinations:
+  {{- range .apps }}
+  {{- $app := . }}
+  {{- range .lifecycles }}
+  - namespace: {{ $tenant.name -}}-{{- $app.name -}}-{{ .name -}}-app
+    server: {{ $.Values.destination.server }}
+  {{- end }}
+  {{- end }}
+  sourceRepos:
+  - '*'
+  roles:
+  - name: read-only
+    description: Read-only privileges to {{ .name }} project
+    policies:
+    - p, role:image-updater, applications, get, */*, allow
+    - p, role:image-updater, applications, update, */*, allow
+    - g, image-updater, role:image-updater
+    - p, role:{{- .name -}}-viewer-role, applications, get, {{ .name -}}-project/*, allow
+    - g, {{ .name -}}, role:{{- .name -}}-viewer-role
+
+---
+
+{{- if $.Values.platform }}
+
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: {{ .name -}}-app-deployments
+  namespace: {{ $.Values.namespace }}
+  labels:
+    tier: platform
+    tenant: {{ .name }}
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io
+spec:
+  project: {{ $.Values.root_project }}
+  destination:
+    server: {{ $.Values.destination.server }}
+    namespace: {{ .name -}}-platform
+  source:
+    path: charts/platform
+    repoURL: {{ include "repo_url" $ }}
+    targetRevision: {{ include "targetRevision" $ }}
+    helm:
+      values: |
+        sa_project_id: {{ include "sa_project_id" $ }}
+        db_project_id: {{ include "db_project_id" $ }}
+        app_project_id: {{ include "app_project_id" $ }}
+        github_org: {{ required "REQUIRED: github_org" $.Values.github_org }}
+        helm_repo_url: {{ required "REQUIRED: charts_url" $.Values.charts_url }}
+        target_revision: {{ required "REQUIRED: app_version" $.Values.app_version }}
+        server: {{ $.Values.destination.server }}
+        tenant_code: {{ .name }}
+        app_repo_name: {{ include "app_repo_name" $ }}
+        apps: {{ print "\n" }}{{ .apps | toYaml | indent 10 }}
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=true
+      - PruneLast=false
+
+{{ end }}
+{{ end }}

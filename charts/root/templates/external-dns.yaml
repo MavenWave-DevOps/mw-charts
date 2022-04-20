@@ -1,0 +1,40 @@
+{{ if .Values.external_dns }}
+
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: external-dns
+  namespace: {{ .Values.namespace }}
+  labels:
+    tier: platform
+    tier: service
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io
+spec:
+  project: {{ .Values.root_project }}
+  destination:
+    server: {{ .Values.destination.server }}
+    namespace: external-dns
+  source:
+    repoURL: https://kubernetes-sigs.github.io/external-dns 
+    chart: external-dns
+    targetRevision: 1.7.1
+    helm:
+      values: |
+        external-dns:
+          provider: google
+          policy: sync
+          extraArgs:
+            - --google-project={{- include "dns_project_id" $ }}
+          serviceAccount:
+            annotations:
+              iam.gke.io/gcp-service-account: {{ include "dns_admin_sa" $ }}
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=true
+      - PruneLast=false
+
+{{- end }}

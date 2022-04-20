@@ -1,5 +1,10 @@
-ingress: true
-domain: argowalker.us
+ingress: false
+domain: argo.igniteme.dev
+install_crds: false
+
+google:
+  use_iap: false
+  cloud_armor_policy: us-only
 
 argo-cd:
   installCRDs: false
@@ -8,6 +13,12 @@ argo-cd:
       tag: v2.1.6
   dex:
     enabled: false
+  configs:
+    knownHosts:
+      data:
+        ssh_known_hosts: |
+          github.com ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQC9CL3sd6oWoVzLMwRgHBCucs0GW/wJxcVt1+Oo+QoOQF3SJ7o4JhX5N5q3UjnLxJxxettxCybLgurfiiBXMmkB++OfO9CR626ItSsbAP6Bs23nD7/pvt9ebpGUnH7MkqpmnqKqvixGozZ7ZNXZzsMUCE+aoKgtyO3BMLwYMBBmv8OnqRnsaR6P+DrV7UHYVCNRaYNl21SZLdTbtNASRd3GmetuJVq9ZWf7vI3tdXCrMEAMdij//8dBAgdlD8Ub4Ea+vteQd2bPOzW8HXjFltroH0WSotTLMVMrjpYjlQDe1JGHRsbXGInYFu4fUCfMTNbsgwAoOHaeobq9cKtL0iEZ18c81HZiGJpaE0MfkuwzXJSJuiXoG4o7ZP+kH1Yoc5Ms4Hm3xwwhp4GVE3ExgRlKN8Glw948CByWcv9zHCRHZpisNBChDIa++qq6nM1CrKkwZNCvkmS5QYGHXNT5Cp5gQhiLwXBWGVWDaq7z31NQdSi4rohfLvaWRoCDnwZi4r0=
+
   server:
     service:
       type: ClusterIP
@@ -15,9 +26,6 @@ argo-cd:
       - --insecure
     config:
       accounts.viewer: login
-      accounts.walker-viewer: login
-      accounts.cory-viewer: login
-      accounts.doug-viewer: login
 
       repositories: |
         - type: helm

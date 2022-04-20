@@ -1,0 +1,13 @@
+{{ if false }}
+
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: tenants-configmap
+data:
+  config.yaml: |
+    {{- range .Files.Lines "tenants/walker/config.yaml" }}
+    {{ . }}
+    {{- end }}
+
+  {{- end }}
