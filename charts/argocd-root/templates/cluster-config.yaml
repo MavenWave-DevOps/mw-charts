@@ -15,9 +15,9 @@ spec:
     server: {{ $.Values.destination.server }}
     namespace: cluster-config
   source:
-    path: charts/cluster-config
-    repoURL: {{ include "repo_url" $ }}
-    targetRevision: {{ include "targetRevision" $ }}
+    chart: cluster-config
+    repoURL: {{ $.Values.charts_url }}
+    targetRevision: 0.0.3
   syncPolicy:
     automated:
       prune: true
@@ -25,41 +25,5 @@ spec:
     syncOptions:
       - CreateNamespace=false
       - PruneLast=false
-
----
-
-{{- if false }}
-
-apiVersion: argoproj.io/v1alpha1
-kind: Application
-metadata:
-  name: prod-cluster-config
-  namespace: {{ $.Values.namespace }}
-  labels:
-    tier: config
-    tier: platform
-  finalizers:
-    - resources-finalizer.argocd.argoproj.io
-spec:
-  project: {{ $.Values.root_project }}
-  destination:
-    server: {{ $.Values.destination.prod_server }}
-    namespace: cluster-config
-  source:
-    path: charts/cluster-config
-    repoURL: {{ include "repo_url" $ }}
-    targetRevision: {{ include "targetRevision" $ }}
-    helm:
-      values: |
-        use_config_connector: false
-  syncPolicy:
-    automated:
-      prune: true
-      selfHeal: true
-    syncOptions:
-      - CreateNamespace=false
-      - PruneLast=false
-
-{{- end }}
 
 {{- end }}

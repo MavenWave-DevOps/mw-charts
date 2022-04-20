@@ -18,7 +18,7 @@ spec:
   source:
     chart: vault
     repoURL: {{ $.Values.charts_url }}
-    targetRevision: {{ include "targetRevision" . }}
+    targetRevision: 0.0.3
     helm:
       values: |
         vault_sa: {{ include "dns_admin_sa" $ }}

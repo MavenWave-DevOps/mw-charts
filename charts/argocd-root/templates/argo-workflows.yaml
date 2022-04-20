@@ -17,7 +17,7 @@ spec:
   source:
     chart: argo-workflows
     repoURL: {{ $.Values.charts_url }}
-    targetRevision: {{ include "targetRevision" . }}
+    targetRevision: 0.0.2
   syncPolicy:
     automated:
       prune: true

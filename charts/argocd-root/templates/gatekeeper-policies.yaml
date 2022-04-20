@@ -18,7 +18,7 @@ spec:
   source:
     chart: gatekeeper-policies
     repoURL: {{ $.Values.charts_url }}
-    targetRevision: 0.0.1
+    targetRevision: 0.0.2
     helm:
       values: |
         app_lifecycles: {{ print "\n" }}{{ $.Values.app_lifecycles | toYaml | indent 10 }}

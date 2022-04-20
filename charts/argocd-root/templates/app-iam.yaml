@@ -26,7 +26,7 @@ spec:
   source:
     chart: app-iam
     repoURL: {{ $.Values.charts_url }}
-    targetRevision: 0.0.1
+    targetRevision: 0.0.2
     helm:
       values: |
         sa_project_id: {{ include "sa_project_id" $ }}

@@ -17,7 +17,7 @@ spec:
   source:
     chart: argo-rollouts
     repoURL: {{ $.Values.charts_url }}
-    targetRevision: 0.0.1
+    targetRevision: 0.0.2
   syncPolicy:
     automated:
       prune: true
