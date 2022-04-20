@@ -21,14 +21,13 @@ spec:
     targetRevision: 1.7.1
     helm:
       values: |
-        external-dns:
-          provider: google
-          policy: sync
-          extraArgs:
-            - --google-project={{- include "dns_project_id" $ }}
-          serviceAccount:
-            annotations:
-              iam.gke.io/gcp-service-account: {{ include "dns_admin_sa" $ }}
+        provider: google
+        policy: sync
+        extraArgs:
+          - --google-project={{- include "dns_project_id" $ }}
+        serviceAccount:
+          annotations:
+            iam.gke.io/gcp-service-account: {{ include "dns_admin_sa" $ }}
   syncPolicy:
     automated:
       prune: true
