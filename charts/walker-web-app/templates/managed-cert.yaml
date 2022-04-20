@@ -1,6 +1,6 @@
 {{- if and (.Values.enabled) (not .Values.local) }}
 
-{{- if .Values.google.ingress.https }}
+{{- if and (.Values.google.ingress.enabled) (.Values.google.ingress.https) }}
 {{- if not .Values.cert_manager.enabled }}
 
 apiVersion: networking.gke.io/v1beta2
