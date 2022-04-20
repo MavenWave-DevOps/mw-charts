@@ -1,19 +1,18 @@
 
-
 {{- define "domain" -}}
-
-  {{- if .Values.lifecycle }}
-
-    {{- if eq .Values.lifecycle "prod" }}
-      {{- required "REQUIRED: domain" .Values.domain }}
-
-    {{- else }}
-      {{- .Values.lifecycle -}}.{{- required "REQUIRED: domain" .Values.domain }}
-
-    {{- end -}}
-
-  {{- else }}
-    {{- required "REQUIRED: domain" .Values.domain }}
-  {{- end -}}
-
+  {{- required "REQUIRED: domain" $.Values.domain -}}
 {{- end }}
+
+
+{{- define "ip_admin_sa" -}}
+  {{- required "REQUIRED: ip_admin_sa" $.Values.ip_admin_sa -}}
+{{- end }}
+
+
+{{- define "gke_project_id" -}}
+  {{- required "REQUIRED: gke_project_id" $.Values.gke_project_id -}}
+{{- end }}
+
+
+
+

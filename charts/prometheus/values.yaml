@@ -1,3 +1,5 @@
-ingress: false
-domain: prometheus.walkerobrien.dev
+ingress: true
+domain: prometheus.igniteme.dev
+config_connector: true
+external_dns: true
 

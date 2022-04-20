@@ -1,0 +1,15 @@
+{{- if .Values.ingress }}
+{{- if .Values.config_connector }}
+
+apiVersion: compute.cnrm.cloud.google.com/v1beta1
+kind: ComputeAddress
+metadata:
+  name: argocd-ip
+  annotations:
+    cnrm.cloud.google.com/project-id: {{ include "gke_project_id" . }}
+spec:
+  location: global
+  ipVersion: IPV4
+
+{{- end }}
+{{- end }}
