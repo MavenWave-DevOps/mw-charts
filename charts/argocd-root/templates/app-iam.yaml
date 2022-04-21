@@ -12,7 +12,9 @@ metadata:
   name: {{ $tenant.name -}}-{{- $app.name -}}-{{- .name -}}-iam
   namespace: {{ $.Values.namespace }}
   labels:
-    tier: iam
+    tier: infra
+    service: config-connector
+    purpose: iam
     tenant_code: {{ $tenant.name }}
     app_code: {{ $app.name }}
     lifecycle: {{ .name }}

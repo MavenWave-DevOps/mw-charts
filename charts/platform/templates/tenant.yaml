@@ -35,10 +35,10 @@ spec:
         external_dns:
           enabled: true
         cert_manager:
-          enabled: false
+          enabled: true
         nginx_ingress:
           enabled: true
-          https: false
+          https: true
         google:
           ingress:
             enabled: false

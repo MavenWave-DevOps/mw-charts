@@ -6,7 +6,8 @@ metadata:
   name: argo-rollouts
   namespace: {{ .Values.namespace }}
   labels:
-    tier: service
+    tier: platform
+    service: argo
   finalizers:
     - resources-finalizer.argocd.argoproj.io
 spec:

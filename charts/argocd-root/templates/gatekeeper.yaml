@@ -6,8 +6,8 @@ metadata:
   name: gatekeeper
   namespace: {{ .Values.namespace }}
   labels:
-    tier: service
     tier: security
+    service: opa
   finalizers:
     - resources-finalizer.argocd.argoproj.io
 spec:

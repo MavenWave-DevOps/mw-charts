@@ -7,7 +7,7 @@ metadata:
   namespace: {{ .Values.namespace }}
   labels:
     tier: platform
-    tier: service
+    service: dns
   finalizers:
     - resources-finalizer.argocd.argoproj.io
 spec:

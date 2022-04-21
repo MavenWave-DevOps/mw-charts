@@ -6,7 +6,9 @@ metadata:
   name: admin-iam
   namespace: {{ $.Values.namespace }}
   labels:
-    tier: iam
+    tier: infra
+    service: config-connector
+    purpose: iam
     tenant_code: admin
   finalizers:
     - resources-finalizer.argocd.argoproj.io
