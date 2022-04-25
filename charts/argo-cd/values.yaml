@@ -1,5 +1,5 @@
 ingress: true
-domain: argo.igniteme.dev
+domain: argo.walker.igniteme.dev
 config_connector: false
 external_dns: false
 install_crds: false

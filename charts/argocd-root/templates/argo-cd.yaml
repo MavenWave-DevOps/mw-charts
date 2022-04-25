@@ -18,7 +18,7 @@ spec:
   source:
     chart: argo-cd
     repoURL: {{ $.Values.charts_url }}
-    targetRevision: 0.0.5
+    targetRevision: 0.0.6
     helm:
       values: |
         install_crds: false
