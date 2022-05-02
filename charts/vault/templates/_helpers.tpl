@@ -14,3 +14,8 @@
 {{- end }}
 
 
+{{- define "sa_project_id" -}}
+  {{- required "REQUIRED: sa_project_id" $.Values.sa_project_id -}}
+{{- end }}
+
+
