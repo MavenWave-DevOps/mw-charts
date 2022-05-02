@@ -321,6 +321,14 @@ entries:
   argocd-root:
   - apiVersion: v2
     appVersion: 1.0.0
+    created: "2022-05-02T19:27:49.463975757Z"
+    digest: e14494fd9fdce262705866765582c67a68124d68e75febd0aee2b741269e5982
+    name: argocd-root
+    urls:
+    - https://github.com/MavenWave-DevOps/mw-charts/releases/download/argocd-root-0.0.46/argocd-root-0.0.46.tgz
+    version: 0.0.46
+  - apiVersion: v2
+    appVersion: 1.0.0
     created: "2022-05-02T19:23:05.956012651Z"
     digest: dc7ffa33e3b11ef5a5612b919f7c3d392560fac8ea7d9d185a0d2cddee238582
     name: argocd-root
@@ -1080,6 +1088,17 @@ entries:
     - https://github.com/MavenWave-DevOps/mw-charts/releases/download/tenant-rbac-0.0.3/tenant-rbac-0.0.3.tgz
     version: 0.0.3
   vault:
+  - apiVersion: v2
+    created: "2022-05-02T19:27:49.67355987Z"
+    dependencies:
+    - name: vault
+      repository: https://helm.releases.hashicorp.com
+      version: 0.19.0
+    digest: 5e0157a25fcea7613dc5ba0ae89fa87a0e91d4f3991167ada1aa2aeb6976521b
+    name: vault
+    urls:
+    - https://github.com/MavenWave-DevOps/mw-charts/releases/download/vault-0.0.7/vault-0.0.7.tgz
+    version: 0.0.7
   - apiVersion: v2
     created: "2022-04-20T04:05:53.697106345Z"
     dependencies:
