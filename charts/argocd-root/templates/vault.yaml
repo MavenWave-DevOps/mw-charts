@@ -23,6 +23,10 @@ spec:
       values: |
         ip_admin_sa: {{ include "dns_admin_sa" $ }}
         gke_project_id: {{ include "gke_project_id" $ }}
+        vault:
+          serviceAccount:
+            annotations:
+              iam.gke.io/gcp-service-account: {{ include "admin_sa" $ }}
   syncPolicy:
     automated:
       prune: true
