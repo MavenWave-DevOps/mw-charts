@@ -321,6 +321,14 @@ entries:
   argocd-root:
   - apiVersion: v2
     appVersion: 1.0.0
+    created: "2022-05-03T16:20:35.006337684Z"
+    digest: 55f3c487e474d20a8a622a7897723f086b4191bfb158ecfdbf3b9e96d62ec0c7
+    name: argocd-root
+    urls:
+    - https://github.com/MavenWave-DevOps/mw-charts/releases/download/argocd-root-0.0.47/argocd-root-0.0.47.tgz
+    version: 0.0.47
+  - apiVersion: v2
+    appVersion: 1.0.0
     created: "2022-05-02T19:27:49.463975757Z"
     digest: e14494fd9fdce262705866765582c67a68124d68e75febd0aee2b741269e5982
     name: argocd-root
@@ -749,6 +757,16 @@ entries:
     - https://github.com/MavenWave-DevOps/mw-charts/releases/download/mw-web-app-0.0.1/mw-web-app-0.0.1.tgz
     version: 0.0.1
   platform:
+  - apiVersion: v2
+    appVersion: 0.0.1
+    created: "2022-05-03T16:20:35.204998118Z"
+    description: A Helm chart for deploying Argo CD web applications
+    digest: 82a3c113b4b9bc7a15b8e61ca8ea3f055eb4f4b13dbe423601d7dc5df9225a9d
+    name: platform
+    type: application
+    urls:
+    - https://github.com/MavenWave-DevOps/mw-charts/releases/download/platform-0.0.9/platform-0.0.9.tgz
+    version: 0.0.9
   - apiVersion: v2
     appVersion: 0.0.1
     created: "2022-04-21T16:22:17.350400241Z"
