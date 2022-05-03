@@ -22,6 +22,7 @@ spec:
     helm:
       values: |
         ip_admin_sa: {{ include "dns_admin_sa" $ }}
+        sa_project_id: {{ include "sa_project_id" $ }}
         gke_project_id: {{ include "gke_project_id" $ }}
         vault:
           serviceAccount:
