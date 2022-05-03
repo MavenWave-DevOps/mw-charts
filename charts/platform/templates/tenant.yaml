@@ -32,16 +32,18 @@ spec:
         app_code: {{ $app.name }}
         domain: {{ $app.domain }}
         lifecycle: {{ .name }}
-        external_dns:
-          enabled: true
-        cert_manager:
-          enabled: false
-        nginx_ingress:
-          enabled: false
-          https: true
         google:
           ingress:
             enabled: true
+        nginx_ingress:
+          enabled: false
+          https: true
+        cert_manager:
+          enabled: false
+        external_dns:
+          enabled: true
+        external_secrets:
+          enabled: true
       # valueFiles:
       #   - values/{{- .name -}}.yaml
   syncPolicy:
