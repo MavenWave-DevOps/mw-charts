@@ -3,6 +3,16 @@ entries:
   admin-iam:
   - apiVersion: v2
     appVersion: 1.0.0
+    created: "2022-05-19T20:43:34.883453915Z"
+    description: Deploys IAM admin service accounts and workload identity
+    digest: 6db28131ab1dd5613bc58fbadaa59bd999d7b2fb3efbc465a2f44c1b0551ab95
+    name: admin-iam
+    type: application
+    urls:
+    - https://github.com/MavenWave-DevOps/mw-charts/releases/download/admin-iam-0.0.5/admin-iam-0.0.5.tgz
+    version: 0.0.5
+  - apiVersion: v2
+    appVersion: 1.0.0
     created: "2022-04-20T02:59:21.42552523Z"
     description: Deploys IAM admin service accounts and workload identity
     digest: 56e812eae639ca0bd83cc8b6952b6ebeb87425df96b65bd694c642f9bc0ff988
@@ -319,6 +329,14 @@ entries:
     - https://github.com/MavenWave-DevOps/mw-charts/releases/download/argocd-platform-0.0.1/argocd-platform-0.0.1.tgz
     version: 0.0.1
   argocd-root:
+  - apiVersion: v2
+    appVersion: 1.0.0
+    created: "2022-05-19T20:43:35.012287543Z"
+    digest: 51e5ef168f2f2b6eb8ae3ad1e58b8a3ed7c885d79b016d5fc89ee0d88c83b0b3
+    name: argocd-root
+    urls:
+    - https://github.com/MavenWave-DevOps/mw-charts/releases/download/argocd-root-0.0.55/argocd-root-0.0.55.tgz
+    version: 0.0.55
   - apiVersion: v2
     appVersion: 1.0.0
     created: "2022-05-19T20:14:10.43862577Z"
