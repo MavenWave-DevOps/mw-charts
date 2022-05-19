@@ -34,6 +34,10 @@ events: false
 rollouts: false
 workflows: false
 
+backstg: false
+
+crossplane: false
+
 nginx: false
 cert_manager: false
 external_dns: false
@@ -42,7 +46,7 @@ rbac_manager: false
 tenant_rbac: false
 
 external_secrets: false
-vault: true
+vault: false
 
 gatekeeper: false
 gatekeeper_policies: false

@@ -1,0 +1,42 @@
+{{ if .Values.backstage }}
+
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: backstage
+  namespace: argo-cd
+  annotations:
+    argocd.argoproj.io/sync-wave: "-5"
+  labels:
+    deployment: cluster
+  finalizers:
+  - resources-finalizer.argocd.argoproj.io
+spec:
+  destination:
+    namespace: backstage
+    server: https://kubernetes.default.svc
+  project: root-project
+  source:
+    path: charts/backstage
+    targetRevision: main
+    repoURL: {{ include "repo_url" $ }}
+    helm:
+      values: |
+        sa_project_id: {{ include "sa_project_id" $ }}
+        dns_project_id: {{ include "dns_project_id" $ }}
+        gke_project_id: {{ include "gke_project_id" $ }}
+        db_project_id: {{ include "db_project_id" $ }}
+        app_project_id: {{ include "app_project_id" $ }}
+        github_org: {{ required "REQUIRED: github_org" $.Values.github_org }}
+        app_code: backstage
+        domain: backstage.igniteme.dev
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=true
+      - PruneLast=false
+
+{{- end }}
+

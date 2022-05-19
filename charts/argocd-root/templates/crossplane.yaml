@@ -1,0 +1,67 @@
+{{ if .Values.crossplane }}
+
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: crossplane
+  namespace: argo-cd
+  annotations:
+    argocd.argoproj.io/sync-wave: "-5"
+  labels:
+    deployment: cluster
+  finalizers:
+  - resources-finalizer.argocd.argoproj.io
+spec:
+  ignoreDifferences:
+  - group: rbac.authorization.k8s.io 
+    kind: ClusterRole
+    name: crossplane
+    jsonPointers:
+    - /rules
+  destination:
+    namespace: crossplane-system
+    server: https://kubernetes.default.svc
+  project: root-project
+  source:
+    chart: crossplane
+    targetRevision: 1.7.0
+    repoURL: https://charts.crossplane.io/stable
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=true
+      - PruneLast=false
+
+---
+
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: crossplane-addons
+  namespace: argo-cd
+  annotations:
+    argocd.argoproj.io/sync-wave: "-5"
+  labels:
+    deployment: cluster
+  finalizers:
+  - resources-finalizer.argocd.argoproj.io
+spec:
+  destination:
+    namespace: crossplane-system
+    server: https://kubernetes.default.svc
+  project: root-project
+  source:
+    path: kustomize/crossplane-addons/overlays/dev
+    targetRevision: main
+    repoURL: {{ include "repo_url" $ }}
+  syncPolicy:
+    automated:
+      prune: false
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=false
+      - PruneLast=false
+
+{{- end }}
