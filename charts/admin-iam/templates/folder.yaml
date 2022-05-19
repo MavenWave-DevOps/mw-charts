@@ -18,6 +18,10 @@ spec:
       members:
         - member: serviceAccount:dns-admin@{{- include "sa_project_id" $ -}}.iam.gserviceaccount.com
 
+    - role: roles/secretmanager.secretAccessor
+      members:
+        - member: serviceAccount:secrets-admin@{{- include "sa_project_id" $ -}}.iam.gserviceaccount.com
+
     - role: roles/resourcemanager.folderIamAdmin
       members:
       {{- range .Values.tenants }}
