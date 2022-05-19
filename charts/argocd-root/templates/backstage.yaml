@@ -29,9 +29,8 @@ spec:
         app_project_id: {{ include "app_project_id" $ }}
         app_admin_sa: {{ include "admin_sa" $ }}
         github_org: {{ required "REQUIRED: github_org" $.Values.github_org }}
-        tenant_code: walker
-        app_code: backstage
-        domain: backstage.igniteme.dev
+      valueFiles:
+        - mw.yaml
   syncPolicy:
     automated:
       prune: true
