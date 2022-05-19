@@ -53,7 +53,7 @@ walker-admin@{{- required "REQUIRED: sa_project_id" $.Values.sa_project_id -}}.i
 {{- end -}}
 
 
-{{- define "admin_sa" -}}
+{{- define "secrets_admin_sa" -}}
 secrets-admin@{{- required "REQUIRED: sa_project_id" $.Values.sa_project_id -}}.iam.gserviceaccount.com
 {{- end -}}
 
