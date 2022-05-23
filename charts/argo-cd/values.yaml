@@ -27,6 +27,7 @@ argo-cd:
     extraArgs:
       - --insecure
     config:
+      accounts.admin: apiKey
       accounts.viewer: login
 
       repositories: |
