@@ -9,6 +9,7 @@ metadata:
     argocd.argoproj.io/sync-wave: "-5"
   labels:
     deployment: cluster
+    service: iac
   finalizers:
   - resources-finalizer.argocd.argoproj.io
 spec:
@@ -35,6 +36,8 @@ spec:
       - PruneLast=false
 
 ---
+
+{{- if .Values.crossplane_addons }}
 
 apiVersion: argoproj.io/v1alpha1
 kind: Application
@@ -70,3 +73,6 @@ spec:
       - PruneLast=false
 
 {{- end }}
+
+{{- end }}
+

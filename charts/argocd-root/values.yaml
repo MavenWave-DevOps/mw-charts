@@ -27,7 +27,7 @@ google:
 
 root: true
 
-config: true
+config: false
 
 argocd: false
 events: false
@@ -37,6 +37,7 @@ workflows: false
 backstg: false
 
 crossplane: false
+crossplane_addons: false
 
 nginx: false
 cert_manager: false
