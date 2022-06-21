@@ -8,18 +8,19 @@ google:
   cloud_armor_policy: us-only
 
 argo-cd:
+  fullnameOverride: argocd
   ingress:
     enabled: true
     annotations: 
       kubernetes.io/ingress.global-static-ip-name: argocd-ip
-      networking.gke.io/managed-certificates: argocd-cert
-      networking.gke.io/v1beta1.FrontendConfig: argocd-frontendconfig
-      external-dns.alpha.kubernetes.io/hostname: {{ include "domain" . -}}.
+      networking.gke.io/managed-certificates: argocd
+      networking.gke.io/v1beta1.FrontendConfig: argocd
 
-  service:
-    annotations:
-      cloud.google.com/neg: '{"ingress": true}'
-      cloud.google.com/backend-config: '{"ports": {"http":"argocd-backendconfig"}}'
+  server:
+    service:
+      annotations:
+        cloud.google.com/neg: '{"ingress": true}'
+        cloud.google.com/backend-config: '{"ports": {"http":"argocd"}}'
 
   GKEmanagedCertificate:
     enabled: true
