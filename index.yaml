@@ -3,6 +3,16 @@ entries:
   admin-iam:
   - apiVersion: v2
     appVersion: 1.0.0
+    created: "2022-06-21T06:57:18.199442643Z"
+    description: Deploys IAM admin service accounts and workload identity
+    digest: ae12b1bf69363da6a31381a59b8c7a3291ca8ad976e08f85045bb40f69c7e278
+    name: admin-iam
+    type: application
+    urls:
+    - https://github.com/MavenWave-DevOps/mw-charts/releases/download/admin-iam-0.0.6/admin-iam-0.0.6.tgz
+    version: 0.0.6
+  - apiVersion: v2
+    appVersion: 1.0.0
     created: "2022-05-19T20:43:34.883453915Z"
     description: Deploys IAM admin service accounts and workload identity
     digest: 6db28131ab1dd5613bc58fbadaa59bd999d7b2fb3efbc465a2f44c1b0551ab95
@@ -417,6 +427,14 @@ entries:
     - https://github.com/MavenWave-DevOps/mw-charts/releases/download/argocd-platform-0.0.1/argocd-platform-0.0.1.tgz
     version: 0.0.1
   argocd-root:
+  - apiVersion: v2
+    appVersion: 1.0.0
+    created: "2022-06-21T06:57:18.326093545Z"
+    digest: 946099b66cfe747929266568a349802f14ae5374eb259e4596affdaa335fd693
+    name: argocd-root
+    urls:
+    - https://github.com/MavenWave-DevOps/mw-charts/releases/download/argocd-root-0.0.60/argocd-root-0.0.60.tgz
+    version: 0.0.60
   - apiVersion: v2
     appVersion: 1.0.0
     created: "2022-06-21T06:45:12.627547158Z"
@@ -923,6 +941,16 @@ entries:
   gatekeeper-policies:
   - apiVersion: v2
     appVersion: 1.0.0
+    created: "2022-06-21T06:57:18.461954892Z"
+    description: Gatekeeper policies
+    digest: 5ad3698b592e8846c25655ac0911eaa2bcb183be66a733d338194e40e1cd0832
+    name: gatekeeper-policies
+    type: application
+    urls:
+    - https://github.com/MavenWave-DevOps/mw-charts/releases/download/gatekeeper-policies-0.0.3/gatekeeper-policies-0.0.3.tgz
+    version: 0.0.3
+  - apiVersion: v2
+    appVersion: 1.0.0
     created: "2022-02-04T17:12:53.60661109Z"
     description: Gatekeeper policies
     digest: 418a2aadf74e17588f29165e2b611a70b6b757fd36eee9014554fcb3272065be
@@ -965,6 +993,16 @@ entries:
     - https://github.com/MavenWave-DevOps/mw-charts/releases/download/mw-web-app-0.0.1/mw-web-app-0.0.1.tgz
     version: 0.0.1
   platform:
+  - apiVersion: v2
+    appVersion: 0.0.1
+    created: "2022-06-21T06:57:18.570572909Z"
+    description: A Helm chart for deploying Argo CD web applications
+    digest: bf54e0985f0c1f61388484d3eee9f1fd03783260af59ae200b41ec23dd9c795b
+    name: platform
+    type: application
+    urls:
+    - https://github.com/MavenWave-DevOps/mw-charts/releases/download/platform-0.0.11/platform-0.0.11.tgz
+    version: 0.0.11
   - apiVersion: v2
     appVersion: 0.0.1
     created: "2022-05-03T16:22:32.791648342Z"
