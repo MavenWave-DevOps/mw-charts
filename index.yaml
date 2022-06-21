@@ -419,6 +419,14 @@ entries:
   argocd-root:
   - apiVersion: v2
     appVersion: 1.0.0
+    created: "2022-06-21T06:27:07.483190727Z"
+    digest: d1f5e1ef3cebc09e9f528ea1b13231fff6a93db56d6b8f3d063797c8e8b96b3b
+    name: argocd-root
+    urls:
+    - https://github.com/MavenWave-DevOps/mw-charts/releases/download/argocd-root-0.0.58/argocd-root-0.0.58.tgz
+    version: 0.0.58
+  - apiVersion: v2
+    appVersion: 1.0.0
     created: "2022-05-19T21:58:38.604763968Z"
     digest: 6f9ddb0d3e90f3887ec868152eac91cae4b338be5e104e88618a278bf2addd0d
     name: argocd-root
@@ -859,6 +867,17 @@ entries:
     urls:
     - https://github.com/MavenWave-DevOps/mw-charts/releases/download/cluster-config-0.0.3/cluster-config-0.0.3.tgz
     version: 0.0.3
+  crossplane-addons:
+  - apiVersion: v2
+    appVersion: 1.0.0
+    created: "2022-06-21T06:27:07.638154476Z"
+    description: Deploys Crossplane Addons used to make a Dev Ops Control Plane cluster
+    digest: d336f3b65fd4c33f86fa3c6fc2341535b074766fb06f8ce32130fff7a105ce52
+    name: crossplane-addons
+    type: application
+    urls:
+    - https://github.com/MavenWave-DevOps/mw-charts/releases/download/crossplane-addons-0.0.1/crossplane-addons-0.0.1.tgz
+    version: 0.0.1
   gatekeeper:
   - apiVersion: v2
     created: "2022-02-04T17:12:53.461522485Z"
