@@ -20,7 +20,7 @@ spec:
   source:
     chart: admin-iam
     repoURL: {{ $.Values.charts_url }}
-    targetRevision: 0.0.5
+    targetRevision: 0.0.6
     helm:
       values: |
         admin_sa: {{ include "admin_sa" $ }}

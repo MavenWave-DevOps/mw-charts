@@ -16,7 +16,7 @@ spec:
       - "gatekeeper-system"
       - "external-secrets"
       - "rbac-manager"
-      - "argo-cd"
+      - "argocd"
       - "argo-events"
       - "argo-rollouts"
       - "argo-workflows"

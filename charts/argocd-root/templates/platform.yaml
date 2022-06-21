@@ -5,7 +5,7 @@ apiVersion: argoproj.io/v1alpha1
 kind: AppProject
 metadata:
   name: {{ .name }}-project
-  namespace: argo-cd
+  namespace: {{ .Values.namespace }}
 spec:
   clusterResourceWhitelist:
   - group: '*'
@@ -53,7 +53,7 @@ spec:
   source:
     chart: platform
     repoURL: {{ $.Values.charts_url }}
-    targetRevision: 0.0.10
+    targetRevision: 0.0.11
     helm:
       values: |
         sa_project_id: {{ include "sa_project_id" $ }}

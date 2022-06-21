@@ -10,7 +10,7 @@ apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
   name: {{ include "tenant_code" $ -}}-{{- $app.name -}}-{{- .name -}}-app
-  namespace: argo-cd
+  namespace: {{ .Values.namespace }}
   finalizers:
     - resources-finalizer.argocd.argoproj.io
 spec:

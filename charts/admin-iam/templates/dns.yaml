@@ -24,7 +24,7 @@ spec:
   bindings:
     - role: roles/iam.workloadIdentityUser
       members:
-        - serviceAccount:{{- include "gke_project_id" $ -}}.svc.id.goog[cnrm-system/cnrm-controller-manager-argo-cd]
+        - serviceAccount:{{- include "gke_project_id" $ -}}.svc.id.goog[cnrm-system/cnrm-controller-manager-argocd]
         - serviceAccount:{{- include "gke_project_id" $ -}}.svc.id.goog[cnrm-system/cnrm-controller-manager-argo-rollouts]
         - serviceAccount:{{- include "gke_project_id" $ -}}.svc.id.goog[cnrm-system/cnrm-controller-manager-argo-workflows]
         - serviceAccount:{{- include "gke_project_id" $ -}}.svc.id.goog[cnrm-system/cnrm-controller-manager-prometheus]
