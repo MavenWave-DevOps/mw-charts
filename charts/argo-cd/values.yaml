@@ -1,4 +1,3 @@
-ingress: true
 domain: argo.walker.igniteme.dev
 config_connector: false
 external_dns: false
@@ -9,6 +8,49 @@ google:
   cloud_armor_policy: us-only
 
 argo-cd:
+  ingress:
+    enabled: true
+    annotations: 
+      kubernetes.io/ingress.global-static-ip-name: argocd-ip
+      networking.gke.io/managed-certificates: argocd-cert
+      networking.gke.io/v1beta1.FrontendConfig: argocd-frontendconfig
+      external-dns.alpha.kubernetes.io/hostname: {{ include "domain" . -}}.
+
+  service:
+    annotations:
+      cloud.google.com/neg: '{"ingress": true}'
+      cloud.google.com/backend-config: '{"ports": {"http":"argocd-backendconfig"}}'
+
+  GKEmanagedCertificate:
+    enabled: true
+    domains:
+      - argocd.igniteme.dev
+  GKEbackendConfig:
+    enabled: true
+    spec:
+      securityPolicy:
+        name: us-only
+      iap:
+        enabled: false
+        oauthclientCredentials:
+          secretName: oauth-credentials
+      healthCheck:
+        checkIntervalSec: 30
+        timeoutSec: 5
+        healthyThreshold: 1
+        unhealthyThreshold: 2
+        type: HTTP
+        requestPath: /healthz
+        port: 8080
+
+  GKEfrontendConfig:
+    enabled: true
+    spec:
+      sslPolicy: tls-12
+      redirectToHttps:
+        enabled: true
+        responseCodeName: MOVED_PERMANENTLY_DEFAULT
+  
   installCRDs: false
   global:
     image:
