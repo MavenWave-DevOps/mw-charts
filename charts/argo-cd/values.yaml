@@ -5,6 +5,7 @@ argo-cd:
   server:
     ingress:
       enabled: true
+      ingressClassName: gce
       annotations: 
         kubernetes.io/ingress.global-static-ip-name: argocd-ip
         networking.gke.io/managed-certificates: argocd
