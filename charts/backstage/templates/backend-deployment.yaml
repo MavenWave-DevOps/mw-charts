@@ -1,0 +1,116 @@
+{{- if .Values.backend.enabled }}
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ include "backstage.fullname" . }}-backend
+
+spec:
+  replicas: {{ .Values.backend.replicaCount }}
+
+  selector:
+    matchLabels:
+      app: backstage
+      component: backend
+
+  template:
+    metadata:
+      annotations:
+        ad.datadoghq.com/backstage.logs: '[{"source":"backstage","service":"backend"}]'
+      labels:
+        app: backstage
+        component: backend
+
+    spec:
+      volumes:
+        - name: app-config
+          configMap:
+            name: {{ include "backstage.fullname" . }}-backend-app-config
+        - name: db-volume
+          persistentVolumeClaim:
+            claimName: gce-pvc
+
+      serviceAccountName: backstage-sa
+      containers:
+        - name: backend
+          command: ["node"]
+          args:
+            - "packages/backend"
+            - "--config"
+            - "app-config.yaml"
+          image: {{ include "registry_name" $ -}}/backend:{{- .Values.backend.image.tag }}
+          imagePullPolicy: {{ .Values.backend.image.pullPolicy }}
+          ports:
+            - containerPort: {{ .Values.backend.containerPort }}
+          resources:
+          {{- toYaml .Values.backend.resources | nindent 12 }}
+
+          startupProbe:
+            httpGet:
+              path: /
+              port: {{ .Values.backend.containerPort }} 
+            failureThreshold: 5
+            periodSeconds: 5
+
+          livenessProbe:
+            httpGet:
+              path: /
+              port: {{ .Values.backend.containerPort }} 
+            initialDelaySeconds: 5
+            periodSeconds: 5
+
+          readinessProbe:
+            httpGet:
+              path: /
+              port: {{ .Values.backend.containerPort }} 
+            initialDelaySeconds: 5
+            periodSeconds: 5
+
+          envFrom:
+            - secretRef:
+                name: {{ include "backstage.fullname" . }}-secrets
+            - configMapRef:
+                name: {{ include "backstage.fullname" . }}-app-env
+          volumeMounts:
+            - name: app-config
+              mountPath: {{ printf "/usr/src/app/%s" (include "backstage.appConfigFilename" .) }}
+              subPath: {{ include "backstage.appConfigFilename" . }}
+            - mountPath: /app/backstage-db
+              name: db-volume
+
+          env:
+            - name: FRONTEND_URL
+              value: https://{{- include "domain" . }}
+            - name: BACKEND_URL
+              value: https://{{- include "domain" . }}
+            - name: NODE_ENV
+              value: {{ .Values.backend.nodeEnv | default "development" }}
+
+        # - name: proxy
+        #   image: gcr.io/cloudsql-docker/gce-proxy:1.30.1
+        #   imagePullPolicy: {{ .Values.backend.image.pullPolicy }}
+        #   command:
+        #   - /cloud_sql_proxy
+        #   - -instances={{- include "db_project" . -}}:{{- required "REQUIRED: google.region" .Values.google.region -}}:{{- include "instance_name" . }}=tcp:127.0.0.1:5432
+        #   - -enable_iam_login
+
+
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ include "backend.serviceName" . }}
+  annotations:
+    cloud.google.com/backend-config: '{"default": "backend-backendconfig"}'
+    cloud.google.com/neg: '{"ingress": true}'
+spec:
+  type: ClusterIP
+  ports:
+    - port: 443
+      targetPort: {{ .Values.backend.containerPort }}
+  selector:
+    app: backstage
+    component: backend
+
+{{- end }}

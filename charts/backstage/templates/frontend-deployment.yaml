@@ -1,0 +1,97 @@
+{{- if .Values.frontend.enabled }}
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ include "backstage.fullname" . }}-frontend
+
+spec:
+  replicas: {{ .Values.frontend.replicaCount }}
+
+  selector:
+    matchLabels:
+      app: backstage
+      component: frontend
+
+  template:
+    metadata:
+      annotations:
+        ad.datadoghq.com/backstage.logs: '[{"source":"backstage","service":"frontend"}]'
+      labels:
+        app: backstage
+        component: frontend
+
+    spec:
+      volumes:
+        - name: app-config
+          configMap:
+            name: {{ include "backstage.fullname" . }}-frontend-app-config
+        - name: tmp-dir
+          emptyDir: {}
+      containers:
+        - name: {{ .Chart.Name }}-frontend
+          command: ["node"]
+          args:
+            - "packages/backend"
+            # - "--config"
+            # - "app-config.yaml"
+          image: {{ include "registry_name" $ -}}/frontend:{{- .Values.frontend.image.tag }}
+          imagePullPolicy: {{ .Values.frontend.image.pullPolicy }}
+          ports:
+            - containerPort: {{ .Values.frontend.containerPort }} 
+          resources:
+            {{- toYaml .Values.frontend.resources | nindent 12 }}
+
+          startupProbe:
+            httpGet:
+              path: /
+              port: {{ .Values.frontend.containerPort }}
+            failureThreshold: 5
+            periodSeconds: 5
+
+          livenessProbe:
+            httpGet:
+              path: /
+              port: {{ .Values.frontend.containerPort }}
+            initialDelaySeconds: 5
+            periodSeconds: 5
+
+          readinessProbe:
+            httpGet:
+              path: /
+              port: {{ .Values.frontend.containerPort }}
+            initialDelaySeconds: 5
+            periodSeconds: 5
+
+          envFrom:
+            - configMapRef:
+                name: {{ include "backstage.fullname" . }}-app-env
+            - secretRef:
+                name: {{ include "backstage.fullname" . }}-secrets
+
+          volumeMounts:
+            - name: app-config
+              mountPath: {{ printf "/usr/share/nginx/html/static/%s" (include "backstage.appConfigFilename" .) }}
+              subPath: {{ include "backstage.appConfigFilename" . }}
+            - name: tmp-dir
+              mountPath: /app/backstage-db
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ include "frontend.serviceName" . }}
+  annotations:
+    cloud.google.com/backend-config: '{"default": "frontend-backendconfig"}'
+    cloud.google.com/neg: '{"ingress": true}'
+spec:
+  ports:
+    - port: 443
+      targetPort: {{ .Values.frontend.containerPort }}
+
+  selector:
+    app: backstage
+    component: frontend
+
+  type: ClusterIP
+{{- end }}

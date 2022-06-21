@@ -1,0 +1,42 @@
+{{- if .Values.backend.enabled }}
+
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ include "backstage.fullname" . }}-backend-app-config
+data:
+{{ include "backstage.appConfigFilename" . | indent 2 }}: |
+{{ tpl (.Files.Get "files/app-config.backend.development.yaml.tpl") . | indent 4 }}
+
+---
+{{- end }}
+
+{{- if .Values.frontend.enabled }}
+
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ include "backstage.fullname" . }}-frontend-app-config
+data:
+{{ include "backstage.appConfigFilename" . | indent 2 }}: |
+{{ tpl (.Files.Get "files/app-config.frontend.development.yaml.tpl") . | indent 4 }}
+
+---
+{{- end }}
+
+
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ include "backstage.fullname" . }}-app-env
+data:
+  APP_CONFIG_app_baseUrl: {{ .Values.appConfig.app.baseUrl | quote | quote }}
+  APP_CONFIG_app_title: {{ .Values.appConfig.app.title | quote | quote }}
+  APP_CONFIG_app_googleAnalyticsTrackingId: {{ .Values.appConfig.app.googleAnalyticsTrackingId | quote | quote }}
+  APP_CONFIG_backend_baseUrl: {{ .Values.appConfig.backend.baseUrl | quote | quote }}
+  APP_CONFIG_backend_cors_origin: {{ .Values.appConfig.backend.cors.origin | quote | quote }}
+  APP_CONFIG_techdocs_storageUrl: {{ .Values.appConfig.techdocs.storageUrl | quote | quote }}
+  APP_CONFIG_techdocs_requestUrl: {{ .Values.appConfig.techdocs.requestUrl | quote | quote }}
+  APP_CONFIG_lighthouse_baseUrl: {{ .Values.appConfig.lighthouse.baseUrl | quote | quote }}
+  APP_CONFIG_backend_database_connection_ssl_rejectUnauthorized: "false"
+

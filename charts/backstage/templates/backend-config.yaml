@@ -1,0 +1,57 @@
+{{- if .Values.backend.enabled }}
+
+apiVersion: cloud.google.com/v1
+kind: BackendConfig
+metadata:
+  name: backend-backendconfig
+  namespace: {{ .Release.Namespace }}
+spec:
+  healthCheck:
+    checkIntervalSec: 30
+    timeoutSec: 5
+    healthyThreshold: 1
+    unhealthyThreshold: 2
+    type: HTTP
+    requestPath: /
+    port: {{ .Values.backend.containerPort }}
+  securityPolicy:
+    name: {{ .Values.security_policy }}
+
+  {{- if .Values.google.iap }}
+  iap:
+    enabled: true
+    oauthclientCredentials:
+      secretName: oauth-credentials
+  {{- end }}
+
+{{- end }}
+
+---
+
+{{- if .Values.frontend.enabled }}
+
+apiVersion: cloud.google.com/v1
+kind: BackendConfig
+metadata:
+  name: frontend-backendconfig
+  namespace: {{ .Release.Namespace }}
+spec:
+  healthCheck:
+    checkIntervalSec: 30
+    timeoutSec: 5
+    healthyThreshold: 1
+    unhealthyThreshold: 2
+    type: HTTP
+    requestPath: /
+    port: {{ .Values.frontend.containerPort }}
+  securityPolicy:
+    name: {{ .Values.security_policy }}
+
+  {{- if .Values.google.iap }}
+  iap:
+    enabled: true
+    oauthClientCredentials:
+      secretName: oauth-credentials
+  {{- end }}
+
+{{- end }}

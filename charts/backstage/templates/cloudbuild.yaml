@@ -1,0 +1,41 @@
+
+apiVersion: cloudbuild.cnrm.cloud.google.com/v1beta1
+kind: CloudBuildTrigger
+metadata:
+  name: backstage-ci
+  annotations:
+    cnrm.cloud.google.com/project-id: {{ include "app_project" . }}
+spec:
+  disabled: false
+  github:
+    owner: {{ required "REQUIRED: github_org" .Values.github_org }}
+    name: {{ required "REQUIRED: repo_name" .Values.repo_name }} 
+    push:
+      branch: main
+  includedFiles:
+    - "backstage/**"
+  build:
+    options:
+      machineType: E2_HIGHCPU_32
+    timeout: 2400s
+    step:
+      - id: "Build-Backend"
+        name: gcr.io/kaniko-project/executor:latest
+        args:
+          - --destination={{- include "registry_name" . -}}/backend:$COMMIT_SHA
+          - --destination={{- include "registry_name" . -}}/backend:latest
+          - --context=./backstage
+          - --dockerfile=./backstage/packages/backend/Dockerfile
+          - --cache=true
+          - --cache-ttl=240h
+
+      # - id: "Build-Frontend"
+      #   name: gcr.io/kaniko-project/executor:latest
+      #   args:
+      #     - --destination={{- include "registry_name" . -}}/frontend:$COMMIT_SHA
+      #     - --destination={{- include "registry_name" . -}}/frontend:latest
+      #     - --context=./react
+      #     - --dockerfile=./react/packages/app/Dockerfile
+      #     - --cache=true
+      #     - --cache-ttl=240h
+
