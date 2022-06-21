@@ -1,11 +1,4 @@
-domain: argo.walker.igniteme.dev
 config_connector: false
-external_dns: false
-install_crds: false
-
-google:
-  use_iap: false
-  cloud_armor_policy: us-only
 
 argo-cd:
   fullnameOverride: argocd
