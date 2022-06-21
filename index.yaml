@@ -419,6 +419,14 @@ entries:
   argocd-root:
   - apiVersion: v2
     appVersion: 1.0.0
+    created: "2022-06-21T06:45:12.627547158Z"
+    digest: 3781b910d08b535f438c29236243501ef60a8229b743f6ff388984bdd563390f
+    name: argocd-root
+    urls:
+    - https://github.com/MavenWave-DevOps/mw-charts/releases/download/argocd-root-0.0.59/argocd-root-0.0.59.tgz
+    version: 0.0.59
+  - apiVersion: v2
+    appVersion: 1.0.0
     created: "2022-06-21T06:27:07.483190727Z"
     digest: d1f5e1ef3cebc09e9f528ea1b13231fff6a93db56d6b8f3d063797c8e8b96b3b
     name: argocd-root
@@ -856,6 +864,17 @@ entries:
     urls:
     - https://github.com/MavenWave-DevOps/mw-charts/releases/download/argocd-tenant-0.0.62/argocd-tenant-0.0.62.tgz
     version: 0.0.62
+  backstage:
+  - apiVersion: v2
+    appVersion: 1.0.0
+    created: "2022-06-21T06:45:12.751126796Z"
+    description: A Helm chart for deploying Backstage to GKE
+    digest: 131f16a94e868159106807e4d2f462ea1a70cfd0363b4142afc831c165c56045
+    name: backstage
+    type: application
+    urls:
+    - https://github.com/MavenWave-DevOps/mw-charts/releases/download/backstage-0.0.1/backstage-0.0.1.tgz
+    version: 0.0.1
   cluster-config:
   - apiVersion: v2
     appVersion: 1.0.0
