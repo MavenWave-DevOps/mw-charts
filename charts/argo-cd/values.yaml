@@ -2,48 +2,48 @@ config_connector: false
 
 argo-cd:
   fullnameOverride: argocd
-  ingress:
-    enabled: true
-    annotations: 
-      kubernetes.io/ingress.global-static-ip-name: argocd-ip
-      networking.gke.io/managed-certificates: argocd
-      networking.gke.io/v1beta1.FrontendConfig: argocd
-
   server:
+    ingress:
+      enabled: true
+      annotations: 
+        kubernetes.io/ingress.global-static-ip-name: argocd-ip
+        networking.gke.io/managed-certificates: argocd
+        networking.gke.io/v1beta1.FrontendConfig: argocd
+
     service:
       annotations:
         cloud.google.com/neg: '{"ingress": true}'
         cloud.google.com/backend-config: '{"ports": {"http":"argocd"}}'
 
-  GKEmanagedCertificate:
-    enabled: true
-    domains:
-      - argocd.igniteme.dev
-  GKEbackendConfig:
-    enabled: true
-    spec:
-      securityPolicy:
-        name: us-only
-      iap:
-        enabled: false
-        oauthclientCredentials:
-          secretName: oauth-credentials
-      healthCheck:
-        checkIntervalSec: 30
-        timeoutSec: 5
-        healthyThreshold: 1
-        unhealthyThreshold: 2
-        type: HTTP
-        requestPath: /healthz
-        port: 8080
+    GKEmanagedCertificate:
+      enabled: true
+      domains:
+        - argocd.igniteme.dev
+    GKEbackendConfig:
+      enabled: true
+      spec:
+        securityPolicy:
+          name: us-only
+        iap:
+          enabled: false
+          oauthclientCredentials:
+            secretName: oauth-credentials
+        healthCheck:
+          checkIntervalSec: 30
+          timeoutSec: 5
+          healthyThreshold: 1
+          unhealthyThreshold: 2
+          type: HTTP
+          requestPath: /healthz
+          port: 8080
 
-  GKEfrontendConfig:
-    enabled: true
-    spec:
-      sslPolicy: tls-12
-      redirectToHttps:
-        enabled: true
-        responseCodeName: MOVED_PERMANENTLY_DEFAULT
+    GKEfrontendConfig:
+      enabled: true
+      spec:
+        sslPolicy: tls-12
+        redirectToHttps:
+          enabled: true
+          responseCodeName: MOVED_PERMANENTLY_DEFAULT
   
   installCRDs: false
   global:
