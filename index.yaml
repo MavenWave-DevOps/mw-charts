@@ -85,6 +85,17 @@ entries:
     version: 0.0.1
   argo-cd:
   - apiVersion: v2
+    created: "2022-06-21T00:27:43.309492055Z"
+    dependencies:
+    - name: argo-cd
+      repository: https://argoproj.github.io/argo-helm
+      version: 4.9.4
+    digest: 09e0494c99b13a6ffd555100db1389f8b0c71b30a3ac651ca76ad0c3f4884273
+    name: argo-cd
+    urls:
+    - https://github.com/MavenWave-DevOps/mw-charts/releases/download/argo-cd-0.0.13/argo-cd-0.0.13.tgz
+    version: 0.0.13
+  - apiVersion: v2
     created: "2022-06-21T00:24:30.884209589Z"
     dependencies:
     - name: argo-cd
