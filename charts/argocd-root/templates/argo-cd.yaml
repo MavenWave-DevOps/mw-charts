@@ -18,10 +18,9 @@ spec:
   source:
     chart: argo-cd
     repoURL: {{ $.Values.charts_url }}
-    targetRevision: 0.0.7
+    targetRevision: 0.0.16
     helm:
       values: |
-        install_crds: false
         ip_admin_sa: {{ include "dns_admin_sa" $ }}
         gke_project_id: {{ include "gke_project_id" $ }}
   syncPolicy:

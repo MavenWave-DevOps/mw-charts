@@ -4,7 +4,7 @@ apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
   name: crossplane
-  namespace: argo-cd
+  namespace: {{ .Values.namespace }}
   annotations:
     argocd.argoproj.io/sync-wave: "-5"
   labels:
@@ -18,10 +18,10 @@ spec:
     name: crossplane
     jsonPointers:
     - /rules
-  destination:
-    namespace: crossplane-system
-    server: https://kubernetes.default.svc
   project: root-project
+  destination:
+    server: {{ .Values.destination.server }}
+    namespace: crossplane-system
   source:
     chart: crossplane
     targetRevision: 1.7.0
@@ -40,22 +40,27 @@ apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
   name: crossplane-addons
-  namespace: argo-cd
+  namespace: {{ .Values.namespace }}
   annotations:
     argocd.argoproj.io/sync-wave: "-5"
   labels:
     deployment: cluster
+    service: iac
   finalizers:
   - resources-finalizer.argocd.argoproj.io
 spec:
   destination:
+    server: {{ .Values.destination.server }}
     namespace: crossplane-system
-    server: https://kubernetes.default.svc
   project: root-project
   source:
-    path: kustomize/crossplane-addons/overlays/dev
-    targetRevision: main
-    repoURL: {{ include "repo_url" $ }}
+    repoURL: {{ $.Values.charts_url }}
+    chart: crossplane-addons
+    targetRevision: 0.0.1
+    helm:
+      values: |
+        admin_sa: {{ include "admin_sa" $ }}
+        gcp_project_id: {{ include "gke_project_id" $ }}
   syncPolicy:
     automated:
       prune: false
