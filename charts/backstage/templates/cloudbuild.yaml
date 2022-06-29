@@ -22,8 +22,7 @@ spec:
         args:
           - --destination={{- include "registry_dest" . -}}/backend:$COMMIT_SHA
           - --destination={{- include "registry_dest" . -}}/backend:latest
-          - --context=./backstage
-          - --dockerfile=./backstage/packages/backend/Dockerfile
+          - --dockerfile=./packages/backend/Dockerfile
           - --cache=true
           - --cache-ttl=240h
 
@@ -32,8 +31,7 @@ spec:
       #   args:
       #     - --destination={{- include "registry_dest" . -}}/frontend:$COMMIT_SHA
       #     - --destination={{- include "registry_dest" . -}}/frontend:latest
-      #     - --context=./react
-      #     - --dockerfile=./react/packages/app/Dockerfile
+      #     - --dockerfile=./packages/app/Dockerfile
       #     - --cache=true
       #     - --cache-ttl=240h
 
