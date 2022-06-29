@@ -88,7 +88,7 @@ If release name contains chart name it will be used as a full name.
 
 
 {{- define "app_sa" -}}
-  {{- required "REQUIRED: tenant_code" .Values.tenant_code -}}-workload@{{- include "app_project" . -}}.iam
+  {{- required "REQUIRED: app_sa" .Values.app_sa -}}
 {{- end -}}
 
 
