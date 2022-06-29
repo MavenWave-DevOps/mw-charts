@@ -64,8 +64,6 @@ spec:
             periodSeconds: 5
 
           envFrom:
-            - configMapRef:
-                name: {{ include "backstage.fullname" . }}-app-env
             - secretRef:
                 name: {{ include "backstage.fullname" . }}-secrets
 
