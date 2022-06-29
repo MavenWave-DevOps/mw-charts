@@ -69,6 +69,8 @@ spec:
           envFrom:
             - secretRef:
                 name: {{ include "backstage.fullname" . }}-secrets
+            - configMapRef:
+                name: {{ include "backstage.fullname" . }}-app-env
           volumeMounts:
             - name: app-config
               mountPath: {{ printf "/usr/src/app/%s" (include "backstage.appConfigFilename" .) }}
