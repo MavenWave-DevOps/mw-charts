@@ -1,11 +1,10 @@
-{{- $appUrl := urlParse .Values.appConfig.app.baseUrl}}
 
 apiVersion: networking.gke.io/v1beta2
 kind: ManagedCertificate
 metadata:
   name: backstage-cert
-  namespace: {{ .Release.Namespace }}
+  namespace: {{ $.Release.Namespace }}
 spec:
   domains:
-    - {{ $appUrl.host }}
+    - {{ include "domain" $ }}
 
