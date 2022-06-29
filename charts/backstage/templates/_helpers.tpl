@@ -73,7 +73,7 @@ If release name contains chart name it will be used as a full name.
 
 
 {{- define "registry_dest" }}
-  {{- required "REQUIRED: registry_name" .Values.registry_name -}}/{{- include "app_project" $ -}}/{{- include "artifact_repo_name" $ }}
+  {{- required "REQUIRED: registry_name" .Values.registry_name -}}/{{- include "backstage_project" $ -}}/{{- include "artifact_repo_name" $ }}
 {{- end }}
 
 
