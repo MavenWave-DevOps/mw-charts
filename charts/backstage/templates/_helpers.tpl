@@ -52,8 +52,18 @@ If release name contains chart name it will be used as a full name.
 {{- end -}}
 
 
-{{- define "gcp_project" -}}
-  {{- required "REQUIRED: gcp_project_id" .Values.gcp_project_id -}}
+{{- define "app_sa" -}}
+  {{- required "REQUIRED: app_sa" .Values.app_sa -}}
+{{- end -}}
+
+
+{{- define "backstage_project" -}}
+  {{- required "REQUIRED: backstage_project_id" .Values.backstage_project_id -}}
+{{- end -}}
+
+
+{{- define "gke_project" -}}
+  {{- required "REQUIRED: gke_project_id" .Values.gke_project_id -}}
 {{- end -}}
 
 
