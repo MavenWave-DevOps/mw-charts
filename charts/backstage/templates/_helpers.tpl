@@ -82,11 +82,6 @@ If release name contains chart name it will be used as a full name.
 {{- end }}
 
 
-{{- define "app_sa" -}}
-  {{- required "REQUIRED: app_sa" .Values.app_sa -}}
-{{- end -}}
-
-
 {{/*
 Create chart name and version as used by the chart label.
 */}}
