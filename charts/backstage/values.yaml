@@ -69,3 +69,6 @@ issuer:
   email:
   clusterIssuer: 'letsencrypt-staging'
 
+appConfig:
+  app:
+    title: Backstage
