@@ -22,8 +22,8 @@ spec:
       - id: "Build-Backend"
         name: gcr.io/kaniko-project/executor:latest
         args:
-          - --destination={{- include "registry_name" . -}}/backend:$COMMIT_SHA
-          - --destination={{- include "registry_name" . -}}/backend:latest
+          - --destination={{- include "registry_dest" . -}}/backend:$COMMIT_SHA
+          - --destination={{- include "registry_dest" . -}}/backend:latest
           - --context=./backstage
           - --dockerfile=./backstage/packages/backend/Dockerfile
           - --cache=true
@@ -32,8 +32,8 @@ spec:
       # - id: "Build-Frontend"
       #   name: gcr.io/kaniko-project/executor:latest
       #   args:
-      #     - --destination={{- include "registry_name" . -}}/frontend:$COMMIT_SHA
-      #     - --destination={{- include "registry_name" . -}}/frontend:latest
+      #     - --destination={{- include "registry_dest" . -}}/frontend:$COMMIT_SHA
+      #     - --destination={{- include "registry_dest" . -}}/frontend:latest
       #     - --context=./react
       #     - --dockerfile=./react/packages/app/Dockerfile
       #     - --cache=true
