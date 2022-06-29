@@ -91,7 +91,7 @@ spec:
         #   imagePullPolicy: {{ .Values.backend.image.pullPolicy }}
         #   command:
         #   - /cloud_sql_proxy
-        #   - -instances={{- include "db_project" . -}}:{{- required "REQUIRED: google.region" .Values.google.region -}}:{{- include "instance_name" . }}=tcp:127.0.0.1:5432
+        #   - -instances={{- include "backstage_project" . -}}:{{- required "REQUIRED: google.region" .Values.google.region -}}:{{- include "instance_name" . }}=tcp:127.0.0.1:5432
         #   - -enable_iam_login
 
 
