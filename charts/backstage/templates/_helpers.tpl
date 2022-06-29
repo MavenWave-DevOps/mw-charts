@@ -77,8 +77,8 @@ If release name contains chart name it will be used as a full name.
 {{- end -}}
 
 
-{{- define "registry_name" }}
-  {{- "us-central1-docker.pkg.dev" -}}/{{- include "app_project" $ -}}/{{- include "artifact_repo_name" $ }}
+{{- define "registry_dest" }}
+  {{- required "REQUIRED: registry_name" .Values.registry_name -}}/{{- include "app_project" $ -}}/{{- include "artifact_repo_name" $ }}
 {{- end }}
 
 

@@ -35,7 +35,7 @@ spec:
             - "packages/backend"
             # - "--config"
             # - "app-config.yaml"
-          image: {{ include "registry_name" $ -}}/frontend:{{- .Values.frontend.image.tag }}
+          image: {{ include "registry_dest" $ -}}/frontend:{{- .Values.frontend.image.tag }}
           imagePullPolicy: {{ .Values.frontend.image.pullPolicy }}
           ports:
             - containerPort: {{ .Values.frontend.containerPort }} 
