@@ -11,13 +11,18 @@ github:
   enabled: true
   oauth: true
 
+registry_name: gcr.io
+
 google:
   region: us-central1
   oauth: true
   iap: true
   config_connector: true
   create_ip: true
-  create_registry: true
+  create_registry: false
+  create_db: false
+  sql_instance: backstage-instance
+  artifact_repo_name: backstage-images
   ip_name: backstage-ip
 
 jira:

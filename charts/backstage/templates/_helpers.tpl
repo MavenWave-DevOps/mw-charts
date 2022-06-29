@@ -38,12 +38,12 @@ If release name contains chart name it will be used as a full name.
 
 
 {{- define "artifact_repo_name" -}}
-  {{- required "REQUIRED: app_code" .Values.app_code -}}-images
+  {{- required "REQUIRED: google.artifact_repo_name" .Values.google.artifact_repo_name -}}
 {{- end -}}
 
 
 {{- define "instance_name" -}}
-  {{- required "REQUIRED: app_code" .Values.app_code -}}-instance
+  {{- required "REQUIRED: google.sql_instance" .Values.google.sql_instance -}}
 {{- end -}}
 
 
@@ -52,28 +52,13 @@ If release name contains chart name it will be used as a full name.
 {{- end -}}
 
 
-{{- define "sa_project" -}}
-  {{- required "REQUIRED: sa_project_id" .Values.sa_project_id -}}
+{{- define "gcp_project" -}}
+  {{- required "REQUIRED: gcp_project_id" .Values.gcp_project_id -}}
 {{- end -}}
 
 
 {{- define "dns_project" -}}
   {{- required "REQUIRED: dns_project_id" .Values.dns_project_id -}}
-{{- end -}}
-
-
-{{- define "gke_project" -}}
-  {{- required "REQUIRED: gke_project_id" .Values.gke_project_id -}}
-{{- end -}}
-
-
-{{- define "db_project" -}}
-  {{- required "REQUIRED: db_project_id" .Values.db_project_id -}}
-{{- end -}}
-
-
-{{- define "app_project" -}}
-  {{- required "REQUIRED: app_project_id" .Values.app_project_id -}}
 {{- end -}}
 
 
