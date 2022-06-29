@@ -42,6 +42,11 @@ If release name contains chart name it will be used as a full name.
 {{- end -}}
 
 
+{{- define "cluster_name" -}}
+  {{- required "REQUIRED: cluster_name" .Values.cluster_name -}}
+{{- end -}}
+
+
 {{- define "instance_name" -}}
   {{- required "REQUIRED: google.sql_instance" .Values.google.sql_instance -}}
 {{- end -}}
@@ -49,6 +54,11 @@ If release name contains chart name it will be used as a full name.
 
 {{- define "app_admin_sa" -}}
   {{- required "REQUIRED: app_admin_sa" .Values.app_admin_sa -}}
+{{- end -}}
+
+
+{{- define "secrets_sa" -}}
+  {{- required "REQUIRED: secrets_sa" .Values.secrets_sa -}}
 {{- end -}}
 
 

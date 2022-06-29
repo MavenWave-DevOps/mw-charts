@@ -7,6 +7,8 @@ domain: backstage.igniteme.dev
 gcp_project_id: project-x-bootstrap
 repo_name: backstage
 
+cluster_name: primary-cluster
+
 github:
   enabled: true
   oauth: true
