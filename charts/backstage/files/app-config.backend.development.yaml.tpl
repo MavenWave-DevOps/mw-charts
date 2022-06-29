@@ -46,6 +46,20 @@ techdocs:
   publisher:
     type: 'local' # Alternatives - 'googleGcs' or 'awsS3'. Read documentation for using alternatives.
 
+auth:
+  # see https://backstage.io/docs/auth/ to learn about auth providers
+  providers:
+    github:
+      development:
+        clientId: ${AUTH_GITHUB_CLIENT_ID}
+        clientSecret: ${AUTH_GITHUB_CLIENT_SECRET}
+    google:
+      development:
+        clientId: ${AUTH_GOOGLE_CLIENT_ID}
+        clientSecret: ${AUTH_GOOGLE_CLIENT_SECRET}
+
+scaffolder:
+  # see https://backstage.io/docs/features/software-templates/configuration for software template options
 
 catalog:
   import:
