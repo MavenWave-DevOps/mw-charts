@@ -1,0 +1,8 @@
+apiVersion: v2
+name: infra
+version: 0.0.1
+dependencies:
+  - name: ignite-infra
+    version: 0.0.1
+    repository: https://mavenwave-devops.github.io/mw-charts
+

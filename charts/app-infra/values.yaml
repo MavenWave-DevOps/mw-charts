@@ -13,3 +13,6 @@ storage: true
   
 use_helm: false
 
+app_directories:
+  - frontend
+  - backend
