@@ -1,8 +1,6 @@
 apiVersion: v2
-name: infra
+name: ignite-infra
+description: A Helm chart for deploying Ignite application GCP infrastructure
+type: application
+appVersion: 0.0.1
 version: 0.0.1
-dependencies:
-  - name: ignite-infra
-    version: 0.0.1
-    repository: https://mavenwave-devops.github.io/mw-charts
-
