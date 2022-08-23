@@ -1,0 +1,13 @@
+
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: frontend-configs
+data:
+  env.js: |
+    window.AUTH_DOMAIN = '{{- .Values.google.project -}}.firebaseapp.com';
+    {{- if .Values.backend.enabled }}
+    window.API_URL = 'https://{{- include "domain" . -}}/';
+    {{- end }}
+
+

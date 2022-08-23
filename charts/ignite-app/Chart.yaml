@@ -1,0 +1,6 @@
+apiVersion: v2
+name: ignite-app
+description: A Helm chart for deploying an ignite app
+type: application
+appVersion: 1.0.0
+version: 0.0.1

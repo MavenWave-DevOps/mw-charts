@@ -1,0 +1,61 @@
+{{- if and (.Values.enabled) (.Values.frontend.enabled) }}
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: frontend
+  labels:
+    app: frontend
+    tier: frontend
+spec:
+  replicas: {{ required "REQUIRED: frontend.replicas" .Values.frontend.replicas }}
+  strategy:
+    type: RollingUpdate
+  selector:
+    matchLabels:
+      app: frontend
+  template:
+    metadata:
+      labels:
+        app: frontend
+    spec:
+      serviceAccountName: app-sa
+      restartPolicy: Always
+      volumes:
+      - name: nginx-env
+        configMap:
+          name: frontend-configs
+          items:
+          - key: env.js
+            path: env.js
+
+      containers:
+      - name: frontend
+        image: '{{ include "frontend_image" . }}'
+        imagePullPolicy: Always
+        ports:
+        - containerPort: {{ .Values.frontend.containerPort }}
+          name: frontend-port
+
+        volumeMounts:
+        - name: nginx-env
+          mountPath: /var/www/env
+          readOnly: true
+
+        livenessProbe:
+          httpGet:
+            path: {{ .Values.frontend.healthCheckPath }}
+            port: {{ .Values.frontend.containerPort }}
+          initialDelaySeconds: 30
+          periodSeconds: 10
+
+        readinessProbe:
+          httpGet:
+            path: {{ .Values.frontend.healthCheckPath }}
+            port: {{ .Values.frontend.containerPort }}
+          initialDelaySeconds: 30
+          periodSeconds: 10
+
+{{- end }}
+
+

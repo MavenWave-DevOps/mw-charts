@@ -1,0 +1,25 @@
+{{- if and (.Values.enabled) (.Values.backend.enabled) }}
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: backend
+  labels:
+    app: backend
+    tier: backend
+  {{- if not .Values.local }}
+  annotations:
+    cloud.google.com/neg: '{"ingress": true}'
+    cloud.google.com/backend-config: '{"default": "backend-backendconfig"}'
+  {{- end }}
+spec:
+  type: ClusterIP
+  selector:
+    app: backend
+    
+  ports:
+  - name: http
+    port: 443
+    targetPort: {{ .Values.backend.containerPort }}
+
+{{- end }}

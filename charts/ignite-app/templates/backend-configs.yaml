@@ -1,0 +1,45 @@
+{{- if and (.Values.enabled) (not .Values.local) }}
+
+{{- if .Values.frontend.enabled }}
+
+apiVersion: cloud.google.com/v1
+kind: BackendConfig
+metadata:
+  name: frontend-backendconfig
+spec:
+  healthCheck:
+    checkIntervalSec: 30
+    timeoutSec: 5
+    healthyThreshold: 1
+    unhealthyThreshold: 2
+    type: HTTP
+    requestPath: {{ .Values.frontend.healthCheckPath }}
+
+  securityPolicy:
+    name: {{ .Values.security_policy }}
+
+---
+{{- end }}
+
+{{- if .Values.backend.enabled }}
+
+apiVersion: cloud.google.com/v1
+kind: BackendConfig
+metadata:
+  name: backend-backendconfig
+spec:
+  healthCheck:
+    checkIntervalSec: 30
+    timeoutSec: 5
+    healthyThreshold: 1
+    unhealthyThreshold: 2
+    type: HTTP
+    requestPath: {{ .Values.backend.healthCheckPath }}
+
+  securityPolicy:
+    name: {{ .Values.security_policy }}
+
+{{- end }}
+
+
+{{- end }}

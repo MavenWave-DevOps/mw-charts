@@ -1,0 +1,59 @@
+enabled: true
+local: false
+
+frontend:
+  enabled: true
+  replicas: 1
+  tag: latest
+  healthCheckPath: /
+  containerPort: 80
+
+backend:
+  enabled: true
+  replicas: 1
+  tag: latest
+  healthCheckPath: /api
+  containerPort: 8000
+
+pvc:
+  enabled: false
+
+django:
+  enabled: false
+
+external_secrets:
+  enabled: false
+
+google:
+  sql:
+    enabled: false
+    instance: ignite-instance
+  domain: igniteme.dev
+  region: us-central1
+  zone: us-central1-a
+  wi_test: false
+  oauth:
+    enabled: false
+  analytics:
+    enabled: false
+
+security_policy: us-only
+ssl_policy: tls-12
+
+ingress:
+  https: true
+
+autoscaler:
+  enabled: false
+
+twilio:
+  enabled: false
+
+firebase:
+  enabled: false
+
+sendgrid:
+  enabled: false
+
+
+

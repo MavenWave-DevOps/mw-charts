@@ -1,0 +1,111 @@
+{{- if and (.Values.enabled) (.Values.backend.enabled) }}
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: backend
+  labels:
+    app: backend
+    tier: backend
+spec:
+  replicas: {{ required "REQUIRED: backend.replicas" .Values.backend.replicas }}
+  strategy:
+    type: RollingUpdate
+  selector:
+    matchLabels:
+      app: backend
+  template:
+    metadata:
+      labels:
+        app: backend
+    spec:
+      serviceAccountName: app-sa
+      restartPolicy: Always
+
+      containers:
+      - name: backend
+        image: '{{ include "backend_image" . }}'
+        imagePullPolicy: Always
+        
+        livenessProbe:
+          httpGet:
+            path: {{ .Values.backend.healthCheckPath }}
+            port: {{ .Values.backend.containerPort }}
+          initialDelaySeconds: 30
+          periodSeconds: 10
+
+        readinessProbe:
+          httpGet:
+            path: {{ .Values.backend.healthCheckPath }}
+            port: {{ .Values.backend.containerPort }}
+          initialDelaySeconds: 30
+          periodSeconds: 10
+
+        env:
+        - name: IS_LOCAL
+          value: 'false'
+        - name: MNT_DIR
+          value: /mnt/pvc/
+        - name: DOMAIN
+          value: {{ include "domain" $ }}
+
+        {{- if .Values.google.sql.enabled }}
+        - name: USE_PROXY
+          value: 'true'
+        - name: DB_NAME
+          value: {{ .Values.app_name }}
+        - name: DB_USER
+          value: {{ include "app_sa" $ }}
+        {{- end }}
+
+        {{- if .Values.google.oauth.enabled }}
+        - name: OAUTH_ID
+          valueFrom:
+            secretKeyRef:
+              name: oauth-credentials
+              key: client_id
+        - name: OAUTH_SECRET
+          valueFrom:
+            secretKeyRef:
+              name: oauth-credentials
+              key: client_secret
+        {{- end }}
+
+        {{- if .Values.twilio.enabled }}
+        - name: TWILIO_ACCOUNT_SID
+          valueFrom:
+            secretKeyRef:
+              name: twilio-secrets
+              key: twilio-account-sid
+        - name: TWILIO_AUTH_TOKEN
+          valueFrom:
+            secretKeyRef:
+              name: twilio-secrets
+              key: twilio-auth-token
+        {{- end }}
+
+        {{- if .Values.sendgrid.enabled }}
+        - name: SENDGRID_KEY
+          valueFrom:
+            secretKeyRef:
+              name: sendgrid-secrets
+              key: sendgrid-key
+        {{- end }}
+
+        ports:
+        - containerPort: {{ .Values.backend.containerPort }}
+          name: backend-port
+
+       {{- if .Values.google.sql.enabled }}
+      - name: proxy
+        image: gcr.io/cloudsql-docker/gce-proxy:1.31.0
+        imagePullPolicy: Always
+        command:
+        - /cloud_sql_proxy
+        - -instances={{- .Values.google.project -}}:{{- required "REQUIRED: google.region" .Values.google.region -}}:{{- .Values.google.sql.instance -}}=tcp:127.0.0.1:5432
+        - -enable_iam_login
+      {{- end }}
+
+{{- end }}
+
+
