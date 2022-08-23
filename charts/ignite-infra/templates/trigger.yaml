@@ -30,7 +30,7 @@ spec:
         args:
           - --destination={{- include "artifact_repo" $ }}/{{- . -}}:$COMMIT_SHA
           - --destination={{- include "artifact_repo" $ }}/{{- . -}}:latest
-          - --context=./apps/django
+          - --context=./apps/{{- .Values.app_code -}}/{{- . }}
           - --cache=true
           - --cache-ttl=240h
       {{- end }}
