@@ -1147,6 +1147,17 @@ entries:
     urls:
     - https://github.com/MavenWave-DevOps/mw-charts/releases/download/gatekeeper-policies-0.0.1/gatekeeper-policies-0.0.1.tgz
     version: 0.0.1
+  ignite-app:
+  - apiVersion: v2
+    appVersion: 1.0.0
+    created: "2022-08-23T18:54:52.290209136Z"
+    description: A Helm chart for deploying an ignite app
+    digest: e6c7f275fd62b6d8680b62130ab5834c2f0e9ef0a3bd486b6869f180e4fdbfa9
+    name: ignite-app
+    type: application
+    urls:
+    - https://github.com/MavenWave-DevOps/mw-charts/releases/download/ignite-app-0.0.1/ignite-app-0.0.1.tgz
+    version: 0.0.1
   infra-admin:
   - apiVersion: v2
     appVersion: 0.0.1
