@@ -1,0 +1,49 @@
+  1 cloudbuild: true                                                                              |  1
+~                                                                                                 |  2 ignite-app:
+~                                                                                                 |  3   tenant_code: pops-party
+~                                                                                                 |  4   google:
+~                                                                                                 |  5     project: "ignite-pops-party-project-xdr"
+~                                                                                                 |  6   domain: somethingrandom.igniteme.dev
+~                                                                                                 |  7   app_name: "flask"
+~                                                                                                 |  8   local: false
+~                                                                                                 |  9   backend:
+~                                                                                                 | 10     enabled: false
+~                                                                                                 | 11
+~                                                                                                 |~
+~                                                                                                 |~
+~                                                                                                 |~
+~                                                                                                 |~
+~                                                                                                 |~
+~                                                                                                 |~
+~                                                                                                 |~
+~                                                                                                 |~
+~                                                                                                 |~
+~                                                                                                 |~
+~                                                                                                 |~
+~                                                                                                 |~
+~                                                                                                 |~
+~                                                                                                 |~
+~                                                                                                 |~
+~                                                                                                 |~
+~                                                                                                 |~
+~                                                                                                 |~
+~                                                                                                 |~
+~                                                                                                 |~
+~                                                                                                 |~
+~                                                                                                 |~
+~                                                                                                 |~
+~                                                                                                 |~
+~                                                                                                 |~
+~                                                                                                 |~
+~                                                                                                 |~
+~                                                                                                 |~
+~                                                                                                 |~
+~                                                                                                 |~
+~                                                                                                 |~
+~                                                                                                 |~
+~                                                                                                 |~
+~                                                                                                 |~
+values.yaml                                                                                        ~/Desktop/IGNITE/ignite-pops-party/apps/flask/values.yaml
+"~/Desktop/IGNITE/ignite-pops-party/apps/flask/values.yaml" 11L, 200B
+0@ zsh  1- zsh  2* zsh  3 zsh                                                                                                               michaelfoster@Michaels-MacBook-Pro 10.10.2.123 Menu:<F9>
+ X  macOS 12.4 |                                                                                                       23! 18d23h 2.47 8x1000000000.000GHz 1.0GB98% 47872499227% 2022-08-30 13:01:35

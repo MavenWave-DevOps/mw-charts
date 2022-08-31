@@ -1,0 +1,8 @@
+
+google:
+  project:
+  region: us-central1
+
+app_code:
+  - frontend:
+  - backend:
