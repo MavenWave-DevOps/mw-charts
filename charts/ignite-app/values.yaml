@@ -43,6 +43,9 @@ ssl_policy: tls-12
 ingress:
   https: true
 
+external_dns:
+  enabled: false
+
 autoscaler:
   enabled: false
 
