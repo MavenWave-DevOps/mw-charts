@@ -7,7 +7,9 @@ metadata:
     {{- if .Values.external_dns.enabled }}
     external-dns.alpha.kubernetes.io/hostname: {{ include "domain" $ -}}.
     {{- end }}
+    {{- if .Values.static_ip.enabled }}
     kubernetes.io/ingress.global-static-ip-name: {{ include "ip_name" . }}
+    {{- end }}
     networking.gke.io/v1beta1.FrontendConfig: gke-frontendconfig
     networking.gke.io/managed-certificates: backstage-cert
 spec:

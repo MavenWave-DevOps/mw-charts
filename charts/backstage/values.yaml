@@ -18,6 +18,9 @@ external_secrets:
 external_dns:
   enabled: true
 
+static_ip:
+  enabled: false
+
 registry_name: gcr.io
 
 pd:
