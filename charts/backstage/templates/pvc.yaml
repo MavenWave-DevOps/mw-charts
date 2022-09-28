@@ -1,3 +1,4 @@
+{{- if .Values.pd.enabled }}
 
 apiVersion: v1
 kind: PersistentVolumeClaim
@@ -9,5 +10,6 @@ spec:
     - ReadWriteOnce
   resources:
     requests:
-      storage: 20Gi
+      storage: {{ .Values.pd.size }}
 
+{{- end }}

@@ -2,9 +2,6 @@
 security_policy: us-only
 ssl_policy: tls-12
 
-domain: backstage.igniteme.dev
-
-gcp_project_id: project-x-bootstrap
 repo_name: backstage
 
 cluster_name: primary-cluster
@@ -18,11 +15,18 @@ external_dns:
 
 registry_name: gcr.io
 
+pd:
+  enabled: true
+  size: 20Gi
+
 google:
   region: us-central1
-  oauth: true
-  iap: true
-  config_connector: true
+  oauth: false
+  iap: false
+  config_connector:
+    enabled: true
+    context:
+      enabled: false
   create_ip: true
   create_registry: false
   create_db: false

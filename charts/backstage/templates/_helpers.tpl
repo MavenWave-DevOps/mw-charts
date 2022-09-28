@@ -53,7 +53,11 @@ If release name contains chart name it will be used as a full name.
 
 
 {{- define "infra_sa" -}}
-  {{- required "REQUIRED: infra_sa" .Values.app_sa -}}
+  {{- if .Values.config_connector.context.enabled }}
+    {{- required "REQUIRED: infra_sa" .Values.infra_sa -}}
+  {{- else }}
+    {{- "" }}
+  {{- end }}
 {{- end -}}
 
 
@@ -83,7 +87,7 @@ If release name contains chart name it will be used as a full name.
 
 
 {{- define "registry_dest" }}
-  {{- required "REQUIRED: registry_name" .Values.registry_name -}}/{{- include "backstage_project" $ -}}/{{- include "artifact_repo_name" $ }}
+  {{- required "REQUIRED: registry_name" .Values.registry_name -}}/{{- include "gcp_project" $ -}}/{{- include "artifact_repo_name" $ }}
 {{- end }}
 
 
