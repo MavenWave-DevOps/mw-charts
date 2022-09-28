@@ -4,7 +4,7 @@ kind: CloudBuildTrigger
 metadata:
   name: backstage-ci
   annotations:
-    cnrm.cloud.google.com/project-id: {{ include "backstage_project" . }}
+    cnrm.cloud.google.com/project-id: {{ include "gcp_project" . }}
 spec:
   disabled: false
   github:
