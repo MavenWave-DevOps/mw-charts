@@ -65,6 +65,16 @@ entries:
   app-infra:
   - apiVersion: v2
     appVersion: 0.0.1
+    created: "2022-09-28T06:43:55.417792162Z"
+    description: A Helm chart for deploying an applications GCP resources
+    digest: 11b882340086027dcd9208d6d8226727f850f92d216842fc945712d2774e787f
+    name: app-infra
+    type: application
+    urls:
+    - https://github.com/MavenWave-DevOps/mw-charts/releases/download/app-infra-0.0.5/app-infra-0.0.5.tgz
+    version: 0.0.5
+  - apiVersion: v2
+    appVersion: 0.0.1
     created: "2022-04-20T04:51:09.247795481Z"
     description: A Helm chart for deploying an applications GCP resources
     digest: a1063c4f1547ee1e172913fa814ab6b3e9f604e543cb488af9c5d5a87525a322
@@ -891,6 +901,15 @@ entries:
     - https://github.com/MavenWave-DevOps/mw-charts/releases/download/argocd-tenant-0.0.62/argocd-tenant-0.0.62.tgz
     version: 0.0.62
   backstage:
+  - apiVersion: v2
+    created: "2022-09-28T06:43:55.702479757Z"
+    description: A Helm chart for deploying Backstage to GKE
+    digest: e7399eac0a64bd26dffccd7115e0b83c66c2e7a2ac94557d19b942b5242b608c
+    name: backstage
+    type: application
+    urls:
+    - https://github.com/MavenWave-DevOps/mw-charts/releases/download/backstage-0.0.22/backstage-0.0.22.tgz
+    version: 0.0.22
   - apiVersion: v2
     appVersion: 1.0.0
     created: "2022-06-29T14:11:44.652799129Z"
