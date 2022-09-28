@@ -10,6 +10,11 @@ github:
   enabled: true
   oauth: true
 
+external_secrets:
+  enabled: true
+  workload_identity:
+    enabled: false
+
 external_dns:
   enabled: true
 
