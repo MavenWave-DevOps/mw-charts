@@ -23,16 +23,21 @@ google:
   region: us-central1
   oauth: false
   iap: false
+  sql_instance: backstage-instance
+  artifact_repo_name: backstage-images
+  ip_name: backstage-ip
   config_connector:
     enabled: true
     context:
       enabled: false
-  create_ip: true
-  create_registry: false
-  create_db: false
-  sql_instance: backstage-instance
-  artifact_repo_name: backstage-images
-  ip_name: backstage-ip
+    cloudbuild:
+      enabled: true
+    address:
+      enabled: false
+    artifact_registry:
+      enabled: false
+    cloud_sql:
+      enabled: false
 
 jira:
   enabled: true
