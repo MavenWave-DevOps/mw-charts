@@ -4,15 +4,12 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: {{ include "backstage.fullname" . }}-backend
-
 spec:
   replicas: {{ .Values.backend.replicaCount }}
-
   selector:
     matchLabels:
       app: backstage
       component: backend
-
   template:
     metadata:
       annotations:
@@ -22,6 +19,16 @@ spec:
         component: backend
 
     spec:
+      hostIPC: false
+      hostNetwork: false
+      hostPID: false
+      securityContext:
+        runAsUser: 115
+        runAsGroup: 125
+        fsGroup: 190
+        supplementalGroups:
+          - 150
+
       volumes:
         - name: app-config
           configMap:
@@ -42,6 +49,14 @@ spec:
           imagePullPolicy: {{ .Values.backend.image.pullPolicy }}
           ports:
             - containerPort: {{ .Values.backend.containerPort }}
+          securityContext:
+            allowPrivilegeEscalation: false
+            privileged: false
+            procMount: default
+            readOnlyRootFilesystem: true
+            runAsNonRoot: true
+            seccompProfile:
+              type: RuntimeDefault
           resources:
           {{- toYaml .Values.backend.resources | nindent 12 }}
 
