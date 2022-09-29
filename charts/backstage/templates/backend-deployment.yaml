@@ -54,7 +54,7 @@ spec:
           ports:
             - containerPort: {{ .Values.backend.containerPort }}
           securityContext:
-            allowPrivilegeEscalation: false
+            allowPrivilegeEscalation: true
             privileged: true
             procMount: default
             readOnlyRootFilesystem: true
