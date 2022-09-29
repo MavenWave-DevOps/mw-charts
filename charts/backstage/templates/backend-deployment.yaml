@@ -19,15 +19,15 @@ spec:
         component: backend
 
     spec:
-      hostIPC: false
-      hostNetwork: false
-      hostPID: false
-      securityContext:
-        runAsUser: 115
-        runAsGroup: 125
-        fsGroup: 190
-        supplementalGroups:
-          - 150
+      # hostIPC: false
+      # hostNetwork: false
+      # hostPID: false
+      # securityContext:
+      #   runAsUser: 115
+      #   runAsGroup: 125
+      #   fsGroup: 190
+      #   supplementalGroups:
+      #     - 150
 
       volumes:
         - name: app-config
@@ -53,14 +53,14 @@ spec:
           imagePullPolicy: {{ .Values.backend.image.pullPolicy }}
           ports:
             - containerPort: {{ .Values.backend.containerPort }}
-          securityContext:
-            allowPrivilegeEscalation: true
-            privileged: true
-            procMount: default
-            readOnlyRootFilesystem: true
-            runAsNonRoot: false
-            seccompProfile:
-              type: RuntimeDefault
+          # securityContext:
+          #   allowPrivilegeEscalation: true
+          #   privileged: true
+          #   procMount: default
+          #   readOnlyRootFilesystem: true
+          #   runAsNonRoot: false
+          #   seccompProfile:
+          #     type: RuntimeDefault
           resources:
           {{- toYaml .Values.backend.resources | nindent 12 }}
 
