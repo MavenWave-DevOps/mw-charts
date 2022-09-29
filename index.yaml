@@ -902,6 +902,15 @@ entries:
     version: 0.0.62
   backstage:
   - apiVersion: v2
+    created: "2022-09-29T05:22:18.769284727Z"
+    description: A Helm chart for deploying Backstage to GKE
+    digest: 68479a2c3beed1a1ae87e0088baeaef5963e62fea1104380ddced0e550c860f7
+    name: backstage
+    type: application
+    urls:
+    - https://github.com/MavenWave-DevOps/mw-charts/releases/download/backstage-0.0.37/backstage-0.0.37.tgz
+    version: 0.0.37
+  - apiVersion: v2
     created: "2022-09-29T04:54:16.583686063Z"
     description: A Helm chart for deploying Backstage to GKE
     digest: cc67f4d596995acaeec9e231cc2917a0cb16501cb46e94379dbc109f8d2c7218
