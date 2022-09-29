@@ -23,8 +23,8 @@ spec:
       hostNetwork: false
       hostPID: false
       securityContext:
-        runAsUser: 2000
-        runAsGroup: 3000
+        runAsUser: 115
+        runAsGroup: 125
         fsGroup: 190
         supplementalGroups:
           - 150
@@ -55,10 +55,10 @@ spec:
             - containerPort: {{ .Values.backend.containerPort }}
           securityContext:
             allowPrivilegeEscalation: false
-            privileged: false
+            privileged: true
             procMount: default
             readOnlyRootFilesystem: true
-            runAsNonRoot: true
+            runAsNonRoot: false
             seccompProfile:
               type: RuntimeDefault
           resources:
