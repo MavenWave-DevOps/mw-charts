@@ -89,9 +89,9 @@ spec:
             - secretRef:
                 name: {{ include "backstage.fullname" . }}-secrets
           volumeMounts:
-            - name: app-config
-              mountPath: {{ printf "/usr/src/app/%s" (include "backstage.appConfigFilename" .) }}
-              subPath: {{ include "backstage.appConfigFilename" . }}
+            # - name: app-config
+            #   mountPath: {{ printf "/usr/src/app/%s" (include "backstage.appConfigFilename" .) }}
+            #   subPath: {{ include "backstage.appConfigFilename" . }}
             - mountPath: /app/backstage-db
               name: db-volume
 
