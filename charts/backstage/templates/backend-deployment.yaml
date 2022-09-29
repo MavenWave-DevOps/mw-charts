@@ -19,9 +19,9 @@ spec:
         component: backend
 
     spec:
-      # hostIPC: false
-      # hostNetwork: false
-      # hostPID: false
+      hostIPC: false
+      hostNetwork: false
+      hostPID: false
       # securityContext:
       #   runAsUser: 115
       #   runAsGroup: 125
