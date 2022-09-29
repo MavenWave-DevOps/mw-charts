@@ -51,7 +51,7 @@ google:
       enabled: false
     cloudbuild:
       enabled: true
-      machine_type: E2_HIGHCPU_32
+      machine_type: E2_HIGHCPU_8
     address:
       enabled: false
     artifact_registry:
