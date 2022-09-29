@@ -34,8 +34,12 @@ spec:
           configMap:
             name: {{ include "backstage.fullname" . }}-backend-app-config
         - name: db-volume
+          {{- if .Values.pd.enabled }}
           persistentVolumeClaim:
             claimName: gce-pvc
+          {{- else }}
+          emptyDir: {}
+          {{- end }}
 
       serviceAccountName: backstage-sa
       containers:
