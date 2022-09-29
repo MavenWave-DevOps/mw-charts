@@ -31,13 +31,18 @@
 {{- end -}}
 
 
-{{- define "api_image" -}}
-  {{- .Values.google.region -}}-docker.pkg.dev/{{- include "app_project" . -}}/{{- include "registry_name" . -}}/api:{{- .Values.api.tag }}
+{{- define "registry_dest" -}}
+  {{- .Values.google.region -}}-docker.pkg.dev/{{- include "app_project" . -}}/{{- include "registry_name" . -}}
 {{- end -}}
 
 
-{{- define "nginx_image" -}}
-  {{- .Values.google.region -}}-docker.pkg.dev/{{- include "app_project" . -}}/{{- include "registry_name" . -}}/nginx:{{- .Values.nginx.tag }}
+{{- define "backend_image" -}}
+  {{- include "registry_dest" $ -}}/backend:{{- .Values.backend.tag }}
+{{- end -}}
+
+
+{{- define "frontend_image" -}}
+  {{- include "registry_dest" $ -}}/frontend:{{- .Values.frontend.tag }}
 {{- end -}}
 
 

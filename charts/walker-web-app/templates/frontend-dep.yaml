@@ -1,28 +1,28 @@
-{{- if and (.Values.enabled) (.Values.nginx.enabled) }}
+{{- if and (.Values.enabled) (.Values.frontend.enabled) }}
 
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: nginx-dep
+  name: {{ .Release.Name -}}-frontend-dep
   namespace: {{ .Release.Namespace }}
   labels:
-    app: nginx-dep
+    app: {{ .Release.Name -}}-frontend-dep
     tier: frontend
 spec:
-  replicas: {{ required "REQUIRED: nginx.replicas" .Values.nginx.replicas }}
+  replicas: {{ required "REQUIRED: frontend.replicas" .Values.frontend.replicas }}
   strategy:
     type: RollingUpdate
   selector:
     matchLabels:
-      app: nginx-dep
+      app: {{ .Release.Name -}}-frontend-dep
   template:
     metadata:
       annotations:
         cluster-autoscaler.kubernetes.io/safe-to-evict: "true"
-        container.apparmor.security.beta.kubernetes.io/nginx: runtime/default
-        container.seccomp.security.alpha.kubernetes.io/nginx: runtime/default
+        container.apparmor.security.beta.kubernetes.io/frontend: runtime/default
+        container.seccomp.security.alpha.kubernetes.io/frontend: runtime/default
       labels:
-        app: nginx-dep
+        app: {{ .Release.Name -}}-frontend-dep
     spec:
       hostIPC: false
       hostNetwork: false
@@ -36,8 +36,8 @@ spec:
 
       serviceAccountName: default
       containers:
-      - name: nginx
-        image: {{ include "nginx_image" . }}
+      - name: frontend
+        image: {{ include "frontend_image" . }}
         imagePullPolicy: Always
 
         securityContext:
@@ -50,12 +50,12 @@ spec:
             type: RuntimeDefault
 
         volumeMounts:
-        - name: react-env
-          mountPath: /var/www/env
-          readOnly: true
-        - name: api-redirects
-          mountPath: /etc/nginx/conf.d
-          readOnly: true
+        # - name: react-env
+        #   mountPath: /var/www/env
+        #   readOnly: true
+        # - name: api-redirects
+        #   mountPath: /etc/nginx/conf.d
+        #   readOnly: true
 
         - name: log-dir
           mountPath: /var/log/nginx
@@ -78,11 +78,11 @@ spec:
 
         resources:
           requests:
-            memory: {{ required "REQUIRED: nginx.memory.request" .Values.nginx.memory.request }}
-            cpu: {{ required "REQUIRED: nginx.cpu.request" .Values.nginx.cpu.request }}
+            memory: {{ required "REQUIRED: frontend.memory.request" .Values.frontend.memory.request }}
+            cpu: {{ required "REQUIRED: frontend.cpu.request" .Values.frontend.cpu.request }}
           limits:
-            memory: {{ required "REQUIRED: nginx.memory.limit" .Values.nginx.memory.limit }}
-            cpu: {{ required "REQUIRED: nginx.cpu.limit" .Values.nginx.cpu.limit }}
+            memory: {{ required "REQUIRED: frontend.memory.limit" .Values.frontend.memory.limit }}
+            cpu: {{ required "REQUIRED: frontend.cpu.limit" .Values.frontend.cpu.limit }}
 
         startupProbe:
           httpGet:
@@ -119,18 +119,18 @@ spec:
           name: https
           protocol: TCP
       volumes:
-        - name: react-env
-          configMap:
-            name: react-config
-            items:
-            - key: env.js
-              path: env.js
-        - name: api-redirects
-          configMap:
-            name: api-config
-            items:
-            - key: api.conf
-              path: api.conf
+        # - name: react-env
+        #   configMap:
+        #     name: react-config
+        #     items:
+        #     - key: env.js
+        #       path: env.js
+        # - name: api-redirects
+        #   configMap:
+        #     name: api-config
+        #     items:
+        #     - key: api.conf
+        #       path: api.conf
         - name: log-dir
           emptyDir: {}
         - name: body-dir

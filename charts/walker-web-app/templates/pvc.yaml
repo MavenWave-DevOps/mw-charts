@@ -1,4 +1,4 @@
-{{- if and (.Values.enabled) (.Values.api.use_pd) }}
+{{- if and (.Values.enabled) (.Values.backend.use_pd) }}
 
 apiVersion: v1
 kind: PersistentVolumeClaim
@@ -10,6 +10,6 @@ spec:
     - ReadWriteOnce
   resources:
     requests:
-      storage: {{ required "REQUIRED: api.disk_size" .Values.api.disk_size }}
+      storage: {{ required "REQUIRED: backend.disk_size" .Values.backend.disk_size }}
 
 {{- end }}

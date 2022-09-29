@@ -1,13 +1,13 @@
-{{- if and (.Values.enabled) (.Values.nginx.enabled) }}
+{{- if and (.Values.enabled) (.Values.frontend.enabled) }}
 {{- if not .Values.google.ingress.mci }}
 
 apiVersion: v1
 kind: Service
 metadata:
-  name: nginx-svc
+  name: {{ .Release.Name -}}-frontend-svc
   namespace: {{ .Release.Namespace }}
   labels:
-    app: nginx-svc
+    app: {{ .Release.Name -}}-frontend-svc
     tier: frontend
   {{- if not .Values.local }}
   annotations:
@@ -23,7 +23,7 @@ metadata:
 spec:
   type: ClusterIP
   selector:
-    app: nginx-dep
+    app: {{ .Release.Name -}}-frontend-dep
     
   ports:
   - name: http

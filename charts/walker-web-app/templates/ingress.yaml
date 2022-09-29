@@ -55,20 +55,44 @@ spec:
 
   {{- else }}
 
-  defaultBackend:
-    service:
-      {{- if $.Values.nginx.enabled }}
-      name: nginx-svc
-      port:
-        number: 443
-      {{- else }}
-      name: api-svc
-      port:
-        number: 80
+  - http:
+      paths:
+      {{- if .Values.backend.enabled }}
+      - path: /api
+        pathType: Prefix
+        backend:
+          service:
+            name: {{ .Release.Name -}}-backend-svc
+            port:
+              number: 80
+      {{- if .Values.django.enabled }}
+      - path: /admin
+        pathType: Prefix
+        backend:
+          service:
+            name: {{ .Release.Name -}}-backend-svc
+            port:
+              number: 80
+      - path: /accounts
+        pathType: Prefix
+        backend:
+          service:
+            name: {{ .Release.Name -}}-backend-svc
+            port:
+              number: 80
+      {{- end }}
+      {{- end }}
+
+      {{- if .Values.frontend.enabled }}
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: {{ .Release.Name -}}-frontend-svc
+            port:
+              number: 443
       {{- end }}
   {{- end }}
-
----
 
 {{- end }}
 
