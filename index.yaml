@@ -1782,6 +1782,16 @@ entries:
   walker-web-app:
   - apiVersion: v2
     appVersion: 1.0.0
+    created: "2022-09-30T03:01:05.00761564Z"
+    description: A Helm chart for deploying web Walker's applications
+    digest: 202674f463c6dd2524911c0971dabde68e1ceaef6bce27dcbb4fbf45a271ec07
+    name: walker-web-app
+    type: application
+    urls:
+    - https://github.com/MavenWave-DevOps/mw-charts/releases/download/walker-web-app-0.0.31/walker-web-app-0.0.31.tgz
+    version: 0.0.31
+  - apiVersion: v2
+    appVersion: 1.0.0
     created: "2022-09-30T02:54:24.643828166Z"
     description: A Helm chart for deploying web Walker's applications
     digest: 223c8b1e2cf5083c6cc9873f8f2cf1f2f60cf3cb8cc414e107d5dbbfd84a5265
