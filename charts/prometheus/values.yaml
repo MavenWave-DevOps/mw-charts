@@ -1,6 +1,0 @@
-ingress: true
-domain: prometheus.igniteme.dev
-config_connector: true
-external_dns: true
-use_iap: false
-

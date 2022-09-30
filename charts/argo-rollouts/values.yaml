@@ -1,9 +1,0 @@
-ingress: true
-domain: rollouts.igniteme.dev
-external_dns: true
-config_connector: true
-use_iap: false
-
-argo-rollouts:
-  dashboard:
-    enabled: true
