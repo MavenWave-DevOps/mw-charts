@@ -93,7 +93,7 @@ oauth:
     enabled: false
 
 external_dns:
-  enabled: false
+  enabled: true
 
 external_secrets:
   enabled: false
