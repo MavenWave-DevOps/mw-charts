@@ -52,20 +52,12 @@
 
 
 {{- define "instance_name" -}}
-  {{- if .Values.db.instance }}
-    {{- .Values.db.instance }}
-  {{- else -}}
-    {{- required "REQUIRED: app_code" .Values.app_code -}}-instance
-  {{- end -}}
+  {{- required "REQUIRED: db.instance" .Values.db.instance }}
 {{- end -}}
 
 
 {{- define "app_sa" -}}
-  {{- if $.Values.app_sa }}
-    {{- $.Values.app_sa }}
-  {{- else }}
-    {{- required "REQUIRED: app_code" .Values.app_code -}}-workload@{{- include "app_project" . -}}.iam
-  {{- end }}
+  {{- required "REQUIRED: app_sa" .Values.app_sa }}
 {{- end -}}
 
 
@@ -81,8 +73,6 @@
     {{- .Values.lifecycle -}}-{{- required "REQUIRED: app_code" .Values.app_code -}}-web-static
   {{- end }}
 {{- end -}}
-
-
 
 
 {{- define "private_bucket" -}}
