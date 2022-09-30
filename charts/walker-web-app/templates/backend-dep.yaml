@@ -100,14 +100,14 @@ spec:
         livenessProbe:
           httpGet:
             path: /api/
-            port: 8000
+            port: {{ .Values.backend.containerPort }}
           initialDelaySeconds: 30
           periodSeconds: 10
 
         readinessProbe:
           httpGet:
             path: /api/
-            port: 8000
+            port: {{ .Values.backend.containerPort }}
           initialDelaySeconds: 30
           periodSeconds: 10
         {{- end }}
@@ -318,7 +318,7 @@ spec:
         {{- end }}
 
         ports:
-        - containerPort: 8000
+        - containerPort: {{ .Values.backend.containerPort }}
           name: backend-port
 
       {{- if .Values.db.proxy }}

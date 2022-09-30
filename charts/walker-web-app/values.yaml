@@ -7,6 +7,7 @@ registry: gcr.io
 
 backend:
   enabled: true
+  containerPort: 8000
   build_context: .
   tag: latest
   label: server
@@ -28,6 +29,7 @@ backend:
 
 frontend:
   enabled: true
+  containerPort: 3000
   build_context: .
   tag: latest
   memory:
