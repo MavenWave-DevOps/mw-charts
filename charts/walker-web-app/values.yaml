@@ -62,6 +62,8 @@ google:
       enabled: false
   ingress:
     enabled: true
+    static_ip:
+      enabled: false
     https: true
     mci: false
     primary: false

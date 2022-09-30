@@ -17,6 +17,11 @@
 {{- end -}}
 
 
+{{- define "gke_project" -}}
+  {{- required "REQUIRED: gke_project_id" .Values.gke_project_id }}
+{{- end -}}
+
+
 {{- define "db_project" -}}
   {{- required "REQUIRED: db_project_id" .Values.db_project_id }}
 {{- end -}}
@@ -75,7 +80,7 @@
   {{- if $.Values.private_bucket }}
     {{- $.Values.private_bucket }}
   {{- else }}
-  {{- .Values.lifecycle -}}-{{- required "REQUIRED: app_code" .Values.app_code -}}-private
+    {{- .Values.lifecycle -}}-{{- required "REQUIRED: app_code" .Values.app_code -}}-private
   {{- end }}
 {{- end -}}
 
@@ -84,7 +89,7 @@
   {{- if $.Values.ip_name }}
     {{- $.Values.ip_name }}
   {{- else }}
-    {{- $.Values.lifecycle -}}-{{- required "REQUIRED: app_code" .Values.app_code -}}-ip
+    {{- $.Release.Name -}}-{{- $.Release.Namespace -}}-ip
   {{- end }}
 {{- end -}}
 
