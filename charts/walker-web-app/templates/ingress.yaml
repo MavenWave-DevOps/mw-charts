@@ -40,8 +40,8 @@ spec:
     secretName: ingress-certs
   {{- end }}
 
-  {{- if $.Values.nginx_ingress.enabled }}
   rules:
+  {{- if $.Values.nginx_ingress.enabled }}
   - host: {{ include "domain" $ }}
     http:
       paths:
@@ -54,7 +54,6 @@ spec:
         pathType: Prefix
 
   {{- else }}
-
   - http:
       paths:
       {{- if .Values.backend.enabled }}
