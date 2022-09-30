@@ -32,7 +32,7 @@
 
 
 {{- define "registry_dest" -}}
-  {{- .Values.google.region -}}-docker.pkg.dev/{{- include "app_project" . -}}/{{- include "registry_name" . -}}
+  {{ required "REQUIRED: registry" .Values.registry -}}/{{- include "app_project" . -}}/{{- include "registry_name" . -}}
 {{- end -}}
 
 

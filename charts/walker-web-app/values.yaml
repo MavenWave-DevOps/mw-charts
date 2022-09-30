@@ -3,6 +3,8 @@ local: false
 
 branch: main
 
+registry: gcr.io
+
 backend:
   enabled: true
   build_context: .
