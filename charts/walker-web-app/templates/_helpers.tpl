@@ -13,19 +13,19 @@
 
 
 {{- define "frontend_repo_name" -}}
-  {{- if .Values.frontend.repo_name }}
-    {{ .Values.frontend.repo_name }} 
+  {{- if ne (.Values.frontend.repo_name) ("") }}
+    {{- .Values.frontend.repo_name }} 
   {{- else }}
-    {{ required "REQUIRED: repo_name" .Values.repo_name }} 
+    {{- required "REQUIRED: repo_name" .Values.repo_name }} 
   {{- end -}}
 {{- end -}}
 
 
 {{- define "backend_repo_name" -}}
-  {{- if .Values.backend.repo_name }}
-    {{ .Values.backend.repo_name }} 
+  {{- if ne (.Values.backend.repo_name) ("") }}
+    {{- .Values.backend.repo_name }} 
   {{- else }}
-    {{ required "REQUIRED: repo_name" .Values.repo_name }} 
+    {{- required "REQUIRED: repo_name" .Values.repo_name }} 
   {{- end -}}
 {{- end -}}
 
