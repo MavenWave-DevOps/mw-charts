@@ -49,7 +49,6 @@ google:
   region: us-central1
   zone: us-central1-a
   oauth: false
-  sql_instance: sql-instance
   artifact_repo_name: app-images
   config_connector:
     enabled: true

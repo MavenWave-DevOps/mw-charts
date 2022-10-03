@@ -66,7 +66,7 @@
 
 
 {{- define "db_name" -}}
-  {{- .Values.lifecycle -}}-db
+  {{- .Release.Name -}}-db
 {{- end -}}
 
 
