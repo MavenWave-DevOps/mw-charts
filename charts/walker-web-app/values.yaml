@@ -7,8 +7,9 @@ registry: gcr.io
 
 backend:
   enabled: true
-  containerPort: 8000
+  repo_name: ''
   build_context: .
+  containerPort: 8000
   tag: latest
   label: server
   use_pd: false
@@ -29,8 +30,9 @@ backend:
 
 frontend:
   enabled: true
-  containerPort: 3000
+  repo_name: ''
   build_context: .
+  containerPort: 3000
   tag: latest
   memory:
     request: 5Mi
@@ -60,7 +62,7 @@ google:
       enabled: false
     artifact_registry:
       enabled: false
-    cloud_sql:
+    sql:
       enabled: false
   ingress:
     enabled: true

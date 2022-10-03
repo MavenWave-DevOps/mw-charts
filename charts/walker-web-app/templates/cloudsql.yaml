@@ -1,0 +1,35 @@
+{{- if .Values.google.config_connector.sql.enabled }}
+
+apiVersion: sql.cnrm.cloud.google.com/v1beta1
+kind: SQLDatabase
+metadata:
+  name: {{ .Release.Name -}}-db
+  namespace: {{ .Release.Namespace }}
+  annotations:
+    cnrm.cloud.google.com/project-id: {{ include "db_project" $ }}
+  labels:
+    namespace: {{ $.Release.Namespace }}
+    backstage.io/kubernetes-id: {{ $.Values.app_code }}
+spec:
+  instanceRef:
+    external: {{ include "instance_name" $ }}
+
+---
+
+apiVersion: sql.cnrm.cloud.google.com/v1beta1
+kind: SQLUser
+metadata:
+  name: {{ .Release.Name -}}-user
+  namespace: {{ .Release.Namespace }}
+  annotations:
+    cnrm.cloud.google.com/project-id: {{ include "db_project" $ }}
+  labels:
+    namespace: {{ $.Release.Namespace }}
+    backstage.io/kubernetes-id: {{ $.Values.app_code }}
+spec:
+  instanceRef:
+    external: {{ include "instance_name" $ }}
+  resourceID: {{ include "app_sa_short" $ }}
+  type: CLOUD_IAM_SERVICE_ACCOUNT
+
+{{- end }}

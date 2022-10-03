@@ -12,6 +12,24 @@
 {{- end }}
 
 
+{{- define "frontend_repo_name" -}}
+  {{- if .Values.frontend.repo_name }}
+    {{ .Values.frontend.repo_name }} 
+  {{- else }}
+    {{ required "REQUIRED: repo_name" .Values.repo_name }} 
+  {{- end -}}
+{{- end -}}
+
+
+{{- define "backend_repo_name" -}}
+  {{- if .Values.backend.repo_name }}
+    {{ .Values.backend.repo_name }} 
+  {{- else }}
+    {{ required "REQUIRED: repo_name" .Values.repo_name }} 
+  {{- end -}}
+{{- end -}}
+
+
 {{- define "registry_name" -}}
   {{ .Release.Name }}
 {{- end -}}
@@ -57,8 +75,20 @@
 {{- end -}}
 
 
+{{- define "app_sa_name" -}}
+  {{- required "REQUIRED: app_sa_name" .Values.app_sa_name }}
+{{- end -}}
+
+{{- define "app_sa_project" -}}
+  {{- required "REQUIRED: app_sa_project" .Values.app_sa_project }}
+{{- end -}}
+
+{{- define "app_sa_short" -}}
+  {{ include "app_sa_name" $ -}}@{{- include "app_sa_project" $ -}}.iam
+{{- end -}}
+
 {{- define "app_sa" -}}
-  {{- required "REQUIRED: app_sa" .Values.app_sa }}
+  {{ include "app_sa_short" $ -}}.gserviceaccount.com
 {{- end -}}
 
 

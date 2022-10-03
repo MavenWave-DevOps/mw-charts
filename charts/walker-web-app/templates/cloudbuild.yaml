@@ -11,7 +11,7 @@ spec:
   disabled: false
   github:
     owner: {{ required "REQUIRED: github_org" .Values.github_org }}
-    name: {{ required "REQUIRED: repo_name" .Values.repo_name }} 
+    name: {{ include "frontend_repo_name" $ }} 
     push:
       branch: {{ required "REQUIRED: branch" .Values.branch }}
   build:
@@ -43,7 +43,7 @@ spec:
   disabled: false
   github:
     owner: {{ required "REQUIRED: github_org" .Values.github_org }}
-    name: {{ required "REQUIRED: repo_name" .Values.repo_name }} 
+    name: {{ include "backend_repo_name" $ }} 
     push:
       branch: main
   build:
