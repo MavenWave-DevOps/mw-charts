@@ -6,7 +6,7 @@ branch: main
 registry: gcr.io
 
 notifications:
-  email: ''
+  email: walker.obrien@mavenwave.com
 
 backend:
   enabled: true
