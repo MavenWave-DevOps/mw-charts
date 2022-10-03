@@ -1,0 +1,53 @@
+{{- if .Values.google.config_connector.alerting.enabled }}
+
+apiVersion: monitoring.cnrm.cloud.google.com/v1beta1
+kind: MonitoringAlertPolicy
+metadata:
+  name: {{ .Release.Name -}}-alert-policy
+  namespace: {{ $.Release.Namespace }}
+  annotations:
+    cnrm.cloud.google.com/project-id: {{ include "gke_project" $ }}
+spec:
+  enabled: true
+  displayName: {{ include "app_label" . }} Alert Policy
+  notificationChannels:
+    - external: "projects/{{- include "gke_project" $ -}}/notificationChannels/{{- required "REQUIRED: google.notification_channel" .Values.google.notification_channel -}}"
+  combiner: OR
+  conditions:
+    - displayName: Uptime check running
+      conditionAbsent:
+        filter: metric.type="monitoring.googleapis.com/uptime_check/check_passed" AND metric.label.check_id="{{- include "app_label" $ }}" AND resource.type="uptime_url"
+        duration: 3900s
+
+---
+
+apiVersion: monitoring.cnrm.cloud.google.com/v1beta1
+kind: MonitoringUptimeCheckConfig
+metadata:
+  name: {{ .Release.Name -}}-uptime-check
+  namespace: {{ $.Release.Namespace }}
+  annotations:
+    cnrm.cloud.google.com/project-id: {{ include "gke_project" $ }}
+spec:
+  projectRef:
+    external: projects/{{- include "gke_project" $ }}
+  resourceID: {{ .Release.Name -}}-uptime-check
+  displayName: {{ .Release.Name -}}-uptime-check
+  period: 600s
+  timeout: 30s
+  selectedRegions:
+    - USA
+  monitoredResource:
+    type: uptime_url
+    filterLabels:
+      host: {{ include "domain" $ }}
+      project_id: {{ include "gke_project" $ }}
+  httpCheck:
+    requestMethod: GET
+    path: /health/
+    port: 443
+    useSsl: true
+    validateSsl: true
+    maskHeaders: true
+
+{{- end }}

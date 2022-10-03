@@ -54,6 +54,8 @@ google:
     enabled: true
     context:
       enabled: false
+    alerting:
+      enabled: true
     cloudbuild:
       enabled: true
       machine_type: E2_HIGHCPU_8
