@@ -5,6 +5,9 @@ branch: main
 
 registry: gcr.io
 
+notifications:
+  email: ''
+
 backend:
   enabled: true
   repo_name: ''

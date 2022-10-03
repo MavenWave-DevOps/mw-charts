@@ -1,6 +1,18 @@
 {{- if .Values.google.config_connector.alerting.enabled }}
 
 apiVersion: monitoring.cnrm.cloud.google.com/v1beta1
+kind: MonitoringNotificationChannel
+metadata:
+  name: {{ .Release.Name -}}-email-channel
+spec:
+  type: email
+  enabled: true
+  labels:
+    email_address: {{ required "REQUIRED: notifications.email" .Values.notifications.email }}
+  description: Email channel for {{ .Release.Name }} app
+---
+
+apiVersion: monitoring.cnrm.cloud.google.com/v1beta1
 kind: MonitoringAlertPolicy
 metadata:
   name: {{ .Release.Name -}}-alert-policy
@@ -11,7 +23,7 @@ spec:
   enabled: true
   displayName: {{ .Release.Name }} Alert Policy
   notificationChannels:
-    - external: "projects/{{- include "gke_project" $ -}}/notificationChannels/{{- required "REQUIRED: google.notification_channel" .Values.google.notification_channel -}}"
+    - name: {{ .Release.Name -}}-email-channel
   combiner: OR
   conditions:
     - displayName: Uptime check running
