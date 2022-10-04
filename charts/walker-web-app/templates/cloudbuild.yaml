@@ -1,5 +1,6 @@
-{{- if .Values.google.config_connector.cloudbuild.enabled }}
+{{- if .Values.enabled }}
 {{- if .Values.frontend.enabled }}
+{{- if .Values.google.config_connector.cloudbuild.enabled }}
 
 apiVersion: cloudbuild.cnrm.cloud.google.com/v1beta1
 kind: CloudBuildTrigger
@@ -62,4 +63,5 @@ spec:
 
 {{- end }}
 
+{{- end }}
 {{- end }}

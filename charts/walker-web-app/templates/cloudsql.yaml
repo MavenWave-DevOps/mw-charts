@@ -1,3 +1,4 @@
+{{- if .Values.enabled }}
 {{- if .Values.google.config_connector.sql.enabled }}
 
 apiVersion: sql.cnrm.cloud.google.com/v1beta1
@@ -32,4 +33,5 @@ spec:
   resourceID: {{ include "app_sa_short" $ }}
   type: CLOUD_IAM_SERVICE_ACCOUNT
 
+{{- end }}
 {{- end }}

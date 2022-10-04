@@ -1,3 +1,4 @@
+{{- if .Values.enabled }}
 {{- if .Values.google.config_connector.monitoring.alert.enabled }}
 
 apiVersion: monitoring.cnrm.cloud.google.com/v1beta1
@@ -64,4 +65,5 @@ spec:
         filter: metric.type="monitoring.googleapis.com/uptime_check/check_passed" AND metric.label.check_id="{{- .Release.Name -}}" AND resource.type="uptime_url"
         duration: 3900s
 
+{{- end }}
 {{- end }}
