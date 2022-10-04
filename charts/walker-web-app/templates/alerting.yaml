@@ -15,27 +15,6 @@ spec:
 ---
 
 apiVersion: monitoring.cnrm.cloud.google.com/v1beta1
-kind: MonitoringAlertPolicy
-metadata:
-  name: {{ .Release.Name -}}-alert-policy
-  namespace: {{ $.Release.Namespace }}
-  annotations:
-    cnrm.cloud.google.com/project-id: {{ include "gke_project" $ }}
-spec:
-  enabled: true
-  displayName: {{ .Release.Name }} Alert Policy
-  notificationChannels:
-    - name: {{ .Release.Name -}}-email-channel
-  combiner: OR
-  conditions:
-    - displayName: Uptime check running
-      conditionAbsent:
-        filter: metric.type="monitoring.googleapis.com/uptime_check/check_passed" AND metric.label.check_id="{{- .Release.Name -}}-uptime-check" AND resource.type="uptime_url"
-        duration: 3900s
-
----
-
-apiVersion: monitoring.cnrm.cloud.google.com/v1beta1
 kind: MonitoringUptimeCheckConfig
 metadata:
   name: {{ .Release.Name -}}-uptime-check
@@ -63,5 +42,26 @@ spec:
     useSsl: true
     validateSsl: true
     maskHeaders: true
+
+---
+
+apiVersion: monitoring.cnrm.cloud.google.com/v1beta1
+kind: MonitoringAlertPolicy
+metadata:
+  name: {{ .Release.Name -}}-alert-policy
+  namespace: {{ $.Release.Namespace }}
+  annotations:
+    cnrm.cloud.google.com/project-id: {{ include "gke_project" $ }}
+spec:
+  enabled: true
+  displayName: {{ .Release.Name }} Alert Policy
+  notificationChannels:
+    - name: {{ .Release.Name -}}-email-channel
+  combiner: OR
+  conditions:
+    - displayName: Uptime check absent
+      conditionAbsent:
+        filter: metric.type="monitoring.googleapis.com/uptime_check/check_passed" AND metric.label.check_id="{{- .Release.Name -}}" AND resource.type="uptime_url"
+        duration: 3900s
 
 {{- end }}
