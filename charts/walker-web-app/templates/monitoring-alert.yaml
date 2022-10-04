@@ -1,4 +1,4 @@
-{{- if .Values.google.config_connector.alerting.enabled }}
+{{- if .Values.google.config_connector.monitoring.alert.enabled }}
 
 apiVersion: monitoring.cnrm.cloud.google.com/v1beta1
 kind: MonitoringNotificationChannel
