@@ -44,12 +44,6 @@ spec:
         - name: var-tmp-dir
           emptyDir: {}
 
-        {{- if .Values.external_secrets.enabled }}
-        - name: app-secrets
-          secret:
-            secretName: app-secrets
-        {{- end }}
-
         - name: db-volume
         {{- if and (.Values.backend.use_pd) (.Values.backend.mount_pd) }}
           persistentVolumeClaim:
@@ -83,10 +77,6 @@ spec:
             cpu: {{ required "REQUIRED: backend.cpu.limit" .Values.backend.cpu.limit }}
 
         volumeMounts:
-        {{- if .Values.external_secrets.enabled }}
-          - mountPath: /backend/secrets
-            name: app-secrets
-        {{- end }}
           - mountPath: /backend/var
             name: db-volume
           - mountPath: /tmp
@@ -141,18 +131,16 @@ spec:
         {{- end }}
 
         {{- if .Values.django.enabled }}
-
-        {{- if .Values.django.email }}
-        - name: DJANGO_EMAIL
-          value: {{ .Values.django.email }}
-        {{- end }}
-
         - name: DJANGO_KEY
           valueFrom:
             secretKeyRef:
               name: app-secrets
               key: django-key
 
+        {{- if .Values.django.email }}
+        - name: DJANGO_EMAIL
+          value: {{ .Values.django.email }}
+        {{- end }}
         {{- end }}
 
         {{ if .Values.oauth.google.enabled }}
@@ -234,7 +222,6 @@ spec:
         {{- if .Values.twilio.enabled }}
         - name: TWILIO_NUMBER
           value: '{{ required "REQUIRED: twilio.number" .Values.twilio.number }}'
-
         - name: TWILIO_REPLY_NUMBER
           value: '{{ required "REQUIRED: twilio.reply_number" .Values.twilio.reply_number }}'
 
@@ -249,21 +236,6 @@ spec:
             secretKeyRef:
               name: app-secrets
               key: twilio-auth-token
-
-        {{- if .Values.twilio.flex.enabled }}
-        - name: FLEX_WORKSPACE_ID
-          valueFrom:
-            secretKeyRef:
-              name: app-secrets
-              key: twilio-flex-workspace-id
-
-        - name: FLEX_WORKFLOW_SID
-          valueFrom:
-            secretKeyRef:
-              name: app-secrets
-              key: twilio-flex-workflow-sid
-        {{- end }}
-
         {{- end }}
 
         ports:
