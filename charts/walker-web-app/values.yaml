@@ -110,6 +110,7 @@ external_dns:
 
 external_secrets:
   enabled: true
+  controller: ''
 
 ingress:
   enabled: true
