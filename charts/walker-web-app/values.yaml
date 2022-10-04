@@ -92,9 +92,6 @@ ssl_policy: tls-12
 oauth:
   google:
     enabled: false
-    sheets:
-      enabled: false
-      path: /backend/secrets
 
   github:
     enabled: false
