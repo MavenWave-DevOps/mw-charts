@@ -26,7 +26,6 @@ spec:
               timeSeriesFilter:
                 aggregation:
                   alignmentPeriod: 60s
-                  crossSeriesReducer: REDUCE_NONE
                   perSeriesAligner: ALIGN_MEAN
                 filter: 'metric.type="kubernetes.io/container/memory/used_bytes" resource.type="k8s_container" resource.label."namespace_name"="{{- .Release.Namespace -}}"'
           timeshiftDuration: 0s
@@ -49,7 +48,6 @@ spec:
               timeSeriesFilter:
                 aggregation:
                   alignmentPeriod: 60s
-                  crossSeriesReducer: REDUCE_NONE
                   perSeriesAligner: ALIGN_MEAN
                 filter: metric.type="kubernetes.io/pod/volume/used_bytes" resource.type="k8s_pod"
                   resource.label."namespace_name"="{{- .Release.Namespace -}}" metric.label."volume_name"="db-volume"
@@ -73,13 +71,11 @@ spec:
               timeSeriesFilter:
                 aggregation:
                   alignmentPeriod: 60s
-                  crossSeriesReducer: REDUCE_NONE
                   perSeriesAligner: ALIGN_RATE
                 filter: metric.type="kubernetes.io/container/cpu/core_usage_time" resource.type="k8s_container"
                   resource.label."namespace_name"="{{- .Release.Namespace -}}"
                 secondaryAggregation:
                   alignmentPeriod: 60s
-                  crossSeriesReducer: REDUCE_NONE
                   perSeriesAligner: ALIGN_MEAN
           timeshiftDuration: 0s
           yAxis:
