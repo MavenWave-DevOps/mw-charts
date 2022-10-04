@@ -24,6 +24,6 @@ spec:
   bindings:
     - role: roles/iam.workloadIdentityUser
       members:
-      - serviceAccount:{{- include "gke_project_id" $ -}}.svc.id.goog[cnrm-system/cnrm-controller-manager-{{- required "REQUIRED: infra_namespace" .Values.infra_namespace -}}]
+      - serviceAccount:{{- include "gke_project_id" $ -}}.svc.id.goog[cnrm-system/cnrm-controller-manager-{{- required "REQUIRED: infra.namespace" .Values.infra.namespace -}}]
 
 

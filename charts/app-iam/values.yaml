@@ -7,5 +7,9 @@ external_secrets:
   ksa_name: external-secrets
 
 app:
+  namespace: ''
   ksa_name: app-workload
+
+infra:
+  namespace: ''
 
