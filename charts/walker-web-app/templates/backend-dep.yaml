@@ -96,7 +96,6 @@ spec:
           - mountPath: /var/tmp
             name: var-tmp-dir
 
-        {{- if ne .Values.app_code "boatload" }}
         livenessProbe:
           httpGet:
             path: /api/
@@ -110,7 +109,6 @@ spec:
             port: {{ .Values.backend.containerPort }}
           initialDelaySeconds: 30
           periodSeconds: 10
-        {{- end }}
 
         {{- if .Values.django.enabled }}
         {{- if and (not .Values.db.proxy) (or (not .Values.backend.use_pd) (not .Values.backend.mount_pd)) }}
@@ -154,9 +152,6 @@ spec:
             secretKeyRef:
               name: app-secrets
               key: django-key
-          {{- end }}
-
-        {{- end }}
 
         {{- end }}
 
