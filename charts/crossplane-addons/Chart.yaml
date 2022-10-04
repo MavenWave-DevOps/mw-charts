@@ -1,6 +1,0 @@
-apiVersion: v2
-name: crossplane-addons
-description: Deploys Crossplane Addons used to make a Dev Ops Control Plane cluster
-type: application
-appVersion: 1.0.0
-version: 0.0.1

@@ -1,8 +1,0 @@
-apiVersion: pkg.crossplane.io/v1
-kind: Configuration
-metadata: # kpt-merge: /platform-projectx-provider
-  name: platform-projectx-provider
-spec:
-  package: ghcr.io/mavenwave-devops/projectx-crossplane-platform:main
-  packagePullPolicy: Always
-  skipDependencyResolution: true
