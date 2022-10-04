@@ -60,7 +60,7 @@ google:
       alert:
         enabled: true
       dashboard:
-        enabled: true
+        enabled: false
     cloudbuild:
       enabled: true
       machine_type: E2_HIGHCPU_8
