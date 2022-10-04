@@ -93,7 +93,7 @@
 
 
 {{- define "ksa_name" -}}
-  {{- "workload" }}
+  {{- "app-workload" }}
 {{- end -}}
 
 

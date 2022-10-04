@@ -5,3 +5,7 @@ context:
 external_secrets:
   namespace: external-secrets
   ksa_name: external-secrets
+
+app:
+  ksa_name: app-workload
+

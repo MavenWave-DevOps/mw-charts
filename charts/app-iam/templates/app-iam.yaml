@@ -24,6 +24,6 @@ spec:
   bindings:
     - role: roles/iam.workloadIdentityUser
       members:
-      - serviceAccount:{{- include "gke_project_id" $ -}}.svc.id.goog[{{- required "REQUIRED: app_namespace" .Values.app_namespace -}}/{{- required "REQUIRED: app_ksa" .Values.app_ksa -}}]
+      - serviceAccount:{{- include "gke_project_id" $ -}}.svc.id.goog[{{- required "REQUIRED: app.namespace" .Values.app.namespace -}}/{{- required "REQUIRED: app.ksa_name" .Values.app.ksa_name -}}]
 
 
