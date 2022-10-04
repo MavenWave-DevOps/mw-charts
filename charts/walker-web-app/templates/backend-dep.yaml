@@ -142,22 +142,6 @@ spec:
         {{- end }}
         {{- end }}
 
-
-        {{- if .Values.use_oauth }}
-        {{- if .Values.external_secrets.enabled }}
-        - name: OAUTH_ID
-          valueFrom:
-            secretKeyRef:
-              name: oauth-credentials
-              key: client_id
-        - name: OAUTH_SECRET
-          valueFrom:
-            secretKeyRef:
-              name: oauth-credentials
-              key: client_secret
-        {{- end }}
-        {{- end }}
-
         {{- if .Values.django.enabled }}
 
         {{- if .Values.django.email }}
@@ -166,13 +150,10 @@ spec:
         {{- end }}
 
         - name: DJANGO_KEY
-          {{- if .Values.external_secrets.enabled }}
           valueFrom:
             secretKeyRef:
               name: app-secrets
               key: django-key
-          {{- else }}
-          value: fake-key
           {{- end }}
 
         {{- end }}
