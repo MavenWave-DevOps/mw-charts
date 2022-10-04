@@ -175,20 +175,6 @@ spec:
           value: fake-key
           {{- end }}
 
-        {{- if .Values.django.oauth_id }}
-        - name: OAUTH_ID
-          value: {{ .Values.django.oauth_id }}
-
-        - name: OAUTH_SECRET
-          {{- if .Values.external_secrets.enabled }}
-          valueFrom:
-            secretKeyRef:
-              name: app-secrets
-              key: oauth-secret
-          {{- else }}
-          value: {{ required "REQUIRED: django.oauth_secret" .Values.django.oauth_secret }}
-          {{- end }}
-
         {{- end }}
 
         {{- end }}
@@ -197,20 +183,15 @@ spec:
         - name: GOOGLE_OAUTH_ID
           valueFrom:
             secretKeyRef:
-              name: app-secrets
-              key: google-oauth-id
+              name: oauth-credentials
+              key: client_id
 
         - name: GOOGLE_OAUTH_SECRET
           valueFrom:
             secretKeyRef:
-              name: app-secrets
-              key: google-oauth-secret
+              name: oauth-credentials
+              key: client_secret
         {{ end }}
-
-        {{- if .Values.oauth.google.sheets.enabled }}
-        - name: OAUTH_JSON_PATH
-          value: /backend/secrets/google-oauth-creds
-        {{- end }}
 
         {{- if .Values.oauth.github.enabled }}
         - name: GITHUB_OAUTH_ID
@@ -272,14 +253,6 @@ spec:
           value: {{ include "db_name" . }}
         - name: DB_USER
           value: {{ include "app_sa" . }}
-        {{- end }}
-
-        {{- if .Values.agile.enabled }}
-        - name: AGILE_CRM_REST_KEY
-          valueFrom:
-            secretKeyRef:
-              name: app-secrets
-              key: agile-crm-rest-key
         {{- end }}
 
         {{- if .Values.twilio.enabled }}
