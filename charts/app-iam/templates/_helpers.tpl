@@ -1,19 +1,4 @@
 
-{{- define "lifecycle" -}}
-  {{- required "REQUIRED: lifecycle" $.Values.lifecycle -}}
-{{- end }}
-
-
-{{- define "tenant_code" -}}
-  {{- required "REQUIRED: tenant_code" $.Values.tenant_code -}}
-{{- end }}
-
-
-{{- define "app_code" -}}
-  {{- required "REQUIRED: app_code" $.Values.app_code -}}
-{{- end }}
-
-
 {{- define "sa_project_id" -}}
   {{- required "REQUIRED: sa_project_id" $.Values.sa_project_id -}}
 {{- end -}}
@@ -39,7 +24,7 @@
 {{- end -}}
 
 
-{{- define "apps_admin_sa" -}}
-  {{- include "tenant_code" $ -}}-{{- include "app_code" $ -}}-{{- include "lifecycle" $ -}}-admin@{{- include "sa_project_id" $ -}}.iam.gserviceaccount.com
+{{- define "workspace_service_account" -}}
+  {{- required "REQUIRED: workspace_service_account" .Values.workspace_service_account }}
 {{- end }}
 
