@@ -4,6 +4,8 @@ apiVersion: monitoring.cnrm.cloud.google.com/v1beta1
 kind: MonitoringNotificationChannel
 metadata:
   name: {{ .Release.Name -}}-email-channel
+  annotations:
+    cnrm.cloud.google.com/project-id: {{ include "gke_project" $ }}
 spec:
   type: email
   enabled: true
