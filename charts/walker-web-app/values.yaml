@@ -109,7 +109,7 @@ external_dns:
   enabled: true
 
 external_secrets:
-  enabled: false
+  enabled: true
 
 ingress:
   enabled: true
