@@ -44,6 +44,16 @@ entries:
   app-iam:
   - apiVersion: v2
     appVersion: 1.0.0
+    created: "2022-10-04T02:05:17.648305525Z"
+    description: Deploys app service accounts and workload identity
+    digest: dc932af71e8255bfcd632ee6b18a80123b0dcf64190184bfa9e5d3ffbb7899aa
+    name: app-iam
+    type: application
+    urls:
+    - https://github.com/MavenWave-DevOps/mw-charts/releases/download/app-iam-0.0.6/app-iam-0.0.6.tgz
+    version: 0.0.6
+  - apiVersion: v2
+    appVersion: 1.0.0
     created: "2022-10-04T00:20:39.568833533Z"
     description: Deploys app service accounts and workload identity
     digest: c04074d571ebc020221a6a1e59ec1847885a0e2c3272775fdbf92783e90f2055
