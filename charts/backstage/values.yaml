@@ -2,9 +2,6 @@
 security_policy: us-only
 ssl_policy: tls-12
 
-domain: backstage.igniteme.dev
-
-gcp_project_id: project-x-bootstrap
 repo_name: backstage
 
 cluster_name: primary-cluster
@@ -13,22 +10,42 @@ github:
   enabled: true
   oauth: true
 
+external_secrets:
+  enabled: true
+  workload_identity:
+    enabled: false
+
 external_dns:
   enabled: true
 
+static_ip:
+  enabled: false
+
 registry_name: gcr.io
+
+pd:
+  enabled: true
+  size: 20Gi
 
 google:
   region: us-central1
-  oauth: true
-  iap: true
-  config_connector: true
-  create_ip: true
-  create_registry: false
-  create_db: false
+  oauth: false
+  iap: false
   sql_instance: backstage-instance
   artifact_repo_name: backstage-images
   ip_name: backstage-ip
+  config_connector:
+    enabled: true
+    context:
+      enabled: false
+    cloudbuild:
+      enabled: true
+    address:
+      enabled: false
+    artifact_registry:
+      enabled: false
+    cloud_sql:
+      enabled: false
 
 jira:
   enabled: true

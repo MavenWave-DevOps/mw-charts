@@ -1,3 +1,5 @@
+{{- if false }}
+
 apiVersion: v1
 kind: ConfigMap
 metadata:
@@ -37,3 +39,5 @@ data:
         proxy_set_header Host {{ include "domain" . -}};
         proxy_pass http://api-svc.{{- .Release.Namespace -}}.svc;
     }
+
+{{- end }}

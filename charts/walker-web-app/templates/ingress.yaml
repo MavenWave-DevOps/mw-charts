@@ -26,7 +26,9 @@ metadata:
     {{- end }}
 
     {{- else if $.Values.google.ingress.enabled }}
+    {{- if $.Values.google.ingress.static_ip.enabled }}
     kubernetes.io/ingress.global-static-ip-name: {{ include "ip_name" $ }}
+    {{- end }}
     {{- if $.Values.google.ingress.https  }}
     networking.gke.io/v1beta1.FrontendConfig: gke-frontendconfig
     networking.gke.io/managed-certificates: google-cert
@@ -40,35 +42,58 @@ spec:
     secretName: ingress-certs
   {{- end }}
 
-  {{- if $.Values.nginx_ingress.enabled }}
   rules:
+  {{- if $.Values.nginx_ingress.enabled }}
   - host: {{ include "domain" $ }}
     http:
       paths:
       - backend:
           service:
-            name: nginx-svc
+            name: {{ .Release.Name -}}-frontend-svc
             port:
               name: http
         path: /
         pathType: Prefix
 
   {{- else }}
+  - http:
+      paths:
+      {{- if .Values.backend.enabled }}
+      - path: /api
+        pathType: Prefix
+        backend:
+          service:
+            name: {{ .Release.Name -}}-backend-svc
+            port:
+              number: 80
+      {{- if .Values.django.enabled }}
+      - path: /admin
+        pathType: Prefix
+        backend:
+          service:
+            name: {{ .Release.Name -}}-backend-svc
+            port:
+              number: 80
+      - path: /accounts
+        pathType: Prefix
+        backend:
+          service:
+            name: {{ .Release.Name -}}-backend-svc
+            port:
+              number: 80
+      {{- end }}
+      {{- end }}
 
-  defaultBackend:
-    service:
-      {{- if $.Values.nginx.enabled }}
-      name: nginx-svc
-      port:
-        number: 443
-      {{- else }}
-      name: api-svc
-      port:
-        number: 80
+      {{- if .Values.frontend.enabled }}
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: {{ .Release.Name -}}-frontend-svc
+            port:
+              number: 443
       {{- end }}
   {{- end }}
-
----
 
 {{- end }}
 

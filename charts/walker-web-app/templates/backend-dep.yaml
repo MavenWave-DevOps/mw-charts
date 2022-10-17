@@ -1,0 +1,267 @@
+{{- if and (.Values.enabled) (.Values.backend.enabled) }}
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ .Release.Name -}}-backend-dep
+  namespace: {{ .Release.Namespace }}
+  labels:
+    app: {{ .Release.Name -}}-backend-dep
+    tier: backend
+spec:
+  replicas: {{ required "REQUIRED: backend.replicas" .Values.backend.replicas }}
+  {{- if or (not .Values.use_pd) (not .Values.mount_pd) }}
+  strategy:
+    type: RollingUpdate
+  {{- end }}
+  selector:
+    matchLabels:
+      app: {{ .Release.Name -}}-backend-dep
+  template:
+    metadata:
+      annotations:
+        cluster-autoscaler.kubernetes.io/safe-to-evict: "true"
+        container.apparmor.security.beta.kubernetes.io/backend: runtime/default
+        container.seccomp.security.alpha.kubernetes.io/backend: runtime/default
+      labels:
+        app: {{ .Release.Name -}}-backend-dep
+    spec:
+      hostIPC: false
+      hostNetwork: false
+      hostPID: false
+      securityContext:
+        runAsUser: 115
+        runAsGroup: 125
+        fsGroup: 190
+        supplementalGroups:
+          - 150
+
+      volumes:
+        - name: tmp-dir
+          emptyDir: {}
+        - name: usr-tmp-dir
+          emptyDir: {}
+        - name: var-tmp-dir
+          emptyDir: {}
+
+        - name: db-volume
+        {{- if and (.Values.backend.use_pd) (.Values.backend.mount_pd) }}
+          persistentVolumeClaim:
+            claimName: gce-pvc
+        {{- else }}
+          emptyDir: {}
+        {{- end }}
+
+      serviceAccountName: {{ include "ksa_name" . }}
+      restartPolicy: Always
+      containers:
+      - name: backend
+        image: {{ include "backend_image" . }}
+        imagePullPolicy: Always
+
+        securityContext:
+          allowPrivilegeEscalation: false
+          privileged: false
+          procMount: Default
+          readOnlyRootFilesystem: true
+          runAsNonRoot: true
+          seccompProfile:
+            type: RuntimeDefault
+
+        resources:
+          requests:
+            memory: {{ required "REQUIRED: backend.memory.request" .Values.backend.memory.request }}
+            cpu: {{ required "REQUIRED: backend.cpu.request" .Values.backend.cpu.request }}
+          limits:
+            memory: {{ required "REQUIRED: backend.memory.limit" .Values.backend.memory.limit }}
+            cpu: {{ required "REQUIRED: backend.cpu.limit" .Values.backend.cpu.limit }}
+
+        volumeMounts:
+          - mountPath: /backend/var
+            name: db-volume
+          - mountPath: /tmp
+            name: tmp-dir
+          - mountPath: /usr/tmp
+            name: usr-tmp-dir
+          - mountPath: /var/tmp
+            name: var-tmp-dir
+
+        livenessProbe:
+          httpGet:
+            path: /api/
+            port: {{ .Values.backend.containerPort }}
+          initialDelaySeconds: 30
+          periodSeconds: 10
+
+        readinessProbe:
+          httpGet:
+            path: /api/
+            port: {{ .Values.backend.containerPort }}
+          initialDelaySeconds: 30
+          periodSeconds: 10
+
+        {{- if .Values.django.enabled }}
+        {{- if and (not .Values.db.proxy) (or (not .Values.backend.use_pd) (not .Values.backend.mount_pd)) }}
+        command: ["/bin/sh"]
+        args: ["-c", "./bin/init_db.sh && gunicorn -b 0.0.0.0:8000 {{ .Values.backend.label -}}.wsgi"]
+        {{- end }}
+        {{- end }}
+
+        env:
+        - name: LIFECYCLE
+          value: {{ .Values.lifecycle }}
+        - name: IS_LOCAL
+          value: "false"
+        - name: USE_GCS
+          value: "true"
+        - name: DOMAIN
+          value: {{ include "domain" . }}
+        - name: STATIC_BUCKET
+          value: {{ include "bucket" . }}
+        - name: PRIVATE_BUCKET
+          value: {{ include "private_bucket" . }}
+
+        {{- if .Values.gin.enabled }}
+        - name: GIN_MODE
+          value: release
+        {{- if .Values.gin.input_path }}
+        - name: INPUT_PATH
+          value: {{ .Values.gin.input_path }}
+        {{- end }}
+        {{- end }}
+
+        {{- if .Values.django.enabled }}
+        - name: DJANGO_KEY
+          valueFrom:
+            secretKeyRef:
+              name: app-secrets
+              key: django-key
+
+        {{- if .Values.django.email }}
+        - name: DJANGO_EMAIL
+          value: {{ .Values.django.email }}
+        {{- end }}
+        {{- end }}
+
+        {{ if .Values.oauth.google.enabled }}
+        - name: GOOGLE_OAUTH_ID
+          valueFrom:
+            secretKeyRef:
+              name: oauth-credentials
+              key: client_id
+
+        - name: GOOGLE_OAUTH_SECRET
+          valueFrom:
+            secretKeyRef:
+              name: oauth-credentials
+              key: client_secret
+        {{ end }}
+
+        {{- if .Values.oauth.github.enabled }}
+        - name: GITHUB_OAUTH_ID
+          valueFrom:
+            secretKeyRef:
+              name: app-secrets
+              key: github-oauth-id
+
+        - name: GITHUB_OAUTH_SECRET
+          valueFrom:
+            secretKeyRef:
+              name: app-secrets
+              key: github-oauth-secret
+        {{- end }}
+
+        {{- if .Values.oauth.facebook.enabled }}
+        - name: FACEBOOK_OAUTH_ID
+          valueFrom:
+            secretKeyRef:
+              name: app-secrets
+              key: facebook-oauth-id
+
+        - name: FACEBOOK_OAUTH_SECRET
+          valueFrom:
+            secretKeyRef:
+              name: app-secrets
+              key: facebook-oauth-secret
+        {{- end }}
+
+        {{- if .Values.oauth.twitter.enabled }}
+        - name: TWITTER_OAUTH_ID
+          valueFrom:
+            secretKeyRef:
+              name: app-secrets
+              key: twitter-api-key
+
+        - name: TWITTER_OAUTH_SECRET
+          valueFrom:
+            secretKeyRef:
+              name: app-secrets
+              key: twitter-api-key-secret
+        {{- end }}
+
+        {{- if .Values.sendgrid.enabled }}
+        - name: SENDGRID_EMAIL
+          value: {{ .Values.sendgrid.email }}
+
+        - name: SENDGRID_KEY
+          valueFrom:
+            secretKeyRef:
+              name: app-secrets
+              key: sendgrid-key
+        {{- end }}
+
+        {{- if .Values.db.proxy }}
+        - name: USE_PROXY
+          value: "true"
+        - name: DB_NAME
+          value: {{ include "db_name" . }}
+        - name: DB_USER
+          value: {{ include "app_sa" . }}
+        {{- end }}
+
+        {{- if .Values.twilio.enabled }}
+        - name: TWILIO_NUMBER
+          value: '{{ required "REQUIRED: twilio.number" .Values.twilio.number }}'
+        - name: TWILIO_REPLY_NUMBER
+          value: '{{ required "REQUIRED: twilio.reply_number" .Values.twilio.reply_number }}'
+
+        - name: TWILIO_ACCOUNT_SID
+          valueFrom:
+            secretKeyRef:
+              name: app-secrets
+              key: twilio-account-sid
+
+        - name: TWILIO_AUTH_TOKEN
+          valueFrom:
+            secretKeyRef:
+              name: app-secrets
+              key: twilio-auth-token
+        {{- end }}
+
+        ports:
+        - containerPort: {{ .Values.backend.containerPort }}
+          name: backend-port
+
+      {{- if .Values.db.proxy }}
+      - name: proxy
+        image: "{{ .Values.db.proxy_version }}"
+        imagePullPolicy: Always
+        command:
+        - /cloud_sql_proxy
+        - -instances={{- include "db_project" . -}}:{{- required "REQUIRED: google.region" .Values.google.region -}}:{{- include "instance_name" . }}=tcp:127.0.0.1:5432
+        - -enable_iam_login
+
+        securityContext:
+          allowPrivilegeEscalation: false
+          privileged: false
+          procMount: default
+          readOnlyRootFilesystem: true
+          runAsNonRoot: true
+          seccompProfile:
+            type: RuntimeDefault
+      {{- end }}
+
+{{- end }}
+
+
+

@@ -1,10 +1,11 @@
+{{- if .Values.google.config_connector.cloudbuild.enabled }}
 
 apiVersion: cloudbuild.cnrm.cloud.google.com/v1beta1
 kind: CloudBuildTrigger
 metadata:
   name: backstage-ci
   annotations:
-    cnrm.cloud.google.com/project-id: {{ include "backstage_project" . }}
+    cnrm.cloud.google.com/project-id: {{ include "gcp_project" . }}
 spec:
   disabled: false
   github:
@@ -17,21 +18,27 @@ spec:
       machineType: E2_HIGHCPU_32
     timeout: 2400s
     step:
+      {{- if .Values.backend.enabled }}
       - id: "Build-Backend"
         name: gcr.io/kaniko-project/executor:latest
         args:
           - --destination={{- include "registry_dest" . -}}/backend:$COMMIT_SHA
           - --destination={{- include "registry_dest" . -}}/backend:latest
-          - --dockerfile=./packages/backend/Dockerfile
+          # - --dockerfile=./packages/backend/Dockerfile
+          - --context=.
           - --cache=true
           - --cache-ttl=240h
+      {{- end }}
 
-      # - id: "Build-Frontend"
-      #   name: gcr.io/kaniko-project/executor:latest
-      #   args:
-      #     - --destination={{- include "registry_dest" . -}}/frontend:$COMMIT_SHA
-      #     - --destination={{- include "registry_dest" . -}}/frontend:latest
-      #     - --dockerfile=./packages/app/Dockerfile
-      #     - --cache=true
-      #     - --cache-ttl=240h
+      {{- if .Values.frontend.enabled }}
+      - id: "Build-Frontend"
+        name: gcr.io/kaniko-project/executor:latest
+        args:
+          - --destination={{- include "registry_dest" . -}}/frontend:$COMMIT_SHA
+          - --destination={{- include "registry_dest" . -}}/frontend:latest
+          - --dockerfile=./packages/app/Dockerfile
+          - --cache=true
+          - --cache-ttl=240h
+      {{- end }}
 
+{{- end }}

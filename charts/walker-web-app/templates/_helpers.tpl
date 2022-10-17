@@ -12,12 +12,31 @@
 {{- end }}
 
 
-{{- define "registry_name" -}}
-  {{- if eq (.Values.google.registry) ("app-images") }}
-    {{- required "REQUIRED: lifecycle" .Values.lifecycle }}-{{- .Values.google.registry }}
+{{- define "frontend_repo_name" -}}
+  {{- if ne (.Values.frontend.repo_name) ("") }}
+    {{- .Values.frontend.repo_name }} 
   {{- else }}
-    {{- .Values.lifecycle }}
+    {{- required "REQUIRED: repo_name" .Values.repo_name }} 
   {{- end -}}
+{{- end -}}
+
+
+{{- define "backend_repo_name" -}}
+  {{- if ne (.Values.backend.repo_name) ("") }}
+    {{- .Values.backend.repo_name }} 
+  {{- else }}
+    {{- required "REQUIRED: repo_name" .Values.repo_name }} 
+  {{- end -}}
+{{- end -}}
+
+
+{{- define "registry_name" -}}
+  {{ .Release.Name }}
+{{- end -}}
+
+
+{{- define "gke_project" -}}
+  {{- required "REQUIRED: gke_project_id" .Values.gke_project_id }}
 {{- end -}}
 
 
@@ -31,41 +50,50 @@
 {{- end -}}
 
 
-{{- define "api_image" -}}
-  {{- .Values.google.region -}}-docker.pkg.dev/{{- include "app_project" . -}}/{{- include "registry_name" . -}}/api:{{- .Values.api.tag }}
+{{- define "registry_dest" -}}
+  {{ required "REQUIRED: registry" .Values.registry -}}/{{- include "app_project" . -}}/{{- include "registry_name" . -}}
 {{- end -}}
 
 
-{{- define "nginx_image" -}}
-  {{- .Values.google.region -}}-docker.pkg.dev/{{- include "app_project" . -}}/{{- include "registry_name" . -}}/nginx:{{- .Values.nginx.tag }}
+{{- define "backend_image" -}}
+  {{- include "registry_dest" $ -}}/backend:{{- .Values.backend.tag }}
+{{- end -}}
+
+
+{{- define "frontend_image" -}}
+  {{- include "registry_dest" $ -}}/frontend:{{- .Values.frontend.tag }}
 {{- end -}}
 
 
 {{- define "db_name" -}}
-  {{- .Values.lifecycle -}}-db
+  {{- .Release.Name -}}-db
 {{- end -}}
 
 
 {{- define "instance_name" -}}
-  {{- if .Values.db.instance }}
-    {{- .Values.db.instance }}
-  {{- else -}}
-    {{- required "REQUIRED: app_code" .Values.app_code -}}-instance
-  {{- end -}}
+  {{- required "REQUIRED: db.instance" .Values.db.instance }}
 {{- end -}}
 
 
+{{- define "app_sa_name" -}}
+  {{- required "REQUIRED: app_sa_name" .Values.app_sa_name }}
+{{- end -}}
+
+{{- define "app_sa_project" -}}
+  {{- required "REQUIRED: app_sa_project" .Values.app_sa_project }}
+{{- end -}}
+
+{{- define "app_sa_short" -}}
+  {{ include "app_sa_name" $ -}}@{{- include "app_sa_project" $ -}}.iam
+{{- end -}}
+
 {{- define "app_sa" -}}
-  {{- if $.Values.app_sa }}
-    {{- $.Values.app_sa }}
-  {{- else }}
-    {{- required "REQUIRED: app_code" .Values.app_code -}}-workload@{{- include "app_project" . -}}.iam
-  {{- end }}
+  {{ include "app_sa_short" $ -}}.gserviceaccount.com
 {{- end -}}
 
 
 {{- define "ksa_name" -}}
-  {{- "workload" }}
+  {{- "app-workload" }}
 {{- end -}}
 
 
@@ -78,13 +106,11 @@
 {{- end -}}
 
 
-
-
 {{- define "private_bucket" -}}
   {{- if $.Values.private_bucket }}
     {{- $.Values.private_bucket }}
   {{- else }}
-  {{- .Values.lifecycle -}}-{{- required "REQUIRED: app_code" .Values.app_code -}}-private
+    {{- .Values.lifecycle -}}-{{- required "REQUIRED: app_code" .Values.app_code -}}-private
   {{- end }}
 {{- end -}}
 
@@ -93,7 +119,7 @@
   {{- if $.Values.ip_name }}
     {{- $.Values.ip_name }}
   {{- else }}
-    {{- $.Values.lifecycle -}}-{{- required "REQUIRED: app_code" .Values.app_code -}}-ip
+    {{- $.Release.Name -}}-{{- $.Release.Namespace -}}-ip
   {{- end }}
 {{- end -}}
 

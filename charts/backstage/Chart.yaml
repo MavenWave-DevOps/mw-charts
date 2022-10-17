@@ -2,5 +2,4 @@ apiVersion: v2
 name: backstage
 description: A Helm chart for deploying Backstage to GKE
 type: application
-appVersion: 1.0.0
-version: 0.0.19
+version: 0.0.38

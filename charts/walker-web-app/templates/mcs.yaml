@@ -1,0 +1,66 @@
+{{- if and (.Values.enabled) (not .Values.local) }}
+{{- if and (.Values.google.ingress.mci) (.Values.google.ingress.primary) }}
+
+{{- if .Values.frontend.enabled }}
+apiVersion: networking.gke.io/v1
+kind: MultiClusterService
+metadata:
+  name: frontend-mcs
+  namespace: {{ .Release.Namespace }}
+  annotations:
+    cloud.google.com/backend-config: '{"default": "gke-backendconfig"}'
+  labels:
+    app: frontend-mcs
+    tier: frontend
+spec:
+  template:
+    spec:
+      selector:
+        app: {{ .Release.Name -}}-frontend-dep
+      ports:
+      - name: http
+        protocol: TCP
+        port: 443
+        targetPort: {{ .Values.frontend.containerPort }}
+  clusters:
+  - link: us-central1/central-cluster
+  {{- if .Values.google.ingress.use_failover }}
+  - link: us-east4/east-cluster
+  {{- end }}
+
+{{- end }}
+---
+
+{{- if .Values.backend.enabled }}
+
+apiVersion: networking.gke.io/v1
+kind: MultiClusterService
+metadata:
+  name: backend-mcs
+  namespace: {{ .Release.Namespace }}
+  annotations:
+    cloud.google.com/backend-config: '{"default": "gke-backendconfig"}'
+  labels:
+    app: backend-mcs
+    tier: backend
+spec:
+  template:
+    spec:
+      selector:
+        app: {{ .Release.Name -}}-backend-dep
+      ports:
+      - name: http
+        protocol: TCP
+        port: 443
+        targetPort: {{ .Values.backend.containerPort }}
+  clusters:
+  - link: us-central1/central-cluster
+  {{- if .Values.google.ingress.use_failover }}
+  - link: us-east4/east-cluster
+  {{- end }}
+
+{{- end }}
+
+{{- end }}
+{{- end }}
+

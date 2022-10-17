@@ -12,7 +12,7 @@ spec:
   {{- if or (.Values.google.iap.enabled) (.Values.google.iap.test.enabled) }}
   iap:
     enabled: {{ .Values.google.iap.enabled }}
-    oauthClientCredentials:
+    oauthclientCredentials:
       secretName: oauth-credentials
   {{- end }}
 

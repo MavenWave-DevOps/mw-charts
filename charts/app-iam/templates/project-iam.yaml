@@ -2,7 +2,7 @@
 apiVersion: iam.cnrm.cloud.google.com/v1beta1
 kind: IAMPartialPolicy
 metadata:
-  name: {{ include "tenant_code" $ -}}-{{- include "app_code" $ -}}-{{- include "lifecycle" $ -}}-app-iam-policy
+  name: {{ .Release.Name -}}-app-iam-policy
 spec:
   resourceRef:
     apiVersion: resourcemanager.cnrm.cloud.google.com/v1beta1
@@ -11,52 +11,87 @@ spec:
   bindings:
     - role: roles/artifactregistry.admin
       members:
-        - member: serviceAccount:{{- include "tenant_code" $ -}}-{{- include "app_code" $ -}}-{{- include "lifecycle" $ -}}-infra@{{- include "sa_project_id" $ -}}.iam.gserviceaccount.com
+      - memberFrom:
+          serviceAccountRef:
+            name: {{ .Release.Name -}}-infra
+            namespace: {{ .Release.Namespace }}
 
     - role: roles/cloudbuild.builds.editor
       members:
-        - member: serviceAccount:{{- include "tenant_code" $ -}}-{{- include "app_code" $ -}}-{{- include "lifecycle" $ -}}-infra@{{- include "sa_project_id" $ -}}.iam.gserviceaccount.com
+      - memberFrom:
+          serviceAccountRef:
+            name: {{ .Release.Name -}}-infra
+            namespace: {{ .Release.Namespace }}
 
     - role: roles/dns.admin
       members:
-        - member: serviceAccount:{{- include "tenant_code" $ -}}-{{- include "app_code" $ -}}-{{- include "lifecycle" $ -}}-infra@{{- include "sa_project_id" $ -}}.iam.gserviceaccount.com
+      - memberFrom:
+          serviceAccountRef:
+            name: {{ .Release.Name -}}-infra
+            namespace: {{ .Release.Namespace }}
 
     - role: roles/iam.serviceAccountUser
       members:
-        - member: serviceAccount:{{- include "tenant_code" $ -}}-{{- include "app_code" $ -}}-{{- include "lifecycle" $ -}}-infra@{{- include "sa_project_id" $ -}}.iam.gserviceaccount.com
-
-    - role: roles/iam.serviceAccountTokenCreator
-      members:
-        - member: serviceAccount:{{- include "tenant_code" $ -}}-{{- include "app_code" $ -}}-{{- include "lifecycle" $ -}}-infra@{{- include "sa_project_id" $ -}}.iam.gserviceaccount.com
+      - memberFrom:
+          serviceAccountRef:
+            name: {{ .Release.Name -}}-infra
+            namespace: {{ .Release.Namespace }}
 
     - role: roles/storage.admin
       members:
-        - member: serviceAccount:{{- include "tenant_code" $ -}}-{{- include "app_code" $ -}}-{{- include "lifecycle" $ -}}-infra@{{- include "sa_project_id" $ -}}.iam.gserviceaccount.com
+      - memberFrom:
+          serviceAccountRef:
+            name: {{ .Release.Name -}}-infra
+            namespace: {{ .Release.Namespace }}
 
     - role: roles/storage.objectAdmin
       members:
-        - member: serviceAccount:{{- include "tenant_code" $ -}}-{{- include "app_code" $ -}}-{{- include "lifecycle" $ -}}-cicd@{{- include "app_project_id" $ -}}.iam.gserviceaccount.com
-        - member: serviceAccount:{{- include "tenant_code" $ -}}-{{- include "app_code" $ -}}-{{- include "lifecycle" $ -}}-workload@{{- include "sa_project_id" $ -}}.iam.gserviceaccount.com
+      - memberFrom:
+          serviceAccountRef:
+            name: {{ .Release.Name -}}-workload
+            namespace: {{ .Release.Namespace }}
+      - memberFrom:
+          serviceAccountRef:
+            name: {{ .Release.Name -}}-cicd
+            namespace: {{ .Release.Namespace }}
 
     - role: roles/logging.logWriter
       members:
-        - member: serviceAccount:{{- include "tenant_code" $ -}}-{{- include "app_code" $ -}}-{{- include "lifecycle" $ -}}-cicd@{{- include "app_project_id" $ -}}.iam.gserviceaccount.com
-        - member: serviceAccount:{{- include "tenant_code" $ -}}-{{- include "app_code" $ -}}-{{- include "lifecycle" $ -}}-workload@{{- include "sa_project_id" $ -}}.iam.gserviceaccount.com
+      - memberFrom:
+          serviceAccountRef:
+            name: {{ .Release.Name -}}-workload
+            namespace: {{ .Release.Namespace }}
+      - memberFrom:
+          serviceAccountRef:
+            name: {{ .Release.Name -}}-cicd
+            namespace: {{ .Release.Namespace }}
 
     - role: roles/errorreporting.writer
       members:
-        - member: serviceAccount:{{- include "tenant_code" $ -}}-{{- include "app_code" $ -}}-{{- include "lifecycle" $ -}}-workload@{{- include "sa_project_id" $ -}}.iam.gserviceaccount.com
+      - memberFrom:
+          serviceAccountRef:
+            name: {{ .Release.Name -}}-workload
+            namespace: {{ .Release.Namespace }}
 
     - role: roles/monitoring.metricWriter
       members:
-        - member: serviceAccount:{{- include "tenant_code" $ -}}-{{- include "app_code" $ -}}-{{- include "lifecycle" $ -}}-workload@{{- include "sa_project_id" $ -}}.iam.gserviceaccount.com
+      - memberFrom:
+          serviceAccountRef:
+            name: {{ .Release.Name -}}-workload
+            namespace: {{ .Release.Namespace }}
 
     - role: roles/artifactregistry.writer
       members:
-        - member: serviceAccount:{{- include "tenant_code" $ -}}-{{- include "app_code" $ -}}-{{- include "lifecycle" $ -}}-cicd@{{- include "app_project_id" $ -}}.iam.gserviceaccount.com
+      - memberFrom:
+          serviceAccountRef:
+            name: {{ .Release.Name -}}-cicd
+            namespace: {{ .Release.Namespace }}
 
     - role: roles/secretmanager.secretAccessor
       members:
-        - member: serviceAccount:{{- include "tenant_code" $ -}}-{{- include "app_code" $ -}}-{{- include "lifecycle" $ -}}-secrets@{{- include "sa_project_id" $ -}}.iam.gserviceaccount.com
+      - memberFrom:
+          serviceAccountRef:
+            name: {{ .Release.Name -}}-secrets
+            namespace: {{ .Release.Namespace }}
 
 

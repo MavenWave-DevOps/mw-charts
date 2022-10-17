@@ -1,0 +1,67 @@
+{{- if .Values.enabled }}
+{{- if .Values.frontend.enabled }}
+{{- if .Values.google.config_connector.cloudbuild.enabled }}
+
+apiVersion: cloudbuild.cnrm.cloud.google.com/v1beta1
+kind: CloudBuildTrigger
+metadata:
+  name: {{ .Release.Name -}}-frontend-ci
+  annotations:
+    cnrm.cloud.google.com/project-id: {{ include "app_project" . }}
+spec:
+  disabled: false
+  github:
+    owner: {{ required "REQUIRED: github_org" .Values.github_org }}
+    name: {{ include "frontend_repo_name" $ }} 
+    push:
+      branch: {{ required "REQUIRED: branch" .Values.branch }}
+  build:
+    options:
+      machineType: {{ .Values.google.config_connector.cloudbuild.machine_type }}
+    timeout: 2400s
+    step:
+      - id: "Build-Frontend"
+        name: gcr.io/kaniko-project/executor:latest
+        args:
+          - --destination={{- include "registry_dest" . -}}/frontend:$COMMIT_SHA
+          - --destination={{- include "registry_dest" . -}}/frontend:latest
+          - --context={{ required "REQUIRED: frontend.build_context" .Values.frontend.build_context }}
+          - --cache=true
+          - --cache-ttl=240h
+{{- end }}
+
+---
+
+{{- if .Values.backend.enabled }}
+
+apiVersion: cloudbuild.cnrm.cloud.google.com/v1beta1
+kind: CloudBuildTrigger
+metadata:
+  name: {{ .Release.Name -}}-backend-ci
+  annotations:
+    cnrm.cloud.google.com/project-id: {{ include "app_project" . }}
+spec:
+  disabled: false
+  github:
+    owner: {{ required "REQUIRED: github_org" .Values.github_org }}
+    name: {{ include "backend_repo_name" $ }} 
+    push:
+      branch: main
+  build:
+    options:
+      machineType: {{ .Values.google.config_connector.cloudbuild.machine_type }}
+    timeout: 2400s
+    step:
+      - id: "Build-Backend"
+        name: gcr.io/kaniko-project/executor:latest
+        args:
+          - --destination={{- include "registry_dest" . -}}/backend:$COMMIT_SHA
+          - --destination={{- include "registry_dest" . -}}/backend:latest
+          - --context={{ required "REQUIRED: backend.build_context" .Values.backend.build_context }}
+          - --cache=true
+          - --cache-ttl=240h
+
+{{- end }}
+
+{{- end }}
+{{- end }}

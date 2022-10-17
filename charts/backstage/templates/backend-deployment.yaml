@@ -4,15 +4,12 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: {{ include "backstage.fullname" . }}-backend
-
 spec:
   replicas: {{ .Values.backend.replicaCount }}
-
   selector:
     matchLabels:
       app: backstage
       component: backend
-
   template:
     metadata:
       annotations:
@@ -22,13 +19,27 @@ spec:
         component: backend
 
     spec:
+      # hostIPC: false
+      # hostNetwork: false
+      # hostPID: false
+      # securityContext:
+      #   runAsUser: 115
+      #   runAsGroup: 125
+      #   fsGroup: 190
+      #   supplementalGroups:
+      #     - 150
+
       volumes:
         - name: app-config
           configMap:
             name: {{ include "backstage.fullname" . }}-backend-app-config
         - name: db-volume
+          {{- if .Values.pd.enabled }}
           persistentVolumeClaim:
             claimName: gce-pvc
+          {{- else }}
+          emptyDir: {}
+          {{- end }}
 
       serviceAccountName: backstage-sa
       containers:
@@ -42,6 +53,14 @@ spec:
           imagePullPolicy: {{ .Values.backend.image.pullPolicy }}
           ports:
             - containerPort: {{ .Values.backend.containerPort }}
+          # securityContext:
+          #   allowPrivilegeEscalation: true
+          #   privileged: true
+          #   procMount: default
+          #   readOnlyRootFilesystem: true
+          #   runAsNonRoot: false
+          #   seccompProfile:
+          #     type: RuntimeDefault
           resources:
           {{- toYaml .Values.backend.resources | nindent 12 }}
 
@@ -70,9 +89,9 @@ spec:
             - secretRef:
                 name: {{ include "backstage.fullname" . }}-secrets
           volumeMounts:
-            - name: app-config
-              mountPath: {{ printf "/usr/src/app/%s" (include "backstage.appConfigFilename" .) }}
-              subPath: {{ include "backstage.appConfigFilename" . }}
+            # - name: app-config
+            #   mountPath: {{ printf "/usr/src/app/%s" (include "backstage.appConfigFilename" .) }}
+            #   subPath: {{ include "backstage.appConfigFilename" . }}
             - mountPath: /app/backstage-db
               name: db-volume
 
@@ -89,7 +108,7 @@ spec:
         #   imagePullPolicy: {{ .Values.backend.image.pullPolicy }}
         #   command:
         #   - /cloud_sql_proxy
-        #   - -instances={{- include "backstage_project" . -}}:{{- required "REQUIRED: google.region" .Values.google.region -}}:{{- include "instance_name" . }}=tcp:127.0.0.1:5432
+        #   - -instances={{- include "gcp_project" . -}}:{{- required "REQUIRED: google.region" .Values.google.region -}}:{{- include "instance_name" . }}=tcp:127.0.0.1:5432
         #   - -enable_iam_login
 
 

@@ -1,6 +1,0 @@
-apiVersion: v2
-name: ignite-infra
-description: A Helm chart for deploying Ignite application GCP infrastructure
-type: application
-appVersion: 0.0.1
-version: 0.0.2

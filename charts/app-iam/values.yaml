@@ -1,1 +1,15 @@
 
+context:
+  enabled: true
+
+external_secrets:
+  namespace: external-secrets
+  ksa_name: external-secrets
+
+app:
+  namespace: ''
+  ksa_name: app-workload
+
+infra:
+  namespace: ''
+
