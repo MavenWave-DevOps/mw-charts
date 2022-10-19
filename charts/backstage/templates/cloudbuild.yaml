@@ -24,9 +24,7 @@ spec:
         args:
           - "-c" 
           - |
-            yarn install --frozen-lockfile
-            yarn tsc
-            yarn build
+            yarn install --frozen-lockfile; yarn tsc; yarn build
       {{- if .Values.backend.enabled }}
       - id: "Build-Backend"
         name: gcr.io/kaniko-project/executor:latest
