@@ -7,3 +7,7 @@
   {{- end }}
 {{- end -}}
 
+{{- define "gcp_project" -}}
+  {{- required "REQUIRED: gcp_project_id" .Values.gcp_project_id -}}
+{{- end -}}
+
