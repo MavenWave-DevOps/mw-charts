@@ -1546,6 +1546,15 @@ entries:
     version: 0.0.1
   postgres:
   - apiVersion: v2
+    created: "2022-10-25T19:30:12.394539887Z"
+    description: A Helm chart for creating postgres server for backstage
+    digest: 82538932da499b80cb411abe516cfa192d85a7c095f47aa863f9baa5647924da
+    name: postgres
+    type: application
+    urls:
+    - https://github.com/MavenWave-DevOps/mw-charts/releases/download/postgres-0.0.3/postgres-0.0.3.tgz
+    version: 0.0.3
+  - apiVersion: v2
     created: "2022-10-25T19:17:09.479511108Z"
     description: A Helm chart for creating postgres server for backstage
     digest: ac39824971e2130465c0c600a4cc8d3aba5214fac2c34a1209eba556278af95c
