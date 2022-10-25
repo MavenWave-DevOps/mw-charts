@@ -1544,6 +1544,16 @@ entries:
     urls:
     - https://github.com/MavenWave-DevOps/mw-charts/releases/download/platform-admin-0.0.1/platform-admin-0.0.1.tgz
     version: 0.0.1
+  postgres:
+  - apiVersion: v2
+    created: "2022-10-25T19:17:09.479511108Z"
+    description: A Helm chart for creating postgres server for backstage
+    digest: ac39824971e2130465c0c600a4cc8d3aba5214fac2c34a1209eba556278af95c
+    name: postgres
+    type: application
+    urls:
+    - https://github.com/MavenWave-DevOps/mw-charts/releases/download/postgres-0.0.2/postgres-0.0.2.tgz
+    version: 0.0.2
   prometheus:
   - apiVersion: v2
     created: "2022-04-20T04:05:53.565031157Z"
