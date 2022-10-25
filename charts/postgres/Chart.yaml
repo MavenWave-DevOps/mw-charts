@@ -1,0 +1,5 @@
+apiVersion: v2
+name: postgres
+description: A Helm chart for creating postgres server for backstage
+type: application
+version: 0.0.2

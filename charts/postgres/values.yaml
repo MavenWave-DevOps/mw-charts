@@ -1,0 +1,8 @@
+
+google:
+  config_connector:
+    enabled: true
+    context:
+      enabled: false
+    pg_database:
+      enabled: true
