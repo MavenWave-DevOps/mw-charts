@@ -18,13 +18,13 @@ spec:
       machineType: E2_HIGHCPU_32
     timeout: 2400s
     step:
-      - id: "Build-Dependencies"
-        name: gcr.io/kaniko-project/executor:latest
-        entrypoint: "bash"
-        args:
-          - "-c" 
-          - |
-            yarn install --frozen-lockfile; yarn tsc; yarn build
+      # - id: "Build-Dependencies"
+      #   name: gcr.io/kaniko-project/executor:latest
+      #   entrypoint: "bash"
+      #   args:
+      #     - "-c" 
+      #     - |
+      #       yarn install --frozen-lockfile; yarn tsc; yarn build
       {{- if .Values.backend.enabled }}
       - id: "Build-Backend"
         name: gcr.io/kaniko-project/executor:latest
