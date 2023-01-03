@@ -1,0 +1,5 @@
+apiVersion: v2
+name: backstage-dev
+descritption: A helm chart for deploying updated Backstage to GKE
+type: application
+version: 0.0.1

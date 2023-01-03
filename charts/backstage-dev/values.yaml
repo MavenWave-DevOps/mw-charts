@@ -1,0 +1,10 @@
+
+namespace: backstage-dev
+
+backend:
+  name: backstage
+  containerPort: 7007
+  serviceAccountName: backstage-sa
+  image:
+    tag: latest
+    pullPolicy: Always
