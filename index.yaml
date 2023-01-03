@@ -1310,6 +1310,15 @@ entries:
     urls:
     - https://github.com/MavenWave-DevOps/mw-charts/releases/download/backstage-0.0.1/backstage-0.0.1.tgz
     version: 0.0.1
+  backstage-dev:
+  - apiVersion: v2
+    created: "2023-01-03T19:02:57.498528024Z"
+    digest: 8d632d36012e2e2b2ec68f59e10df91fc6f09afc5e2340e43d32fb4965391dfd
+    name: backstage-dev
+    type: application
+    urls:
+    - https://github.com/MavenWave-DevOps/mw-charts/releases/download/backstage-dev-0.0.1/backstage-dev-0.0.1.tgz
+    version: 0.0.1
   cluster-config:
   - apiVersion: v2
     appVersion: 1.0.0
