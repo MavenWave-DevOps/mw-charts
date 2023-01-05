@@ -1,0 +1,27 @@
+
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: {{ .Values.backend.name }}-ingress
+  namespace: {{ .Values.namespace }}
+  annotations:
+    external-dns.alpha.kubernetes.io/hostname: {{ default "none" .Values.domainName }}
+    networking.gke.io/v1beta1.FrontendConfig: gke-frontendconfig
+    networking.gke.io/managed-certificates: {{ .Values.backend.name }}-certificate
+spec:
+  defaultBackend:
+    service:
+      name: {{ .Values.backend.name }}-service
+      port:
+        number: 443
+  rules:
+  - http:
+      paths:
+      - path: /api/
+        pathType: Prefix
+        backend:
+          service:
+            name: {{ .Values.backend.name }}-service
+            port:
+              number: 443
+

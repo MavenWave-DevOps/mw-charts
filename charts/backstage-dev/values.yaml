@@ -1,5 +1,7 @@
 
 namespace: backstage-dev
+domainName: backstage-mike.px.igniteme.dev
+appServiceAccount: backstage
 
 backend:
   name: backstage
@@ -8,3 +10,6 @@ backend:
   image:
     tag: latest
     pullPolicy: Always
+
+google:
+  iap: false

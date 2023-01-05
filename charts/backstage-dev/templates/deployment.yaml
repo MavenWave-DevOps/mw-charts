@@ -3,7 +3,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: backstage-deployment
-  namespace: {{ .Values.namespace }}
+  namespace: {{ .Release.Namespace }}
 spec:
   replicas: {{ .Values.backend.replicas }}
   selector:
@@ -23,7 +23,7 @@ spec:
             - "--config"
             - "app-config.yaml"
           image: us-central1-docker.pkg.dev/px-mike-project-hje/backstage/backstage-dev
-          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          imagePullPolicy: {{ .Values.backend.image.pullPolicy }}
           ports:
             - name: {{ .Values.backend.name }}
               containerPort: {{ .Values.backend.containerPort }}
