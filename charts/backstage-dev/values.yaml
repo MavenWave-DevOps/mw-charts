@@ -7,9 +7,11 @@ backend:
   name: backstage
   containerPort: 7007
   serviceAccountName: backstage-sa
+  securityPolicy: us-only
   image:
     tag: latest
     pullPolicy: Always
 
 google:
   iap: false
+
