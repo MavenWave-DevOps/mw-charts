@@ -3,7 +3,7 @@ apiVersion: cloud.google.com/v1
 kind: BackendConfig
 metadata:
   name: backstage-backendconfig
-  namespace: {{ .Release.Namespace }}
+  namespace: {{ .Values.namespace }}
 spec:
   healthCheck:
     checkIntervalSec: 30
