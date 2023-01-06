@@ -22,7 +22,7 @@ spec:
             - "packages/backend"
             - "--config"
             - "app-config.yaml"
-          image: us-central1-docker.pkg.dev/px-mike-project-hje/backstage/backstage-dev
+          image: us-central1-docker.pkg.dev/px-mike-project-hje/backstage/backstage
           imagePullPolicy: {{ .Values.backend.image.pullPolicy }}
           ports:
             - name: {{ .Values.backend.name }}
