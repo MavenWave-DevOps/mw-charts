@@ -1312,6 +1312,14 @@ entries:
     version: 0.0.1
   backstage-dev:
   - apiVersion: v2
+    created: "2023-01-06T21:13:38.774766528Z"
+    digest: 0cf77f7ea25f15f6a8c9fa58a0e8cb873d13c39115ec585c1142a2f7127861db
+    name: backstage-dev
+    type: application
+    urls:
+    - https://github.com/MavenWave-DevOps/mw-charts/releases/download/backstage-dev-0.0.7/backstage-dev-0.0.7.tgz
+    version: 0.0.7
+  - apiVersion: v2
     created: "2023-01-06T21:01:21.5756918Z"
     digest: 1648748b5b15ed5bd850ae2f91978050bf4909412b15b11cfa7c63299706132d
     name: backstage-dev
