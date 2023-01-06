@@ -14,7 +14,7 @@ spec:
     requestPath: /
     port: {{ .Values.backend.containerPort }}
   securityPolicy:
-    name: {{ .Values.backend.security_policy }}
+    name: {{ .Values.backend.securityPolicy }}
 
   {{- if .Values.google.iap }}
   iap:
